@@ -100,9 +100,11 @@ section figure{
     transform: rotate(0deg);
     -ms-transform: rotate(0deg); /* IE 9 */
     -webkit-transform: rotate(0deg); /* Safari */
-    transition: left .5s, top .5s, -webkit-transform .2s;
+    -webkit-transition: left .5s, top .5s, -webkit-transform .2s;
+            transition: left .5s, top .5s, -webkit-transform .2s;
     transition: left .5s, top .5s, transform .2s; /* Safari and Chrome */
-    transition-timing-function: linear;
+    -webkit-transition-timing-function: linear;
+            transition-timing-function: linear;
 }
 section figure.middle{
     left: 160px;
@@ -312,7 +314,8 @@ details{
     outline: none;
     /* display: none; */
     opacity: 0; /* Safari */
-    transition: opacity 1s;
+    -webkit-transition: opacity 1s;
+            transition: opacity 1s;
 }
 details.apper{
     opacity: 1;

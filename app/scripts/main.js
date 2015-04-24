@@ -67,6 +67,7 @@ AppEngine.stepManager = function(){
 				$(element).addClass(tweens[i].style);
 			} else {
 				//topWindowY+120+tweens[i].value
+				console.log("time:",Math.floor(Date.now() / 1000),":travelling-->",box.id)
 				element.style.top = box.offsetTop+"px";
 				element.setAttribute("target-id",box.id);
 				element.setAttribute("target-index",boxIndex[box.id].index);
@@ -85,17 +86,29 @@ AppEngine.nextTweenPoints = function(square,totem){
 }
 AppEngine.checkDiference = function(boxsquare,element){
 	var diferenca = boxIndex[boxsquare.id].index-AppEngine.scrolledItemID;
+	var tempIndexId
 	if (diferenca>1) {
-		var tempIndexId = AppEngine.scrolledItemID
+		tempIndexId = AppEngine.scrolledItemID
 		if((boxIndex[boxsquare.id].index-tempIndexId)>8){
 			tempIndexId = boxIndex[boxsquare.id].index-8;
 		}
+		console.log(AppEngine.directionY,"_direction_");
+
 		for (var i = tempIndexId; i <= boxIndex[boxsquare.id].index; i++) {
 			var square = totalElem[i];
 			var item = AppEngine.nextTweenPoints(square,element);
 			AppEngine.addStep(item.totem,item.tween,item.element,2);
 		};			
-	};
+	} else if (diferenca<0) {
+		var realDif = Math.sqrt(diferenca*diferenca);
+		tempIndexId = AppEngine.scrolledItemID;
+
+		for (var i = tempIndexId-1; i >= boxIndex[boxsquare.id].index; i--) {
+			var square = totalElem[i];
+			var item = AppEngine.nextTweenPoints(square,element);
+			AppEngine.addStep(item.totem,item.tween,item.element,2);
+		};
+	}
 }
 AppEngine.addStep = function(element,tweens,boxsquare,level){
 	if (animationManager.length>0) {
@@ -109,7 +122,10 @@ AppEngine.addStep = function(element,tweens,boxsquare,level){
 			};
 		};
 		var diferenca = boxIndex[boxsquare.id].index-AppEngine.scrolledItemID;
-		//AppEngine.checkDiference(boxsquare,element);
+		if (level==1) {
+			AppEngine.checkDiference(boxsquare,element);
+		};
+		
 		if (!exist) {
 			animationManager.push({element:element,tweens:tweens,box:boxsquare});
 		} else {
@@ -220,7 +236,7 @@ AppEngine.onLoad = function(){
 		boxIndex[totalElem[i].id] = {element:totalElem[i],index:i};
 	};
 	//
-	window.onscroll = function (event) {
+	var scrollme = function (event) {
 		var bodyRect = document.body.getBoundingClientRect();	
 		var topWindowY = (window.pageYOffset-window.innerHeight);
 		if(window.pageYOffset>200){
@@ -243,6 +259,7 @@ AppEngine.onLoad = function(){
 			var rtopY = rect.top-translateY;
 			var increment = 0;
 			//////////////////////////////////////////////////////////////////
+			console.log(rtopY>=-miid && rtopY<=miid);
 			if (rtopY>=-miid && rtopY<=miid) {
 				var refY = (rtopY+miid)-rHeight;
 				refY = Math.sqrt(refY*refY);
@@ -276,6 +293,8 @@ AppEngine.onLoad = function(){
 		}
 		AppEngine.lastOffsetY = window.pageYOffset;
     }
+    scrollme(null);
+    window.onscroll = scrollme;
     AppEngine.bindTransitions();
 }
 AppEngine.onLoad();
