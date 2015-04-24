@@ -25,7 +25,6 @@ AppEngine.sortByCondition = function(){
 		  // a must be equal to b
 		  return 0;
 	}
-
 	return sortByIndex;
 }
 
@@ -34,11 +33,9 @@ AppEngine.bindTransitions = function(){
 		//console.log(event,"#--#finish#--#");
 		var target = event.target;
 		if (event.originalEvent.propertyName!="transform") {
-			//console.log(animationManager.length,"propertyName:->",event.originalEvent.propertyName);
 			AppEngine.scrolledItemID = target.getAttribute("target-index");
 			totemIsRunning = false;
-			setTimeout(AppEngine.removeStep,1000,false)
-			//();			
+			setTimeout(AppEngine.removeStep,500,false)
 		};
 	});
 }
@@ -52,12 +49,10 @@ AppEngine.stepManager = function(){
 		var box = animationManager[0].box;
 		var str = "section figure."+animationManager[0].tweens[0].style;
 		if ((box.offsetTop==element.offsetTop) && (parseFloat(MainCssRules[str].left)==element.offsetLeft)) {
-			//console.log(" REMOVE BY STEP MANAGE")
 			animationManager.shift();
 			AppEngine.removeStep(true);
 			return;	
 		};
-		//topWindowY+120
 		$(element).removeClass("middle");
 		$(element).removeClass("left");
 		$(element).removeClass("right");
@@ -72,11 +67,9 @@ AppEngine.stepManager = function(){
 				$(element).addClass(tweens[i].style);
 			} else {
 				//topWindowY+120+tweens[i].value
-				//console.log(element,"VAI PARA A CAIXA :",box.id);
 				element.style.top = box.offsetTop+"px";
 				element.setAttribute("target-id",box.id);
 				element.setAttribute("target-index",boxIndex[box.id].index);
-				//$(element).addClass(tweens[i].style);
 			}			
 		};
 		totemIsRunning = true;
@@ -91,27 +84,24 @@ AppEngine.nextTweenPoints = function(square,totem){
 	return {totem:totem,tween:tweenClass,element:square};
 }
 AppEngine.checkDiference = function(boxsquare,element){
-	//console.log("-----------------------------------------------------------------")
 	var diferenca = boxIndex[boxsquare.id].index-AppEngine.scrolledItemID;
-	//console.log(diferenca,"::>>>")
 	if (diferenca>1) {
 		var tempIndexId = AppEngine.scrolledItemID
+		if((boxIndex[boxsquare.id].index-tempIndexId)>8){
+			tempIndexId = boxIndex[boxsquare.id].index-8;
+		}
 		for (var i = tempIndexId; i <= boxIndex[boxsquare.id].index; i++) {
 			var square = totalElem[i];
 			var item = AppEngine.nextTweenPoints(square,element);
-			//console.log(tempIndexId,"AAAA:::",item.totem);
-			//console.log(item.element.id)
 			AppEngine.addStep(item.totem,item.tween,item.element,2);
 		};			
 	};
-	//console.log("-----------------    END   ------------------")
 }
 AppEngine.addStep = function(element,tweens,boxsquare,level){
 	if (animationManager.length>0) {
 		var exist = false;
 		var nr_exist = null;
 		for (var i = 0; i < animationManager.length; i++) {
-			//animationManager[i]
 			if (animationManager[i].box==boxsquare) {
 				exist = true;
 				nr_exist = i;
@@ -119,18 +109,14 @@ AppEngine.addStep = function(element,tweens,boxsquare,level){
 			};
 		};
 		var diferenca = boxIndex[boxsquare.id].index-AppEngine.scrolledItemID;
-		//console.log("diferenca>>",diferenca);
 		//AppEngine.checkDiference(boxsquare,element);
 		if (!exist) {
 			animationManager.push({element:element,tweens:tweens,box:boxsquare});
-			//console.log("PASSO ADICIONADO,",animationManager.length,boxsquare.id);
 		} else {
 			animationManager[nr_exist] = {element:element,tweens:tweens,box:boxsquare};
-			//console.log("PASSO ADICIONADO,",nr_exist);
 		}
 	} else {
 		if(level==1){
-			//console.log("CHECK DIFFERENCE")
 			AppEngine.checkDiference(boxsquare,element);
 		}		
 		animationManager.push({element:element,tweens:tweens,box:boxsquare});
@@ -144,7 +130,6 @@ AppEngine.removeStep = function(del){
 		if (del) {
 			//animationManager.shift();
 		};
-		//console.log("-MANDA EXECUTAR SET MANAGER-@RemoveStep",del);
 		AppEngine.stepManager();
 	}
 }
@@ -157,7 +142,6 @@ AppEngine.orderElementsByDistance = function(translateY){
 		var rect = element[0].getBoundingClientRect();
 		tempOrder.push({order:i,topIndex:Math.sqrt((rect.top-translateY)*(rect.top-translateY)),element:element[0],name:valueArea});
 	};
-
 	return tempOrder;
 }
 AppEngine.manageNextPositionSystem = function(leftBox,square,rectElement){
@@ -171,11 +155,6 @@ AppEngine.manageNextPositionSystem = function(leftBox,square,rectElement){
 	} else {
 		tweenClass.push({style:"middle",prop:"side"});
 	}
-	/*
-	else if(square.getBoundingClientRect().width>200){
-		tweenClass.push({style:"right",prop:"side"});
-	}
-	*/
 	var rElement = getNextElement("piece-block",square);
 	if(AppEngine.directionY==1){
 
