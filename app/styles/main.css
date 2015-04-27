@@ -100,8 +100,8 @@ section figure{
     transform: rotate(0deg);
     -ms-transform: rotate(0deg); /* IE 9 */
     -webkit-transform: rotate(0deg); /* Safari */
-    transition: left .5s, top .5s, -webkit-transform .2s;
-    transition: left .5s, top .5s, transform .2s; /* Safari and Chrome */
+    transition: left .3s, top .3s, -webkit-transform .2s;
+    transition: left .3s, top .3s, transform .2s; /* Safari and Chrome */
     transition-timing-function: linear;
 }
 section figure.middle{
@@ -129,11 +129,18 @@ section figure.rotate-left{
     -ms-transform: rotate(90deg); /* IE 9 */
     -webkit-transform: rotate(90deg);
 }
-section figure.go-back{
+section figure.go-back-right{
+    transform: rotate(-180deg);
+    -ms-transform: rotate(-180deg); /* IE 9 */
+    -webkit-transform: rotate(-180deg);
+}
+
+section figure.go-back-left{
     transform: rotate(180deg);
     -ms-transform: rotate(180deg); /* IE 9 */
     -webkit-transform: rotate(180deg);
 }
+
 
 .first-view{
     text-align: center;
