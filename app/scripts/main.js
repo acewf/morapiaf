@@ -286,8 +286,12 @@ AppEngine.onLoad = function(){
 			//////////////////////////////////////////////////////////////////
 			//if (rtopY>=-miid && rtopY<=miid) {
 			var refY = (rtopY+miid)-rHeight;
+			console.log(rtopY,'+',miid,'-',rHeight)
 			refY = Math.sqrt(refY*refY);
 			var perc = refY/rHeight;
+			console.log(element);
+			console.log(refY,'/',rHeight);
+			console.log(perc,"#% %#");
 			if (perc>1) {
 				perc = 1;
 			}
