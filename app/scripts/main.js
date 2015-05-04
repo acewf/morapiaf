@@ -70,60 +70,32 @@ AppEngine.bindTransitions = function(){
 	$('section figure').bind('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', function(event){
 		//console.log(event,"#--#finish#--#");
 		var target = event.target;
-		if (event.originalEvent.propertyName!=='transform') {
+		if (animationManager[0].tweens) {
+			console.log(animationManager[0].counter);
+			animationManager[0].counter +=1;
+			console.log(animationManager[0].tweens,".....",animationManager[0].counter)
+		};
+
+		if (animationManager[0].counter==animationManager[0].tweens.length) {
 			AppEngine.scrolledItemID = target.getAttribute('target-index');
 			var elemTarget = boxIndex[target.getAttribute('target-id')];
-			//AppEngine.enableSideBoard(elemTarget.element);
+			target.setAttribute("target-end-id",elemTarget.element.id);
 			totemIsRunning = false;
 			clearTimeout(GenericTimeOut);
-			GenericTimeOut = setTimeout(AppEngine.removeStep,2000,false);
+			console.log(target,"time:",Math.floor(Date.now() / 1000))
+			console.log(animationManager.length+" Passos em Falta ###_",event.originalEvent.propertyName);
+			if (target.getAttribute('target-end-id')==animationManager[0].box.id) {
+				console.log([].concat(animationManager));
+				animationManager.shift();
+				console.log("FOI REMOVIDO shift animationManager");
+			};		
+			console.log("ACABOU TRANSICAO");
+			GenericTimeOut = setTimeout(AppEngine.removeStep,30,false);
 		}
 	});
 };
 
-AppEngine.stepManager = function(){
-	'use strict';
-	if((animationManager.length>0)){
-		var tweens = animationManager[0].tweens;
-		var element = animationManager[0].element;
-		var box = animationManager[0].box;
-		var str = 'section figure.'+animationManager[0].tweens[0].style;
-		if ((box.offsetTop+85===element.offsetTop) && (parseFloat(MainCssRules[str].left)===element.offsetLeft)) {
-			animationManager.shift();
-			AppEngine.removeStep(true);
-			return;	
-		}
-		/*
-		var tempArr = [];
-		if(animationManager[0].box.id===element.getAttribute('target-id')){
-			console.log("***PARA TUDO***");
-			animationManager.shift();
-			//return;
-			box = animationManager[0].box;
-			element = animationManager[0].element;
-			tweens = animationManager[0].tweens;
-		}
-		tempArr = tempArr.concat(animationManager);
 
-		console.log(element,"animationManager:",tempArr);
-		*/
-		AppEngine.removeAllClass();
-
-
-		for (var i = 0; i < tweens.length; i++) {
-			//console.log("Counter;",i,"_Box:",box.id,tweens[i]," time:",Math.floor(Date.now() / 1000));
-			if (tweens[i].style) {
-				$(element).addClass(tweens[i].style);
-			} else {
-				//console.log("time:",Math.floor(Date.now() / 1000),":travelling-->",box.id)
-				element.style.top = box.offsetTop+85+'px';
-				element.setAttribute('target-id',box.id);
-				element.setAttribute('target-index',boxIndex[box.id].index);
-			}			
-		}
-		totemIsRunning = true;
-	}
-};
 AppEngine.nextTweenPoints = function(square,totem,goDownDirection){
 	'use strict';
 	var rectElement = square.getBoundingClientRect();
@@ -137,6 +109,7 @@ AppEngine.checkDiference = function(boxsquare,element){
 	'use strict';
 	var index = boxIndex[boxsquare.id].index;
 	var diferenca = index-AppEngine.scrolledItemID;
+	console.log(AppEngine.scrolledItemID,"##ID SCROLL,",index,", ITEM#,",diferenca,element);
 	var tempIndexId;
 	var square;
 	//console.log(AppEngine.directionY,"_direction_");
@@ -167,7 +140,36 @@ AppEngine.checkDiference = function(boxsquare,element){
 		item = AppEngine.nextTweenPoints(boxsquare,element,true);
 		AppEngine.addStep(item.totem,item.tween,item.element);
 		return null;
-	}	
+	}
+	console.log("totemIsRunning:>>:",totemIsRunning);
+	AppEngine.stepManager();
+};
+AppEngine.stepManager = function(){
+	'use strict';
+	if((animationManager.length>0)){
+		var tweens = animationManager[0].tweens;
+		var element = animationManager[0].element;
+		var box = animationManager[0].box;
+
+		console.log(element.getAttribute('target-id'),"===",box);
+		if (!totemIsRunning) {
+			AppEngine.removeAllClass();
+		};
+
+		
+		for (var i = 0; i < tweens.length; i++) {
+			if (tweens[i].style) {
+				$(element).addClass(tweens[i].style);
+			} else {
+				element.style.top = box.offsetTop+75+'px';
+				element.setAttribute('target-id',box.id);
+				element.setAttribute('target-index',boxIndex[box.id].index);
+			}			
+		}
+		totemIsRunning = true;
+	} else {
+		console.log("[END STEP TRANSITION]")
+	}
 };
 AppEngine.addStep = function(element,tweens,boxsquare){
 	'use strict';
@@ -184,26 +186,31 @@ AppEngine.addStep = function(element,tweens,boxsquare){
 				break;
 			}
 		}
-		if (element.getAttribute('target-id')!=boxsquare.id) {
-			if (!exist) {
-				animationManager.push({element:element,tweens:tweens,box:boxsquare});
+		//console.log("WHERE TARGET",element.getAttribute('target-id'));
+		//console.log(boxsquare)
+		if (element.getAttribute('target-id')!==boxsquare.id) {
+			if (!exist) {		
+				animationManager.push({element:element,tweens:tweens,box:boxsquare,counter:0});
+				console.log("Push>>>",boxsquare.id);
 			} else {
-				animationManager[NR_EXIST] = {element:element,tweens:tweens,box:boxsquare};
+				animationManager[NR_EXIST] = {element:element,tweens:tweens,box:boxsquare,counter:0};	
+				console.log("ADD EXISTENT>>>",boxsquare.id);
+
 			}
 		}
+		//console.log([].concat(animationManager));
 	} else {	
-		if (element.getAttribute('target-id')!=boxsquare.id) {	
-			animationManager.push({element:element,tweens:tweens,box:boxsquare});
-		};
+		if (element.getAttribute('target-id')!==boxsquare.id) {	
+			animationManager.push({element:element,tweens:tweens,box:boxsquare,counter:0});
+		}
 	}
 	if (animationManager.length>=1) {
-		AppEngine.stepManager();
+		//AppEngine.stepManager();
 	}
 };
 AppEngine.removeStep = function(){
 	'use strict';
 	if(animationManager.length>0){
-		console.log("RUN NEXT STEP")
 		AppEngine.stepManager();
 	}
 };
@@ -284,7 +291,9 @@ AppEngine.enableSideBoard = function(square){
 		//elementChild.id = temp[0].name+'_'+responseIndex;
 	}
 };
-
+AppEngine.clickedMe = function(info){
+	console.log("_click_",event)
+}
 
 AppEngine.onLoad = function(){
 	'use strict';
@@ -294,6 +303,7 @@ AppEngine.onLoad = function(){
 	var translateY = 208//308;
 	var rect;
 	var i;
+	var lastSquare = null;
 	var h = window.innerHeight;
 	for (i = 0; i < document.styleSheets[3].cssRules.length; i++) {
 		var itemRule = document.styleSheets[3].cssRules[i];
@@ -304,9 +314,9 @@ AppEngine.onLoad = function(){
 		totalElem[i].id = 'npeca-'+i;
 		boxIndex[totalElem[i].id] = {element:totalElem[i],index:i};
 	}
-	var scrollme = function () {
-		if(window.pageYOffset>250){
-			if (AppEngine.lastOffsetY<window.pageYOffset) {
+	var scrollme = function (offsetY) {
+		if(offsetY>250){
+			if (AppEngine.lastOffsetY<offsetY) {
 				AppEngine.directionY = 0;
 			} else {
 				AppEngine.directionY = 1;
@@ -331,24 +341,27 @@ AppEngine.onLoad = function(){
 					inViewPercent = 0;
 				}
 			}
-			console.log(inViewPercent," %");
 			var responseIndex = Math.round((responseTotalElements.length-1)*inViewPercent);
-			var square = responseTotalElements[responseIndex];
+			var square = responseTotalElements[responseIndex];	
+			console.log("Percent_",inViewPercent,"__in:",element.className);
 			AppEngine.checkDiference(square,totem);			
-			if (window.pageYOffset<250) {
+			if (offsetY<250) {
 				totem.style.top = '0px';
 				AppEngine.removeAllClass();
 			}
 		} else {
-			totem.style.top = '-50px';
+			totem.style.top = '0px';
 			AppEngine.scrolledItemID = 0;
 			animationManager = [];
 			AppEngine.removeAllClass();
 		}
-		AppEngine.lastOffsetY = window.pageYOffset;
+		lastSquare = square;
+		AppEngine.lastOffsetY = offsetY;
     };
-    //scrollme(null);
-    window.onscroll = scrollme;
+    var scrollEvent = function(event){
+    		scrollme(window.pageYOffset);
+    }
+    window.onscroll = scrollEvent;
     AppEngine.bindTransitions();
 };
 AppEngine.onLoad();

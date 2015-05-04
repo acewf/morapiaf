@@ -103,8 +103,8 @@ section figure{
     -ms-transform: translate(-50%, -50%) rotate(0deg);
 
     
-    transition: left .3s, top .3s, -webkit-transform .27s;
-    transition: left .3s, top .3s, transform .27s; /* Safari and Chrome */
+    transition: left .2s, top .2s, -webkit-transform .2s;
+    transition: left .2s, top .2s, transform .2s; /* Safari and Chrome */
     transition-timing-function: linear;
 }
 section figure.middle{
