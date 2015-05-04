@@ -95,52 +95,53 @@ section figure{
     margin: 0;
     position: absolute;
     z-index: 10;
-    left: 0;
-    top:-50px;
-    transform: rotate(0deg);
-    -ms-transform: rotate(0deg); /* IE 9 */
-    -webkit-transform: rotate(0deg); /* Safari */
-    -webkit-transition: left .3s, top .3s, -webkit-transform .2s;
-            transition: left .3s, top .3s, -webkit-transform .2s;
-    transition: left .3s, top .3s, transform .2s; /* Safari and Chrome */
-    -webkit-transition-timing-function: linear;
-            transition-timing-function: linear;
+    left: 85px;
+    top:0px;
+    transform: translate(-50%, -50%) rotate(0deg);
+    -webkit-transform: translate(-50%, -50%) rotate(0deg);
+    -moz-transform: translate(-50%, -50%) rotate(0deg);
+    -ms-transform: translate(-50%, -50%) rotate(0deg);
+
+    
+    transition: left .3s, top .3s, -webkit-transform .27s;
+    transition: left .3s, top .3s, transform .27s; /* Safari and Chrome */
+    transition-timing-function: linear;
 }
 section figure.middle{
-    left: 160px;
+    left: 245px;
 }
 section figure.left{
-    left: 0px;
+    left: 85px;
 }
 
 section figure.middle-right{
-    left: 240px;
+    left: 325px;
 }
 
 section figure.right{
-    left: 320px;
+    left: 405px;
 }
 
 section figure.rotate-right{
-    transform: rotate(-90deg);
-    -ms-transform: rotate(-90deg); /* IE 9 */
-    -webkit-transform: rotate(-90deg);
+    transform: translate(-50%, -50%) rotate(-90deg);
+    -ms-transform: translate(-50%, -50%) rotate(-90deg); /* IE 9 */
+    -webkit-transform: translate(-50%, -50%) rotate(-90deg);
 }
 section figure.rotate-left{
-    transform: rotate(90deg);
-    -ms-transform: rotate(90deg); /* IE 9 */
-    -webkit-transform: rotate(90deg);
+    transform: translate(-50%, -50%) rotate(90deg);
+    -ms-transform: translate(-50%, -50%) rotate(90deg); /* IE 9 */
+    -webkit-transform: translate(-50%, -50%) rotate(90deg);
 }
 section figure.go-back-right{
-    transform: rotate(-180deg);
-    -ms-transform: rotate(-180deg); /* IE 9 */
-    -webkit-transform: rotate(-180deg);
+    transform: translate(-50%, -50%) rotate(-180deg);
+    -ms-transform: translate(-50%, -50%) rotate(-180deg); /* IE 9 */
+    -webkit-transform:translate(-50%, -50%) rotate(-180deg);
 }
 
 section figure.go-back-left{
-    transform: rotate(180deg);
-    -ms-transform: rotate(180deg); /* IE 9 */
-    -webkit-transform: rotate(180deg);
+    transform: translate(-50%, -50%) rotate(180deg);
+    -ms-transform: translate(-50%, -50%) rotate(180deg); /* IE 9 */
+    -webkit-transform: translate(-50%, -50%) rotate(180deg);
 }
 
 
@@ -321,8 +322,7 @@ details{
     outline: none;
     /* display: none; */
     opacity: 0; /* Safari */
-    -webkit-transition: opacity 1s;
-            transition: opacity 1s;
+    transition: opacity 1s;
 }
 details.apper{
     opacity: 1;
