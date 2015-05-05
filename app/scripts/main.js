@@ -70,15 +70,7 @@ AppEngine.sortByCondition = function(){
 AppEngine.bindTransitions = function(){
 	'use strict';
 	$('section figure').bind('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', function(event){
-		//console.log(event,"#--#finish#--#");
 		var target = event.target;
-		/*
-		if (animationManager[0].tweens) {
-			console.log(animationManager[0].counter);
-			animationManager[0].counter +=1;
-			console.log(animationManager[0].tweens,".....",animationManager[0].counter)
-		};
-		*/
 		//if (animationManager[0].counter==animationManager[0].tweens.length) {
 		//console.log(event.originalEvent.propertyName!="transform");
 		if (event.originalEvent.propertyName!="transform") {
@@ -88,7 +80,6 @@ AppEngine.bindTransitions = function(){
 			totemIsRunning = false;
 			clearTimeout(GenericTimeOut);
 			console.log(target,"time:",Math.floor(Date.now() / 1000))
-			console.log(animationManager.length+" Passos em Falta ###_",event.originalEvent.propertyName);
 			if (target.getAttribute('target-end-id')==animationManager[0].box.id) {
 				console.log([].concat(animationManager));
 				animationManager.shift();
@@ -350,10 +341,6 @@ AppEngine.onLoad = function(){
 			var square = responseTotalElements[responseIndex];	
 			console.log("Percent_",inViewPercent,"__in:",element.className);
 			AppEngine.checkDiference(square,totem);			
-			if (offsetY<250) {
-				totem.style.top = '0px';
-				AppEngine.removeAllClass();
-			}
 		} else {
 			totem.style.top = '0px';
 			AppEngine.scrolledItemID = 0;
