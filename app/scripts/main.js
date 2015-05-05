@@ -1,3 +1,38 @@
+var com = {};
+com.euro = {};
+com.euro.getNextElement = function(baseClass,elementTest){
+	'use strict';
+	var allElements = document.getElementsByClassName(baseClass);
+	var icounter = -1;
+	var nextElement;
+	for (var i = 0; i < allElements.length; i++) {
+		if(icounter>0){
+			nextElement = allElements[i];
+			return nextElement;
+		}
+		if(allElements[i]===elementTest){
+			icounter = i;
+		}
+	}
+	return null;
+};
+com.euro.getPrevElement = function(baseClass,elementTest){
+	'use strict';
+	var allElements = document.getElementsByClassName(baseClass);
+	var icounter = allElements.length+1;
+	var nextElement;
+	for (var i = allElements.length-1; i > 0; i--) {
+		if(icounter<allElements.length){
+			nextElement = allElements[i];
+			return nextElement;
+		}
+		if(allElements[i]===elementTest){
+			icounter = i;
+		}
+	}
+	return null;
+};
+////////////////////////////////////////////////////////////////////////
 var AppEngine = {};
 var screenAreas = [];
 var animationManager = [];
@@ -16,39 +51,6 @@ var totalElem;
 var totem;
 var GenericTimeOut;
 var MainCssRules = {};
-
-var getNextElement = function(baseClass,elementTest){
-	'use strict';
-	var allElements = document.getElementsByClassName(baseClass);
-	var icounter = -1;
-	var nextElement;
-	for (var i = 0; i < allElements.length; i++) {
-		if(icounter>0){
-			nextElement = allElements[i];
-			return nextElement;
-		}
-		if(allElements[i]===elementTest){
-			icounter = i;
-		}
-	}
-	return null;
-};
-var getPrevElement = function(baseClass,elementTest){
-	'use strict';
-	var allElements = document.getElementsByClassName(baseClass);
-	var icounter = allElements.length+1;
-	var nextElement;
-	for (var i = allElements.length-1; i > 0; i--) {
-		if(icounter<allElements.length){
-			nextElement = allElements[i];
-			return nextElement;
-		}
-		if(allElements[i]===elementTest){
-			icounter = i;
-		}
-	}
-	return null;
-};
 
 AppEngine.sortByCondition = function(){
 	'use strict';
@@ -232,9 +234,9 @@ AppEngine.manageNextPositionSystem = function(leftBox,square,rectElement,goDownD
 	'use strict';
 	var rElement;
 	if (goDownDirection) {
-		rElement = getNextElement('piece-block',square);
+		rElement = com.euro.getNextElement('piece-block',square);
 	} else if(!goDownDirection){
-		rElement = getPrevElement('piece-block',square);
+		rElement = com.euro.getPrevElement('piece-block',square);
 	}
 	var rectNextElement;
 	if (rElement) {
