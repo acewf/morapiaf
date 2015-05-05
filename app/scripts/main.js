@@ -72,13 +72,16 @@ AppEngine.bindTransitions = function(){
 	$('section figure').bind('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', function(event){
 		//console.log(event,"#--#finish#--#");
 		var target = event.target;
+		/*
 		if (animationManager[0].tweens) {
 			console.log(animationManager[0].counter);
 			animationManager[0].counter +=1;
 			console.log(animationManager[0].tweens,".....",animationManager[0].counter)
 		};
-
-		if (animationManager[0].counter==animationManager[0].tweens.length) {
+		*/
+		//if (animationManager[0].counter==animationManager[0].tweens.length) {
+		//console.log(event.originalEvent.propertyName!="transform");
+		if (event.originalEvent.propertyName!="transform") {
 			AppEngine.scrolledItemID = target.getAttribute('target-index');
 			var elemTarget = boxIndex[target.getAttribute('target-id')];
 			target.setAttribute("target-end-id",elemTarget.element.id);
@@ -207,7 +210,7 @@ AppEngine.addStep = function(element,tweens,boxsquare){
 		}
 	}
 	if (animationManager.length>=1) {
-		//AppEngine.stepManager();
+		AppEngine.stepManager();
 	}
 };
 AppEngine.removeStep = function(){
