@@ -179,9 +179,11 @@ AppEngine.stepManager = function(){
 		var box = StackManage[0].box;
 		StackManage[0].totalTransition = 0;
 		element.addEventListener('transitionend',AppEngine.TweenTransition.isTheEnd);
-
+		
+		console.log("BOX:>",box);
+		console.log("@stepManager:>",tweens);
 		for (var i = 0; i < tweens.length; i++) {
-			//console.log(tweens)
+			
 			if (tweens[i].style) {
 				if (!($(element).hasClass(tweens[i].style))) {
 					$(element).addClass(tweens[i].style);
@@ -239,7 +241,7 @@ AppEngine.orderElementsByDistance = function(heightView){
 AppEngine.groupBy = {};	
 AppEngine.groupBy['lado'] = ['left','middle','middle-right','right','go-back-right','go-back-left'];
 AppEngine.groupBy['back'] = ['go-back-right','go-back-left','rotate-right','rotate-left','rotate-down'];
-AppEngine.groupBy['rotacao'] = ['rotate-right','rotate-left','rotate-down'];
+AppEngine.groupBy['rotacao'] = ['rotate-right','rotate-left','rotate-down','go-back-right','go-back-left'];
 AppEngine.removeByGroup = function(group,style){
 	'use strict';
 	console.log(group,"------",style)
