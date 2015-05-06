@@ -204,9 +204,13 @@ section figure{
     -ms-transform: translate(-50%, -50%) rotate(0deg);
 
     
-    transition: left .2s, top .2s, -webkit-transform .2s;
+    -webkit-transition: left .2s, top .2s, -webkit-transform .2s;
+
+    
+            transition: left .2s, top .2s, -webkit-transform .2s;
     transition: left .2s, top .2s, transform .2s; /* Safari and Chrome */
-    transition-timing-function: linear;
+    -webkit-transition-timing-function: linear;
+            transition-timing-function: linear;
 }
 section figure.middle{
     left: 245px;
@@ -423,7 +427,8 @@ details{
     outline: none;
     /* display: none; */
     opacity: 0; /* Safari */
-    transition: opacity 1s;
+    -webkit-transition: opacity 1s;
+            transition: opacity 1s;
 }
 details.apper{
     opacity: 1;
