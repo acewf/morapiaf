@@ -196,7 +196,6 @@ section figure{
     margin: 0;
     position: absolute;
     z-index: 10;
-    left: 85px;
     top:0px;
     transform: translate(-50%, -50%) rotate(0deg);
     -webkit-transform: translate(-50%, -50%) rotate(0deg);
@@ -204,8 +203,9 @@ section figure{
     -ms-transform: translate(-50%, -50%) rotate(0deg);
 
     
-    transition: left .2s, top .2s, -webkit-transform .2s;
-    transition: left .2s, top .2s, transform .2s; /* Safari and Chrome */
+    transition: left .21s, top .2s, -webkit-transform .2s;
+    transition: left .21s, top .2s, -webkit-transform .22s;
+    transition: left .21s, top .2s, transform .22s; /* Safari and Chrome */
     transition-timing-function: linear;
 }
 section figure.middle{
@@ -222,7 +222,11 @@ section figure.middle-right{
 section figure.right{
     left: 405px;
 }
-
+section figure.rotate-down{
+    transform: translate(-50%, -50%) rotate(0deg);
+    -ms-transform: translate(-50%, -50%) rotate(0deg); /* IE 9 */
+    -webkit-transform:translate(-50%, -50%) rotate(0deg);
+}
 section figure.rotate-right{
     transform: translate(-50%, -50%) rotate(-90deg);
     -ms-transform: translate(-50%, -50%) rotate(-90deg); /* IE 9 */

@@ -9,7 +9,7 @@
 
     <!-- build:css styles/vendor.css -->
     <!-- bower:css -->
-    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+    <!--<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />-->
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -71,7 +71,7 @@
         </header>
         <section class="first-view">
             <div class="shadow-orange"></div>
-            <figure class="totem left"><img src="images/peao.png"></figure>
+            <figure class="totem left rotate-down"><img src="images/peao.png"></figure>
             <article class="game-board familia">
                 <div id="line1" class="linha lh-align">
                     <div id="peca-1" class="piece-block">
@@ -312,10 +312,13 @@
     <!-- build:js scripts/vendor.js -->
     <!-- bower:js -->
     <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/gsap/src/uncompressed/plugins/ScrollToPlugin.js"></script>
+    <script src="bower_components/gsap/src/uncompressed/TweenLite.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
         <!-- build:js scripts/main.js -->
+        <script src="scripts/com.euro.js"></script>
         <script src="scripts/main.js"></script>
         <!-- endbuild -->
 </body>
