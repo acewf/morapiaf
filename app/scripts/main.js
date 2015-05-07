@@ -48,8 +48,14 @@ AppEngine.manageNextPositionSystem = function(leftBox,square,rectElement,goDownD
 	}
 	if (rElement===null) {
 		console.log(square.id,"manageNextPositionSystem@l->45 == ",rElement);
-		tweenClass.push({style:'middle',prop:'side'});
-		tweenClass.push({style:'rotate-down',prop:'transform'});
+		if (!goDownDirection) {
+			tweenClass.push({style:'left',prop:'side'});
+			tweenClass.push({style:'go-back-right',prop:'transform'});
+		} else {
+			tweenClass.push({style:'middle',prop:'side'});
+			tweenClass.push({style:'rotate-down',prop:'transform'});
+		}
+		
 		return tweenClass;
 	};	
 	rectNextElement = rElement.getBoundingClientRect();
@@ -88,7 +94,7 @@ AppEngine.TweenTransition.end = function(event){
 	'use strict';
 	var target = event.target;
 	AppEngine.scrolledItemID = target.getAttribute('target-index');
-	totemIsRunning = false;		
+	totemIsRunning = false;
 	clearTimeout(GenericTimeOut);
 	AppEngine.removeStep(false);
 	//GenericTimeOut = setTimeout(AppEngine.removeStep,30,false);
@@ -129,6 +135,7 @@ AppEngine.checkStepsToAdd  = function(boxsquare,element){
 	tempIndexId = parseFloat(AppEngine.scrolledItemID);
 	if (diferenca>=1) {
 		if((boxIndex[boxsquare.id].index-tempIndexId)>8){
+			//StackManage = [].push(StackManage.pop());
 			tempIndexId = boxIndex[boxsquare.id].index-8;
 		}
 		for (i = tempIndexId+1; i <= boxIndex[boxsquare.id].index; i++) {
@@ -137,6 +144,14 @@ AppEngine.checkStepsToAdd  = function(boxsquare,element){
 			AppEngine.addStep(element,item.tween,item.element);
 		}
 	} else if (diferenca<0) {
+		console.log(diferenca,"-dif");
+		/*
+		if(diferenca<-8){
+			StackManage = [].push(StackManage.pop());
+			tempIndexId = boxIndex[boxsquare.id].index+8;
+		}
+		*/
+		console.log(tempIndexId-1,"-ele-",boxIndex[boxsquare.id].index);
 		for (i = tempIndexId-1; i >= boxIndex[boxsquare.id].index; i--) {
 			square = totalElem[i];
 			item = AppEngine.nextTweenPoints(square,element,false);
@@ -183,6 +198,8 @@ AppEngine.stepManager = function(){
 		var box = StackManage[0].box;
 		StackManage[0].totalTransition = 0;
 		element.addEventListener('transitionend',AppEngine.TweenTransition.isTheEnd);
+
+		console.log('Go to Box,',box.id);
 		
 		for (var i = 0; i < tweens.length; i++) {	
 			if (tweens[i].style) {
@@ -191,6 +208,14 @@ AppEngine.stepManager = function(){
 					StackManage[0].totalTransition++;
 					
 					if ((tweens[i].style=='rotate-right') || (tweens[i].style=='rotate-left') || (tweens[i].style=='rotate-down')) {
+							if ((tweens[i].style=='rotate-right') && ($(element).hasClass('go-back-left'))) {
+								console.log(element.className);
+								$(element).removeClass('go-back-left')
+								element.style.transition = 'initial';
+								$(element).addClass('go-back-right');
+								element.style.removeProperty('transition');
+								console.log("KLADSDAKLLL::::",element.className);
+						};
 						AppEngine.removeByGroup('rotacao',tweens[i].style);
 					} else if ((tweens[i].style=='go-back-right') || (tweens[i].style=='go-back-left')) {
 						AppEngine.removeByGroup('back',tweens[i].style);

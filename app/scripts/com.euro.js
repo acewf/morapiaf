@@ -30,7 +30,7 @@ com.euro.prototype.getPrevElement = function(baseClass,elementTest){
 	var allElements = document.getElementsByClassName(baseClass);
 	var icounter = allElements.length+1;
 	var nextElement;
-	for (var i = allElements.length-1; i > 0; i--) {
+	for (var i = allElements.length-1; i >= 0; i--) {
 		if(icounter<allElements.length){
 			nextElement = allElements[i];
 			return nextElement;

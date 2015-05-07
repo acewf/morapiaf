@@ -204,6 +204,7 @@ section figure{
 
     
     transition: left .21s, top .2s, -webkit-transform .2s;
+    transition: left .21s, top .2s, -webkit-transform .22s;
     transition: left .21s, top .2s, transform .22s; /* Safari and Chrome */
     transition-timing-function: linear;
 }
@@ -224,7 +225,7 @@ section figure.right{
 section figure.rotate-down{
     transform: rotate(0deg);
     -ms-transform: rotate(0deg); /* IE 9 */
-    -webkit-transform rotate(0deg);
+    -webkit-transform: rotate(0deg);
 }
 section figure.rotate-right{
     transform: rotate(-90deg);
@@ -239,7 +240,7 @@ section figure.rotate-left{
 section figure.go-back-right{
     transform: rotate(-180deg);
     -ms-transform: rotate(-180deg); /* IE 9 */
-    -webkit-transform rotate(-180deg);
+    -webkit-transform: rotate(-180deg);
 }
 
 section figure.go-back-left{
