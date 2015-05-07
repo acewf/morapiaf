@@ -1,0 +1,455 @@
+/*
+Autor: Pedro Martins # pedromartins@pixelkiller.net
+Company : EuroM # http://eurom.pt/
+*/
+
+.browsehappy {
+  margin:0;
+  padding: 0;
+}
+* { /* Safari 3.0 - 5.0, Chrome 1 - 9, Android 2.1 - 3.x */    /* Firefox 1 - 28 */
+  box-sizing: border-box;   
+}
+/* Space out content a bit */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'NeoSansPro-Regular';
+    line-height: 1;
+}
+
+/* CSS FOR NAVIGATION ITEMS */
+nav.nav-site{
+    position: absolute;
+    right: 20px;
+    top: 27px;
+    z-index: 10;
+}
+nav.nav-site > button{
+    width: 112px;
+    height: 94px;
+    -o-border-image: stretch;
+    border: none;
+}
+.search {
+    background-image: url(../images/menu-search.png);
+}
+
+.nav-site {
+    
+}
+
+.nav-site-menu{
+    position: absolute;
+}
+.nav-site .top-menu{
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    position: fixed;
+    background-color: #fff;
+}
+.left-panel{
+    width: 50%;
+    display: inline-block;
+    vertical-align: top;
+    position: relative;
+    height: 100%;
+}
+.right-panel{
+    width: 50%;
+    display: inline-block;
+    vertical-align: top;
+    position: relative;
+    height: 100%;
+}
+.right-panel button{
+    display: inline-block;
+    text-align: right;
+}
+.groupit{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    width: 100%;
+    text-align: right;
+}
+.orange-color{
+    background-color: #DE3C2C;
+}
+div.stick-to-top{
+    top: 45%;
+    height: 85vh;
+}
+.left-panel .logo{
+    text-align: center;
+}
+
+.nav-site ul{
+    list-style: none;
+    padding: 0;
+    text-align: left;
+    text-decoration: none;
+    text-align: center;
+    font-family: 'NeoSansPro-Light';
+}
+.nav-site ul.options-menu li{
+
+}
+
+.nav-site ul li a{
+    color: #fff;
+}
+
+.menu {
+    background: url(../images/menu-hamburguer.png);
+}
+div.header-start {
+    width: 480px;
+    height: 50px;
+    color: #ffffff;
+    background: url(../images/arrow-start.png);
+    background-position: 39px 26px;
+    background-repeat: no-repeat;
+    margin-bottom: 20px;
+    margin-left: 100px;
+    display: inline-block;
+    text-align: left;
+}
+div.contain-start{
+    position: absolute;
+    bottom: 0;
+    display: block;
+    text-align: center;
+    width: 100%;
+}
+/* CSS FOR HEADER ITEMS */
+header.header{
+    background-color: #d83500;
+    color: #ffffff;
+    height: 90vh;
+    position: relative;
+   
+}
+
+/* Make the masthead heading the same height as the navigation */
+.header label {
+    text-transform: uppercase;
+    position: absolute;
+    top:50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    font-family: 'NeoSansPro-Bold';
+    width: 100%;
+    text-align: center;
+}
+.header label h1{
+    font-size: 5em;
+    margin: 0;
+    -webkit-margin-after: 0;
+    -webkit-margin-before: 0;
+}
+
+section figure{
+    margin: 0;
+    position: absolute;
+    z-index: 10;
+    left: 85px;
+    top:0px;
+    transform: translate(-50%, -50%) rotate(0deg);
+    -webkit-transform: translate(-50%, -50%) rotate(0deg);
+    -moz-transform: translate(-50%, -50%) rotate(0deg);
+    -ms-transform: translate(-50%, -50%) rotate(0deg);
+
+    
+    transition: left .2s, top .2s, -webkit-transform .2s;
+    transition: left .2s, top .2s, transform .2s; /* Safari and Chrome */
+    transition-timing-function: linear;
+}
+section figure.middle{
+    left: 245px;
+}
+section figure.left{
+    left: 85px;
+}
+
+section figure.middle-right{
+    left: 325px;
+}
+
+section figure.right{
+    left: 405px;
+}
+
+section figure.rotate-right{
+    transform: translate(-50%, -50%) rotate(-90deg);
+    -ms-transform: translate(-50%, -50%) rotate(-90deg); /* IE 9 */
+    -webkit-transform: translate(-50%, -50%) rotate(-90deg);
+}
+section figure.rotate-left{
+    transform: translate(-50%, -50%) rotate(90deg);
+    -ms-transform: translate(-50%, -50%) rotate(90deg); /* IE 9 */
+    -webkit-transform: translate(-50%, -50%) rotate(90deg);
+}
+section figure.go-back-right{
+    transform: translate(-50%, -50%) rotate(-180deg);
+    -ms-transform: translate(-50%, -50%) rotate(-180deg); /* IE 9 */
+    -webkit-transform:translate(-50%, -50%) rotate(-180deg);
+}
+
+section figure.go-back-left{
+    transform: translate(-50%, -50%) rotate(180deg);
+    -ms-transform: translate(-50%, -50%) rotate(180deg); /* IE 9 */
+    -webkit-transform: translate(-50%, -50%) rotate(180deg);
+}
+
+
+.first-view{
+    text-align: center;
+    position: relative;
+    z-index: -1;
+    overflow: initial;
+}
+section .game-board{
+    width: 480px;
+    display: inline-block;
+}
+section article.game-board:nth-child(3){
+    margin-top: 80px;
+}
+article:last-child{
+    margin-top: 60px;
+    margin-bottom: 60px;
+}
+.totem img{
+    margin-left: 40px;
+    margin-right: 40px;
+}
+.piece-block {
+    font-size: 1em;
+    width: 156px;
+    height: 130px;
+    margin: 2px;
+    padding: 0;
+    display: inline-block;
+    position: relative;
+}
+main{
+    text-align: center;
+    overflow: hidden;
+}
+main section{
+    display: inline-block;
+    max-width: 480px;
+}
+/* DEFINE FAMILIA */
+.familia > div > div {
+    background-color: #0fb1be;
+}
+.familia > div:first-child > div  {
+    background-color: #fff;
+}
+/* DEFINE FESTA */
+.festa > div > div {
+    background-color: #D93600;
+}
+.festa > div:first-child > div  {
+    background-color: #fff;
+}
+/* DEFINE Especialistas */
+.especialistas > div > div {
+    background-color: #4084C1;
+}
+.especialistas > div:first-child > div  {
+    background-color: #fff;
+}
+/* DEFINE Classicos */
+.classicos > div > div {
+    background-color: #40AA54;
+}
+.classicos > div:first-child > div  {
+    background-color: #fff;
+}
+
+/* DEFINE outros */
+.outros > div > div {
+    background-color: #FDD20E;
+}
+.outros > div:first-child > div  {
+    background-color: #fff;
+}
+article > button {
+    padding: 0;
+    border: none;
+    background: transparent;
+}
+article > button {
+    color: #D83500;
+    text-transform: uppercase;
+    font-size: 2.2em;
+    font-family: 'NeoSansPro-Bold';
+}
+article button img{
+    margin-left: 10px;
+}
+
+.center-content {
+    position: absolute;
+    top:50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    color: #fff;
+    min-width: 100px;
+    text-align: center;
+}
+.alone{
+    /* display: block; */
+}
+.piece-block.rounded-tr{
+      border-top-right-radius: 5px;
+}
+.piece-block.rounded-tl{
+      border-top-left-radius: 5px;
+}
+.piece-block.rounded-bl{
+    border-bottom-left-radius: 5px;
+}
+.piece-block.rounded-br{
+    border-bottom-right-radius: 5px;
+}
+.piece-block.double{
+    width: 316px;
+}
+.lh-align{
+    text-align: left;
+}
+.rh-align{
+    text-align: right;  
+}
+.go-right{
+    float: right;
+}
+.linha{
+    font-size: 0;
+}
+.linha div{
+    font-size: 14px;
+    overflow: visible;
+}
+
+section.destaques{
+    max-width: none;
+    display: block;
+}
+
+section.destaques > div{
+    position: relative;
+    display: inline-block;
+    width: 30vw;
+    height: 350px;
+    border: dashed;
+    border-color: #777777;
+    border-width: 1px;
+    margin-left: 2px;
+    margin-right: 2px; 
+}
+section.destaques > div:nth-child(2){
+
+}
+section.destaques > div .centerme{
+    position: absolute;
+    top:50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+}
+section.destaques > div .centerme h3{
+    font-size: 1.3em;
+    margin-bottom: 20px;
+}
+
+section.destaques > div .centerme label{
+    font-size: 0.7em;
+}
+details{
+    position: absolute;
+    outline: none;
+    /* display: none; */
+    opacity: 0; /* Safari */
+    transition: opacity 1s;
+}
+details.apper{
+    opacity: 1;
+}
+details.rside{
+    left: 150px;
+    top: -160px;
+    overflow: hidden;
+}
+details.lside{
+    left: -430px;
+    top: -160px;
+}
+details summary:focus{
+    outline: none;
+}
+summary::-webkit-details-marker {
+  display: none
+}
+/* Custom page footer */
+main footer {
+    background-color: #444444;
+    margin-top: 30px;
+    padding: 50px;
+}
+footer nav{
+    margin-top: 50px;
+
+}
+main footer nav ul{
+    list-style: square;
+    display: inline-block;
+    -webkit-margin-start: 0px;
+    color: #666666;
+    
+}
+footer nav ul li{
+  text-align: left;
+  float: left;
+  margin-right: 30px;
+  width: auto;
+  list-style-type: inherit;
+}
+footer nav ul li:first-child{
+    list-style-type:none;
+}
+footer nav ul li a{
+    color: #666666;
+    text-decoration: none;
+}
+footer .facebook-link a{
+    color: #888888;
+    text-decoration: none;
+}
+footer .facebook-link img{
+    margin-top: -3px;
+    margin-right: 5px;
+}
+@media screen and (max-width: 480px) {
+  .game-board{
+    width: auto;
+  }
+}

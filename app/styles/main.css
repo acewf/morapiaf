@@ -25,7 +25,7 @@ nav.nav-site{
     top: 27px;
     z-index: 10;
 }
-nav.nav-site button{
+nav.nav-site > button{
     width: 112px;
     height: 94px;
     -o-border-image: stretch;
@@ -38,6 +38,107 @@ nav.nav-site button{
 .nav-site {
     
 }
+
+.nav-site-menu{
+    position: absolute;
+}
+.nav-site .top-menu{
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    position: fixed;
+    background-color: #fff;
+    display: none;
+}
+.left-panel{
+    width: 50%;
+    display: inline-block;
+    vertical-align: top;
+    position: relative;
+    height: 100%;
+}
+.right-panel{
+    width: 50%;
+    display: inline-block;
+    vertical-align: top;
+    position: relative;
+    height: 100%;
+    padding: 50px;
+}
+.right-panel button{
+    display: inline-block;
+    text-align: right;
+}
+.groupit{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    width: 100%;
+    text-align: right;
+}
+.orange-color{
+    background-color: #DE3C2C;
+}
+div.stick-to-top{
+    top: 45%;
+    height: 85vh;
+}
+.left-panel .logo{
+    text-align: center;
+}
+
+.nav-site ul{
+    list-style: none;
+    padding: 0;
+    text-align: left;
+    text-decoration: none;
+    text-align: center;
+    font-family: 'NeoSansPro-Light';
+}
+.nav-site ul.options-menu li{
+    font-size: 36px;
+    margin-top: 20px;
+}
+.nav-site ul.options-menu li a{
+    color: #fff;
+}
+.nav-site ul.options-menu li a:hover{
+    text-decoration: none;
+}
+.nav-site ul.options-menu .close{
+    background-image: url('../images/close_menu.png');
+    background-repeat: no-repeat;
+}
+.nav-site ul.options-lang li{
+    margin-top: 10px;
+}
+.nav-site ul.options-lang li a{
+    color: #000;
+}
+.nav-site ul.options-lang{
+    font-size: 13px;
+}
+.nav-site ul.options-lang li a{
+
+}
+.nav-site ul.options-lang li a:hover{
+    text-decoration: none;
+}
+.nav-site ul.options-lang li a:visited{
+    color: #D93600;
+    text-decoration: underline;
+    line-height: 1.4;
+}
+.space-margin{
+    position: relative;
+    height: 100%;
+}
+  
 
 .menu {
     background: url(../images/menu-hamburguer.png);
@@ -95,35 +196,53 @@ section figure{
     margin: 0;
     position: absolute;
     z-index: 10;
-    left: 0;
-    top:-50px;
-    transform: rotate(0deg);
-    -ms-transform: rotate(0deg); /* IE 9 */
-    -webkit-transform: rotate(0deg); /* Safari */
-    transition: left .3s, top .3s, -webkit-transform .2s;
-    transition: left .3s, top .3s, transform .2s; /* Safari and Chrome */
+    top:-35px;
+    transform:rotate(0deg);
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -ms-transform:rotate(0deg);
+
+    
+    transition: left .21s, top .2s, -webkit-transform .2s;
+    transition: left .21s, top .2s, transform .22s; /* Safari and Chrome */
     transition-timing-function: linear;
 }
 section figure.middle{
-    left: 160px;
+    left: 205px;
 }
 section figure.left{
-    left: 0px;
+    left: 45px;
 }
 
 section figure.middle-right{
-    left: 240px;
+    left: 285px;
 }
 
 section figure.right{
-    left: 320px;
+    left: 365px;
 }
-
+section figure.rotate-down{
+    transform: rotate(0deg);
+    -ms-transform: rotate(0deg); /* IE 9 */
+    -webkit-transform: rotate(0deg);
+}
 section figure.rotate-right{
     transform: rotate(-90deg);
     -ms-transform: rotate(-90deg); /* IE 9 */
     -webkit-transform: rotate(-90deg);
 }
+section figure.rotate-right-special{
+    transform: rotate(270deg);
+    -ms-transform: rotate(270deg); /* IE 9 */
+    -webkit-transform: rotate(270deg);
+}
+
+section figure.rotate-back-left-special{
+    transform: rotate(179deg);
+    -ms-transform: rotate(179deg); /* IE 9 */
+    -webkit-transform: rotate(179deg);
+}
+
 section figure.rotate-left{
     transform: rotate(90deg);
     -ms-transform: rotate(90deg); /* IE 9 */
@@ -140,7 +259,12 @@ section figure.go-back-left{
     -ms-transform: rotate(180deg); /* IE 9 */
     -webkit-transform: rotate(180deg);
 }
-
+section figure img{
+    /*
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%); /* IE 9 *-/
+    -webkit-transform:translate(-50%, -50%);*/
+}
 
 .first-view{
     text-align: center;
@@ -160,8 +284,6 @@ article:last-child{
     margin-bottom: 60px;
 }
 .totem img{
-    margin-left: 40px;
-    margin-right: 40px;
 }
 .piece-block {
     font-size: 1em;

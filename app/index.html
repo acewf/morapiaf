@@ -14,8 +14,9 @@
     <!-- endbuild -->
 
     <!-- build:css styles/main.css -->
-    <link rel="stylesheet" href="styles/font-neosans-bold.css">
-    <link rel="stylesheet" href="styles/font-neosans-regular.css">
+    <link rel="stylesheet" href="fonts/font-neosans-bold.css">
+    <link rel="stylesheet" href="fonts/font-neosans-regular.css">
+    <link rel="stylesheet" href="fonts/font-neosans-light.css">
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
 
@@ -32,16 +33,34 @@
         <nav class="nav-site">
             <button class="search"></button>
             <button class="menu">
-               <nav class="nav-site-menu" style="display:none;">
-                  <ul>
-                      <li><a href="">jogos</a></li>
-                      <li><a href="">sobre nós</a></li>
-                      <li><a href="">artigos morafiap</a></li>
-                      <li><a href="">newsletter</a></li>
-                      <li><a href="">contactos</a></li>
-                  </ul>
-              </nav>
+
             </button>
+            <nav class="nav-site-menu top-menu">
+                <div class="left-panel">
+                    <div class="groupit stick-to-top">
+                        <div class="logo">
+                            <img src="images/moriapiaf-logo.fw.png">
+                        </div>
+                        <ul class="options-lang">
+                            <li><a href="pt/">Português</a></li>
+                            <li><a  href="es/">Castellano</a></li>
+                        </ul>
+                    </div>
+                </div><div class="right-panel">
+                    <div class="space-margin">
+                        <div class="groupit stick-to-top orange-color">
+                            <button class="close">X</button>
+                            <ul class="options-menu">
+                              <li><a href="">jogos</a></li>
+                              <li><a href="">sobre nós</a></li>
+                              <li><a href="">artigos morafiap</a></li>
+                              <li><a href="">newsletter</a></li>
+                              <li><a href="">contactos</a></li>
+                            </ul>                        
+                        </div>
+                    </div>
+                </div>
+            </nav>
         </nav>
         <header class="header">
             <label>
@@ -52,7 +71,7 @@
         </header>
         <section class="first-view">
             <div class="shadow-orange"></div>
-            <figure class="totem left"><img src="images/peao.png"></figure>
+            <figure class="totem left rotate-down"><img src="images/peao.png"></figure>
             <article class="game-board familia">
                 <div id="line1" class="linha lh-align">
                     <div id="peca-1" class="piece-block">
@@ -106,6 +125,7 @@
                     </div>
                 </div>
             </article>
+            
             <article class="game-board festa">
                 <div id="line1" class="linha lh-align">
                     <div id="peca-9" class="piece-block">
@@ -125,8 +145,6 @@
                             <img src="images/clock-icon.png">
                             <div>45-60</div>
                             <details class="info rside" open>
-                                <!--<img src="images/blue-lion-board.png">
-                                <title>The Blue Lion</title>-->
                                 <summary>
                                     <img src="images/gifttrap.png">
                                 </summary>
@@ -146,8 +164,6 @@
                         <img src="images/two-people.png">
                           <div>2-8</div>
                         <details class="info lside" open>
-                          <!--<img src="images/blue-lion-board.png">
-                          <title>The Blue Lion</title>-->
                           <summary>
                               <img src="images/jogo-kaleidos.png">
                           </summary>
@@ -204,6 +220,11 @@
                         </div>
                     </div>
                 </div>
+                <div id="line3" class="linha lh-align">
+                    <div id="peca-278" class="piece-block">
+                        <div class="center-content"><img src="images/classicos.fw.png"></div>
+                    </div>
+                </div>
             </article>
             <article class="game-board outros">
                 <div id="line1" class="linha lh-align">
@@ -241,6 +262,7 @@
                 <button>ver todos os jogos<img src="images/arrow-right.fw.png"></button>
             </article>
         </section>
+
         <section class="destaques">
             <div>
                 <div class="centerme">
@@ -294,6 +316,7 @@
     <!-- endbuild -->
 
         <!-- build:js scripts/main.js -->
+        <script src="scripts/com.euro.js"></script>
         <script src="scripts/main.js"></script>
         <!-- endbuild -->
 </body>

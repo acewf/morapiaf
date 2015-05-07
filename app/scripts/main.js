@@ -1,110 +1,33 @@
-var AppEngine = {};
+////Author:Pedro Martins
+////Contact:ace.wf.home@gmail.com
+////Date: 05/05/2015
+////Company:euro-m.pt
+//////////////  AREAS DE JOGO  /////////////////////////
 var screenAreas = [];
-var animationManager = [];
-var boxIndex = [];
 screenAreas.push({class:'.familia',hash:'familia'});
 screenAreas.push({class:'.festa',hash:'festa'});
 screenAreas.push({class:'.especialistas',hash:'especialistas'});
 screenAreas.push({class:'.classicos',hash:'classicos'});
 screenAreas.push({class:'.outros',hash:'outros'});
-AppEngine.lastOffsetY = 0;
-AppEngine.directionY = 0;
-AppEngine.scrolledItemID = 0;
+/////////////// INIT TOOLS //////////////////
+var com = (com)?com=com:null;
+var ToolQuery = new com.euro();
+////////////// INIT VARIABLES ////////////////////
+var AppEngine = {};
+var StackManage = [];
+var boxIndex = [];
 var totemIsRunning = false;
 var view;
 var totalElem;
 var totem;
+var GenericTimeOut;
 var MainCssRules = {};
-
-var getNextElement = function(baseClass,elementTest){
-	'use strict';
-	var allElements = document.getElementsByClassName(baseClass);
-	var icounter = -1;
-	var nextElement;
-	for (var i = 0; i < allElements.length; i++) {
-		if(icounter>0){
-			nextElement = allElements[i];
-			return nextElement;
-		}
-		if(allElements[i]===elementTest){
-			icounter = i;
-		}
-	}
-	return null;
-};
-var getPrevElement = function(baseClass,elementTest){
-	'use strict';
-	var allElements = document.getElementsByClassName(baseClass);
-	var icounter = allElements.length+1;
-	var nextElement;
-	for (var i = allElements.length-1; i > 0; i--) {
-		if(icounter<allElements.length){
-			nextElement = allElements[i];
-			return nextElement;
-		}
-		if(allElements[i]===elementTest){
-			icounter = i;
-		}
-	}
-	return null;
-};
-
-AppEngine.sortByCondition = function(){
-	'use strict';
-	var sortByIndex = function (a, b) {
-		  if (a.topIndex > b.topIndex){
-		    return 1;
-		  }
-		  if (a.topIndex < b.topIndex) {
-		    return -1;
-		  }
-		  // a must be equal to b
-		  return 0;
-	};
-	return sortByIndex;
-};
-
-AppEngine.bindTransitions = function(){
-	'use strict';
-	$('section figure').bind('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', function(event){
-		//console.log(event,"#--#finish#--#");
-		var target = event.target;
-		if (event.originalEvent.propertyName!=='transform') {
-			AppEngine.scrolledItemID = target.getAttribute('target-index');
-			totemIsRunning = false;
-			setTimeout(AppEngine.removeStep,10,false);
-		}
-	});
-};
-
-AppEngine.stepManager = function(){
-	'use strict';
-	if((animationManager.length>0)){
-		var tweens = animationManager[0].tweens;
-		var element = animationManager[0].element;
-		var box = animationManager[0].box;
-		var str = 'section figure.'+animationManager[0].tweens[0].style;
-		if ((box.offsetTop===element.offsetTop) && (parseFloat(MainCssRules[str].left)===element.offsetLeft)) {
-			animationManager.shift();
-			AppEngine.removeStep(true);
-			return;	
-		}
-		AppEngine.removeAllClass();
-
-		for (var i = 0; i < tweens.length; i++) {
-			//console.log("Counter;",i,"_Box:",box.id,tweens[i]," time:",Math.floor(Date.now() / 1000));
-			if (tweens[i].style) {
-				$(element).addClass(tweens[i].style);
-			} else {
-				//console.log("time:",Math.floor(Date.now() / 1000),":travelling-->",box.id)
-				element.style.top = box.offsetTop+'px';
-				element.setAttribute('target-id',box.id);
-				element.setAttribute('target-index',boxIndex[box.id].index);
-			}			
-		}
-		totemIsRunning = true;
-	}
-};
+AppEngine.diferenca = 0;
+AppEngine.lastOffsetY = 0;
+AppEngine.directionY = 0;
+AppEngine.LastdirectionY = 0;
+AppEngine.scrolledItemID = 0;
+///////////// GLOBAL POSITION SYSTEM ////////////////////
 AppEngine.nextTweenPoints = function(square,totem,goDownDirection){
 	'use strict';
 	var rectElement = square.getBoundingClientRect();
@@ -114,100 +37,46 @@ AppEngine.nextTweenPoints = function(square,totem,goDownDirection){
 	tweenClass.push({value:topMove,prop:'top',index:boxIndex[square.id].index});
 	return {totem:totem,tween:tweenClass,element:square};
 };
-AppEngine.checkDiference = function(boxsquare,element){
-	'use strict';
-	var index = boxIndex[boxsquare.id].index;
-	var diferenca = index-AppEngine.scrolledItemID;
-	var tempIndexId;
-	var square;
-	//console.log(AppEngine.directionY,"_direction_");
-	animationManager = [];
-	var i = 0;
-	var item;
-	if (diferenca>=1) {
-		tempIndexId = AppEngine.scrolledItemID;
-		if((boxIndex[boxsquare.id].index-tempIndexId)>8){
-			tempIndexId = boxIndex[boxsquare.id].index-8;
-		}
-		for (i = tempIndexId; i < boxIndex[boxsquare.id].index; i++) {
-			square = totalElem[i];
-			item = AppEngine.nextTweenPoints(square,element,true);
-			AppEngine.addStep(element,item.tween,item.element);
-		}
-		item = AppEngine.nextTweenPoints(boxsquare,element,true);
-		AppEngine.addStep(element,item.tween,item.element);
-	} else if (diferenca<0) {
-		tempIndexId = AppEngine.scrolledItemID;
-		for (i = tempIndexId-1; i >= boxIndex[boxsquare.id].index; i--) {
-			square = totalElem[i];
-			item = AppEngine.nextTweenPoints(square,element,false);
-			AppEngine.addStep(item.totem,item.tween,item.element);
-		}
-	}
-	if (diferenca===0) {
-		return null;
-	}	
-};
-AppEngine.addStep = function(element,tweens,boxsquare){
-	'use strict';
-	var exist = false;
-	var NR_EXIST = null;
-	if (animationManager.length>0) {	
-		for (var i = 0; i < animationManager.length; i++) {
-			if (animationManager[i]===undefined) {
-				return null;
-			}
-			if (animationManager[i].box===boxsquare) {
-				exist = true;
-				NR_EXIST = i;
-				break;
-			}
-		}
-		if (!exist) {
-			animationManager.push({element:element,tweens:tweens,box:boxsquare});
-		} else {
-			animationManager[NR_EXIST] = {element:element,tweens:tweens,box:boxsquare};
-		}
-	} else {	
-		animationManager.push({element:element,tweens:tweens,box:boxsquare});
-	}
-	if (animationManager.length>=1) {
-		AppEngine.stepManager();
-	}
-};
-AppEngine.removeStep = function(){
-	'use strict';
-	if(animationManager.length>0){
-		AppEngine.stepManager();
-	}
-};
-
-AppEngine.orderElementsByDistance = function(translateY){
-	'use strict';
-	var tempOrder = [];
-	for (var i = screenAreas.length - 1; i >= 0; i--) {
-		var valueArea = screenAreas[i].class.substring(1,screenAreas[i].class.length);
-		var element = document.getElementsByClassName(valueArea);
-		var rect = element[0].getBoundingClientRect();
-		tempOrder.push({order:i,topIndex:Math.sqrt((rect.top-translateY)*(rect.top-translateY)),element:element[0],name:valueArea});
-	}
-	return tempOrder;
-};
 AppEngine.manageNextPositionSystem = function(leftBox,square,rectElement,goDownDirection){
 	'use strict';
 	var rElement;
-	if (goDownDirection) {
-		rElement = getNextElement('piece-block',square);
-	} else if(!goDownDirection){
-		rElement = getPrevElement('piece-block',square);
-	}
-	var rectNextElement;
-	if (rElement) {
-		rectNextElement = rElement.getBoundingClientRect();
-	} else {
-		rectNextElement = {top:0,left:0};
-	}
 	var tweenClass = [];
+	var rectNextElement;
+	var actualElement = square.getBoundingClientRect();
+	if (goDownDirection) {
+		rElement = ToolQuery.getNextElement('piece-block',square);
+	} else {
+		rElement = ToolQuery.getPrevElement('piece-block',square);
+	}
+	if (rElement===null) {
+		if (!goDownDirection) {
+			tweenClass.push({style:'left',prop:'side'});
+			tweenClass.push({style:'go-back-left',prop:'transform'});
+		} else {
+			tweenClass.push({style:'middle',prop:'side'});
+			tweenClass.push({style:'rotate-down',prop:'transform'});
+		}
+		
+		return tweenClass;
+	}
+	rectNextElement = rElement.getBoundingClientRect();
+		
+	if ((!goDownDirection) && (rectNextElement.top<actualElement.top) ) {
+		if (actualElement.left<rectNextElement.left) {
+			tweenClass.push({style:'go-back-right',prop:'side'});
+		} else {
+			tweenClass.push({style:'go-back-left',prop:'side'});
+		}
+	} else if (rElement) {
+		if (actualElement.left<rectNextElement.left) {
+			tweenClass.push({style:'rotate-right',prop:'transform'});
+		} else if ((actualElement.left>rectNextElement.left)) {
+			tweenClass.push({style:'rotate-left',prop:'transform'});
+		} else if (actualElement.top<rectNextElement.top) {
+			tweenClass.push({style:'rotate-down',prop:'transform'});
+		}
+	}
+	/////////////////  CHECK FOR POSITION //////////////
 	if (leftBox<100) {
 		tweenClass.push({style:'left',prop:'side'});
 	} else if (leftBox>200) {
@@ -217,24 +86,258 @@ AppEngine.manageNextPositionSystem = function(leftBox,square,rectElement,goDownD
 	} else {
 		tweenClass.push({style:'middle',prop:'side'});
 	}
-	var actualElement = square.getBoundingClientRect();
-	if ((!goDownDirection) && (rectNextElement.top<actualElement.top) ) {
-		if (actualElement.left<rectNextElement.left) {
-			tweenClass.push({style:'go-back-right',prop:'side'});
-		} else {
-			tweenClass.push({style:'go-back-left',prop:'side'});
-		}
-	}  
-	if (rElement) {
-		if (actualElement.left<rectNextElement.left) {
-			tweenClass.push({style:'rotate-right',prop:'transform'});
-		} else if ((actualElement.left>rectNextElement.left)) {
-			tweenClass.push({style:'rotate-left',prop:'transform'});
-		} 
-	}
 	return tweenClass;
 };
+////////////////////////////////////  TRANSITION LISTNERS ////////////////////////////////////
+AppEngine.TweenTransition = {};
+AppEngine.TweenTransition.end = function(event){
+	'use strict';
+	var target = event.target;
+	AppEngine.scrolledItemID = target.getAttribute('target-index');
+	totemIsRunning = false;
+	clearTimeout(GenericTimeOut);
+	AppEngine.removeStep(false);
+	//GenericTimeOut = setTimeout(AppEngine.removeStep,30,false);
+};
+AppEngine.TweenTransition.isTheEnd = function(event){
+	'use strict';
+	var target = event.target;
+	if (StackManage.length>0) {
+		StackManage[0].totalTransition--;
+		if (StackManage[0].totalTransition===0) {
+			target.removeEventListener('transitionend',AppEngine.TweenTransition.isTheEnd);
+			AppEngine.TweenTransition.end(event);
+		}
+	} else {
+		console.log('Deu Coco');
+	}		
+};
+////////////////////////////////////////////////////////////////////////
+AppEngine.checkDiference = function(boxsquare){
+	'use strict';
+	var index = boxIndex[boxsquare.id].index;
+	var diferenca = index-AppEngine.scrolledItemID;
+	return diferenca;
+};
+AppEngine.checkStepsToAdd  = function(boxsquare,element){
+	'use strict';
+	var tempIndexId;
+	var square;
+	//StackManage = [];
+	var enterZone = false;
+	var diferenca= AppEngine.checkDiference(boxsquare);
+	console.log(AppEngine.LastdirectionY,"!==",AppEngine.directionY);
+	
+	if ((AppEngine.diferenca<0) && (diferenca>0)) {
+		enterZone = true;
+	} else if ((AppEngine.diferenca>0) && (diferenca<0)) {
+		enterZone = true;
+	} 
+	//if (AppEngine.LastdirectionY!==AppEngine.directionY) {
+	if (enterZone) {
+		StackManage = [];
+		totemIsRunning = false;
+		AppEngine.scrolledItemID = totem.getAttribute('target-index');
+		console.log('******* troca direcao ************');
+	}
+	
+	if (diferenca===0) {
+		return;
+	}
+	var i = 0;
+	var item;
+	var StepDif;
+	tempIndexId = parseFloat(AppEngine.scrolledItemID);
+	if (diferenca>=1) {
+		if((boxIndex[boxsquare.id].index-tempIndexId)>8){
+			StackManage = [];
+			totemIsRunning = false;
+			tempIndexId = boxIndex[boxsquare.id].index-8;
+		}
+		for (i = tempIndexId+1; i <= boxIndex[boxsquare.id].index; i++) {
+			square = totalElem[i];
+			item = AppEngine.nextTweenPoints(square,element,true);
+			AppEngine.addStep(element,item.tween,item.element);
+		}
+	} else if (diferenca<0) {
+		if(diferenca<-8){
+			StackManage = [];
+			totemIsRunning = false;
+			tempIndexId = boxIndex[boxsquare.id].index+8;
+		}
+		
+		for (i = tempIndexId-1; i >= boxIndex[boxsquare.id].index; i--) {
+			square = totalElem[i];
+			item = AppEngine.nextTweenPoints(square,element,false);
+			AppEngine.addStep(element,item.tween,item.element);
+		}
+	}
+	AppEngine.diferenca = diferenca;
+	if ((StepDif>1) || (StepDif<-1) ) {
+		console.log(StackManage);
+		return;
+	};
+	if (!totemIsRunning) {
+		AppEngine.stepManager();
+	}
+};
+AppEngine.addStep = function(element,tweens,boxsquare){
+	'use strict';
+	var exist = false;
+	var NR_EXIST = null;
+	if (StackManage.length>0) {	
+		for (var i = 0; i < StackManage.length; i++) {
+			if (StackManage[i]===undefined) {
+				return null;
+			}
+			if (StackManage[i].box===boxsquare) {
+				exist = true;
+				NR_EXIST = i;
+				break;
+			}
+		}
+		if (element.getAttribute('target-id')!==boxsquare.id) {
+			if (!exist) {
+				console.log('Push',boxsquare.id);
+				StackManage.push({element:element,tweens:tweens,box:boxsquare,counter:0,totalTransition:0});
+			} else {
+				console.log('Add To Existent ',NR_EXIST,boxsquare.id);
+				//StackManage[NR_EXIST] = {element:element,tweens:tweens,box:boxsquare,counter:0,totalTransition:0};
+			}
+		}
+	} else {
+		if (element.getAttribute('target-id')!==boxsquare.id) {	
+			console.log('Push line 202',boxsquare.id);
+			StackManage.push({element:element,tweens:tweens,box:boxsquare,counter:0,totalTransition:0});
+		}
+	}
+};
 
+AppEngine.evaluateRotation = function(element){
+	'use strict';
+	var st = window.getComputedStyle(element, null);
+	var tr = st.getPropertyValue('-webkit-transform') ||
+   	st.getPropertyValue('-moz-transform') ||
+   	st.getPropertyValue('-ms-transform') ||
+   	st.getPropertyValue('-o-transform') ||
+   	st.getPropertyValue('transform');
+
+    var values = tr.split('(')[1];
+    values = values.split(')')[0];
+    values = values.split(',');
+    //var a = values[0]; // 0.866025
+	var b = values[1]; // 0.5
+	//var c = values[2]; // -0.5
+	//var d = values[3]; // 0.866025
+	var angle = Math.round(Math.asin(b) * (180/Math.PI));	
+
+	return angle;
+};
+
+AppEngine.stepManager = function(){
+	'use strict';
+	if((StackManage.length>0)){
+		var tweens = StackManage[0].tweens;
+		var element = StackManage[0].element;
+		var box = StackManage[0].box;
+		var angle = 0;
+		StackManage[0].totalTransition = 0;
+		element.addEventListener('transitionend',AppEngine.TweenTransition.isTheEnd);
+		
+		for (var i = 0; i < tweens.length; i++) {	
+			if (tweens[i].style) {
+				if (!($(element).hasClass(tweens[i].style))) {
+					if ((tweens[i].style==='rotate-right')){
+						if ((tweens[i].style==='rotate-right') && ($(element).hasClass('go-back-left'))) {
+								$(element).removeClass('go-back-left');
+								element.style.transition = 'initial';
+								$(element).addClass('go-back-right');
+								angle = AppEngine.evaluateRotation(element);
+								element.style.removeProperty('transition');
+						}
+					}
+					if ((tweens[i].style==='go-back-left')){
+						if ((tweens[i].style==='go-back-left') && ($(element).hasClass('go-back-right'))) {
+								$(element).removeClass('go-back-right');
+								element.style.transition = 'initial';
+								$(element).addClass('rotate-back-left-special');
+								angle = AppEngine.evaluateRotation(element);
+								element.style.removeProperty('transition');
+						}
+						if ((tweens[i].style==='go-back-left') && ($(element).hasClass('rotate-right'))) {
+							$(element).removeClass('rotate-right');
+							element.style.transition = 'initial';
+							$(element).addClass('rotate-right-special');
+							angle = AppEngine.evaluateRotation(element);
+							element.style.removeProperty('transition');
+
+						}
+					}
+
+					$(element).addClass(tweens[i].style);
+					StackManage[0].totalTransition++;
+					
+					if ((tweens[i].style==='rotate-right') || (tweens[i].style==='rotate-left') || (tweens[i].style==='rotate-down')) {
+						AppEngine.removeByGroup('rotacao',tweens[i].style);
+					} else if ((tweens[i].style==='go-back-right') || (tweens[i].style==='go-back-left')) {
+						AppEngine.removeByGroup('back',tweens[i].style);
+					} else {
+						AppEngine.removeByGroup('lado',tweens[i].style);
+					}
+				}			
+			} else {
+				var yGo = box.offsetTop+10+'px';
+				if (element.style.top!==yGo) {
+					element.style.top = yGo;
+					StackManage[0].totalTransition++;
+				}				
+			}			
+		}
+		element.setAttribute('target-id',box.id);
+		element.setAttribute('target-index',boxIndex[box.id].index);
+		if (!totemIsRunning) {
+			//AppEngine.removeAllClass();
+		}
+		totemIsRunning = true;
+		//console.log("-----------END STEP---------------");
+		AppEngine.scrolledItemID = boxIndex[box.id].index;
+	} else {
+		console.log("[END ALL STEPS TRANSITION]")
+	}
+};
+AppEngine.removeStep = function(){
+	'use strict';
+	if(StackManage.length>0){
+		StackManage.shift();
+		AppEngine.stepManager();
+	}
+};
+
+AppEngine.orderElementsByDistance = function(heightView){
+	'use strict';
+	var tempOrder = [];
+	var HalfView = heightView/2;
+	for (var i = screenAreas.length - 1; i >= 0; i--) {
+		var valueArea = screenAreas[i].class.substring(1,screenAreas[i].class.length);
+		var element = document.getElementsByClassName(valueArea);
+		var rect = element[0].getBoundingClientRect();
+		var spreadVal = (rect.top+(rect.height/2)-HalfView)-20;
+		tempOrder.push({order:i,spread:spreadVal,topIndex:Math.sqrt(spreadVal*spreadVal),element:element[0],name:valueArea});
+	}
+	return tempOrder;
+};
+AppEngine.groupBy = {};	
+AppEngine.groupBy.lado = ['left','middle','middle-right','right'];
+AppEngine.groupBy.back = ['go-back-right','go-back-left','rotate-right','rotate-left','rotate-down','rotate-right-special','rotate-back-left-special'];
+AppEngine.groupBy.rotacao = ['rotate-right','rotate-left','rotate-down','go-back-right','go-back-left'];
+AppEngine.removeByGroup = function(group,style){
+	'use strict';
+	for (var i = 0; i < AppEngine.groupBy[group].length; i++) {
+		if (style!==AppEngine.groupBy[group][i]) {
+			$(totem).removeClass(AppEngine.groupBy[group][i]);
+		}
+	}
+};
 AppEngine.removeAllClass = function(){
 	'use strict';
 	$(totem).removeClass('middle');
@@ -247,15 +350,29 @@ AppEngine.removeAllClass = function(){
 	$(totem).removeClass('go-back-left');
 };
 
+AppEngine.enableSideBoard = function(square){
+	'use strict';
+	var INFO_CHILDS = $(square).find('.info');
+	if(INFO_CHILDS.length>0){
+		var elementChild = INFO_CHILDS[0];
+		$(elementChild).addClass('apper');
+		//elementChild.id = temp[0].name+'_'+responseIndex;
+	}
+};
+AppEngine.clickedMe = function(){
+	'use strict';
+	//console.log("_click_",event);
+};
 
 AppEngine.onLoad = function(){
 	'use strict';
 	totem = document.getElementsByClassName('totem')[0];
 	view = document.getElementsByClassName('first-view')[0];
 	var tempOrder = [];
-	var translateY = 308;
 	var rect;
 	var i;
+	var lastSquare = null;
+	var h = window.innerHeight;
 	for (i = 0; i < document.styleSheets[3].cssRules.length; i++) {
 		var itemRule = document.styleSheets[3].cssRules[i];
 		MainCssRules[itemRule.selectorText] = itemRule.style;
@@ -265,63 +382,56 @@ AppEngine.onLoad = function(){
 		totalElem[i].id = 'npeca-'+i;
 		boxIndex[totalElem[i].id] = {element:totalElem[i],index:i};
 	}
-	var scrollme = function () {
-		if(window.pageYOffset>200){
-			//console.log(window.pageYOffset,"..offset");
-			if (AppEngine.lastOffsetY<window.pageYOffset) {
-				AppEngine.directionY = 0;
-			} else {
-				AppEngine.directionY = 1;
-			}
+	var scrollme = function (offsetY) {
+		if (AppEngine.lastOffsetY<offsetY) {
+			AppEngine.directionY = 0;
+		} else {
+			AppEngine.directionY = 1;
+		}
+		if(offsetY>250){
 			var element;
-			tempOrder = AppEngine.orderElementsByDistance(translateY);
-			var temp = tempOrder.sort(AppEngine.sortByCondition());
+			tempOrder = AppEngine.orderElementsByDistance(h);
+			var temp = tempOrder.sort(ToolQuery.sortByCondition());
 			element = temp[0].element;
 			var responseTotalElements = $(element).find('.piece-block');
 			rect = element.getBoundingClientRect();
 			var rHeight = rect.height;
-			var miid = rHeight/2;
-			var rtopY = rect.top-translateY;
-			//console.log("tempOrder:",tempOrder);
-			//////////////////////////////////////////////////////////////////
-			//if (rtopY>=-miid && rtopY<=miid) {
-			var refY = (rtopY+miid)-rHeight;
-			console.log(rtopY,'+',miid,'-',rHeight)
-			refY = Math.sqrt(refY*refY);
-			var perc = refY/rHeight;
-			console.log(element);
-			console.log(refY,'/',rHeight);
-			console.log(perc,"#% %#");
-			if (perc>1) {
-				perc = 1;
+			var middlePoint = rect.top+(rect.height/2);
+			var dif = h/2-(rect.height/2);
+			var inViewPercent;
+			var invertVal = ((h-dif*2)-middlePoint+dif)+45;
+			if (invertVal>0 && invertVal<rect.height) {
+				inViewPercent = invertVal/rect.height;
+			} else {
+				if (invertVal>rHeight/2) {
+					inViewPercent = 1;
+				} else {
+					inViewPercent = 0;
+				}
 			}
-			if (perc<0) {
-				perc = 0;
-			}
-			var responseIndex = Math.round((responseTotalElements.length-1)*perc);
+			var responseIndex = Math.round((responseTotalElements.length-1)*inViewPercent);
 			var square = responseTotalElements[responseIndex];
-			AppEngine.checkDiference(square,totem);
-
-			var INFO_CHILDS = $(square).find('.info');
-			if(INFO_CHILDS.length>0){
-				var elementChild = INFO_CHILDS[0];
-				$(elementChild).addClass('apper');
-				elementChild.id = temp[0].name+'_'+responseIndex;
-			}
-			if (window.pageYOffset<250) {
-				totem.style.top = '0px';
-				AppEngine.removeAllClass();
-			}
+			AppEngine.checkStepsToAdd(square,totem);
+			lastSquare = square;		
 		} else {
-			totem.style.top = '-50px';
-			AppEngine.scrolledItemID = 0;
-			animationManager = [];
+			totem.style.top = '0px';
 			AppEngine.removeAllClass();
+			$(totem).addClass('left');
+			$(totem).addClass('rotate-down');
+			AppEngine.scrolledItemID = 0;
+			totemIsRunning = false;
+			StackManage = [];
 		}
-		AppEngine.lastOffsetY = window.pageYOffset;
+		AppEngine.lastOffsetY = offsetY;
+		AppEngine.LastdirectionY = AppEngine.directionY;
     };
-    scrollme(null);
-    window.onscroll = scrollme;
-    AppEngine.bindTransitions();
+    var scrollEvent = function(){
+    	lastScrollPos = window.pageYOffset;
+    	scrollme(window.pageYOffset);
+    };
+    var lastScrollPos = window.pageYOffset;
+    scrollEvent();
+    //setTimeout(simulateScroll,3000);
+    window.onscroll = scrollEvent;
 };
 AppEngine.onLoad();
