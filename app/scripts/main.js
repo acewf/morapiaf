@@ -1,97 +1,31 @@
-var com = {};
-com.euro = {};
-com.euro.getNextElement = function(baseClass,elementTest){
-	'use strict';
-	var allElements = document.getElementsByClassName(baseClass);
-	var icounter = -1;
-	var nextElement;
-	for (var i = 0; i < allElements.length; i++) {
-		if(icounter>0){
-			nextElement = allElements[i];
-			return nextElement;
-		}
-		if(allElements[i]===elementTest){
-			icounter = i;
-		}
-	}
-	return null;
-};
-com.euro.getPrevElement = function(baseClass,elementTest){
-	'use strict';
-	var allElements = document.getElementsByClassName(baseClass);
-	var icounter = allElements.length+1;
-	var nextElement;
-	for (var i = allElements.length-1; i > 0; i--) {
-		if(icounter<allElements.length){
-			nextElement = allElements[i];
-			return nextElement;
-		}
-		if(allElements[i]===elementTest){
-			icounter = i;
-		}
-	}
-	return null;
-};
-////////////////////////////////////////////////////////////////////////
-var AppEngine = {};
+////Author:Pedro Martins
+////Contact:ace.wf.home@gmail.com
+////Date: 05/05/2015
+////Company:euro-m.pt
+//////////////  AREAS DE JOGO  /////////////////////////
 var screenAreas = [];
-var animationManager = [];
-var boxIndex = [];
 screenAreas.push({class:'.familia',hash:'familia'});
 screenAreas.push({class:'.festa',hash:'festa'});
 screenAreas.push({class:'.especialistas',hash:'especialistas'});
 screenAreas.push({class:'.classicos',hash:'classicos'});
 screenAreas.push({class:'.outros',hash:'outros'});
-AppEngine.lastOffsetY = 0;
-AppEngine.directionY = 0;
-AppEngine.scrolledItemID = 0;
+/////////////// INIT TOOLS //////////////////
+var ToolQuery = new com.euro();
+////////////// INIT VARIABLES ////////////////////
+var AppEngine = {};
+var StackManage = [];
+var boxIndex = [];
 var totemIsRunning = false;
 var view;
 var totalElem;
 var totem;
 var GenericTimeOut;
 var MainCssRules = {};
-
-AppEngine.sortByCondition = function(){
-	'use strict';
-	var sortByIndex = function (a, b) {
-		  if (a.topIndex > b.topIndex){
-		    return 1;
-		  }
-		  if (a.topIndex < b.topIndex) {
-		    return -1;
-		  }
-		  // a must be equal to b
-		  return 0;
-	};
-	return sortByIndex;
-};
-
-AppEngine.bindTransitions = function(){
-	'use strict';
-	$('section figure').bind('transitionend webkitTransitionEnd oTransitionEnd MSTransitionEnd', function(event){
-		var target = event.target;
-		//if (animationManager[0].counter==animationManager[0].tweens.length) {
-		//console.log(event.originalEvent.propertyName!="transform");
-		if (event.originalEvent.propertyName!="transform") {
-			AppEngine.scrolledItemID = target.getAttribute('target-index');
-			var elemTarget = boxIndex[target.getAttribute('target-id')];
-			target.setAttribute("target-end-id",elemTarget.element.id);
-			totemIsRunning = false;
-			clearTimeout(GenericTimeOut);
-			console.log(target,"time:",Math.floor(Date.now() / 1000))
-			if (target.getAttribute('target-end-id')==animationManager[0].box.id) {
-				console.log([].concat(animationManager));
-				animationManager.shift();
-				console.log("FOI REMOVIDO shift animationManager");
-			};		
-			console.log("ACABOU TRANSICAO");
-			GenericTimeOut = setTimeout(AppEngine.removeStep,30,false);
-		}
-	});
-};
-
-
+AppEngine.lastOffsetY = 0;
+AppEngine.directionY = 0;
+AppEngine.LastdirectionY = 0;
+AppEngine.scrolledItemID = 0;
+///////////// GLOBAL POSITION SYSTEM ////////////////////
 AppEngine.nextTweenPoints = function(square,totem,goDownDirection){
 	'use strict';
 	var rectElement = square.getBoundingClientRect();
@@ -101,112 +35,191 @@ AppEngine.nextTweenPoints = function(square,totem,goDownDirection){
 	tweenClass.push({value:topMove,prop:'top',index:boxIndex[square.id].index});
 	return {totem:totem,tween:tweenClass,element:square};
 };
+AppEngine.manageNextPositionSystem = function(leftBox,square,rectElement,goDownDirection){
+	'use strict';
+	var rElement;
+	var tweenClass = [];
+	var rectNextElement;
+	var actualElement = square.getBoundingClientRect();
+	if (goDownDirection) {
+		rElement = ToolQuery.getNextElement('piece-block',square);
+	} else {
+		rElement = ToolQuery.getPrevElement('piece-block',square);
+	}
+	if (rElement===null) {
+		console.log(square.id,"manageNextPositionSystem@l->45 == ",rElement);
+		tweenClass.push({style:'middle',prop:'side'});
+		tweenClass.push({style:'rotate-down',prop:'transform'});
+		return tweenClass;
+	};	
+	rectNextElement = rElement.getBoundingClientRect();
+	/////////////////  CHECK FOR POSITION //////////////
+	if (leftBox<100) {
+		tweenClass.push({style:'left',prop:'side'});
+	} else if (leftBox>200) {
+		tweenClass.push({style:'right',prop:'side'});
+	} else if(square.getBoundingClientRect().width>200){
+		tweenClass.push({style:'middle-right',prop:'side'});
+	} else {
+		tweenClass.push({style:'middle',prop:'side'});
+	}	
+	if ((!goDownDirection) && (rectNextElement.top<actualElement.top) ) {
+		if (actualElement.left<rectNextElement.left) {
+			tweenClass.push({style:'go-back-right',prop:'side'});
+		} else {
+			tweenClass.push({style:'go-back-left',prop:'side'});
+		}
+	} else if (rElement) {
+		if (actualElement.left<rectNextElement.left) {
+			console.log(totem.className);
+			console.log($(totem).hasClass('go-back-left'));
+			tweenClass.push({style:'rotate-right',prop:'transform'});
+		} else if ((actualElement.left>rectNextElement.left)) {
+			tweenClass.push({style:'rotate-left',prop:'transform'});
+		} else if (actualElement.top<rectNextElement.top) {
+			tweenClass.push({style:'rotate-down',prop:'transform'});
+		}
+	}
+	return tweenClass;
+};
+////////////////////////////////////  TRANSITION LISTNERS ////////////////////////////////////
+AppEngine.TweenTransition = {};
+AppEngine.TweenTransition.end = function(event){
+	'use strict';
+	var target = event.target;
+	AppEngine.scrolledItemID = target.getAttribute('target-index');
+	totemIsRunning = false;		
+	clearTimeout(GenericTimeOut);
+	AppEngine.removeStep(false);
+	//GenericTimeOut = setTimeout(AppEngine.removeStep,30,false);
+}
+AppEngine.TweenTransition.isTheEnd = function(event){
+	'use strict';
+	var target = event.target;
+	console.log(event.propertyName,"..end transition");
+		StackManage[0].totalTransition--;
+		if (StackManage[0].totalTransition==0) {
+			target.removeEventListener('transitionend',AppEngine.TweenTransition.isTheEnd);
+			AppEngine.TweenTransition.end(event);
+		}		
+}
+
+////////////////////////////////////////////////////////////////////////
 AppEngine.checkDiference = function(boxsquare,element){
 	'use strict';
 	var index = boxIndex[boxsquare.id].index;
 	var diferenca = index-AppEngine.scrolledItemID;
-	console.log(AppEngine.scrolledItemID,"##ID SCROLL,",index,", ITEM#,",diferenca,element);
+	return diferenca;
+};
+AppEngine.checkStepsToAdd  = function(boxsquare,element){
+	var diferenca= AppEngine.checkDiference(boxsquare,element);
 	var tempIndexId;
 	var square;
-	//console.log(AppEngine.directionY,"_direction_");
-	animationManager = [];
+	//StackManage = [];
+	if (AppEngine.LastdirectionY!=AppEngine.directionY) {
+		StackManage = [];
+		totemIsRunning = false;
+		console.log('troca direcao');
+	};
+	if (diferenca===0) {
+		return;
+	}
 	var i = 0;
 	var item;
+	tempIndexId = parseFloat(AppEngine.scrolledItemID);
 	if (diferenca>=1) {
-		tempIndexId = AppEngine.scrolledItemID;
 		if((boxIndex[boxsquare.id].index-tempIndexId)>8){
 			tempIndexId = boxIndex[boxsquare.id].index-8;
 		}
-		for (i = tempIndexId; i < boxIndex[boxsquare.id].index; i++) {
+		for (i = tempIndexId+1; i <= boxIndex[boxsquare.id].index; i++) {
 			square = totalElem[i];
 			item = AppEngine.nextTweenPoints(square,element,true);
 			AppEngine.addStep(element,item.tween,item.element);
 		}
-		item = AppEngine.nextTweenPoints(boxsquare,element,true);
-		AppEngine.addStep(element,item.tween,item.element);
 	} else if (diferenca<0) {
-		tempIndexId = AppEngine.scrolledItemID;
 		for (i = tempIndexId-1; i >= boxIndex[boxsquare.id].index; i--) {
 			square = totalElem[i];
 			item = AppEngine.nextTweenPoints(square,element,false);
-			AppEngine.addStep(item.totem,item.tween,item.element);
+			AppEngine.addStep(element,item.tween,item.element);
 		}
 	}
-	if (diferenca===0) {
-		item = AppEngine.nextTweenPoints(boxsquare,element,true);
-		AppEngine.addStep(item.totem,item.tween,item.element);
-		return null;
-	}
-	console.log("totemIsRunning:>>:",totemIsRunning);
-	AppEngine.stepManager();
-};
-AppEngine.stepManager = function(){
-	'use strict';
-	if((animationManager.length>0)){
-		var tweens = animationManager[0].tweens;
-		var element = animationManager[0].element;
-		var box = animationManager[0].box;
-
-		console.log(element.getAttribute('target-id'),"===",box);
-		if (!totemIsRunning) {
-			AppEngine.removeAllClass();
-		};
-
-		
-		for (var i = 0; i < tweens.length; i++) {
-			if (tweens[i].style) {
-				$(element).addClass(tweens[i].style);
-			} else {
-				element.style.top = box.offsetTop+75+'px';
-				element.setAttribute('target-id',box.id);
-				element.setAttribute('target-index',boxIndex[box.id].index);
-			}			
-		}
-		totemIsRunning = true;
-	} else {
-		console.log("[END STEP TRANSITION]")
-	}
-};
+	if (!totemIsRunning) {
+		AppEngine.stepManager();
+	};
+}
 AppEngine.addStep = function(element,tweens,boxsquare){
 	'use strict';
 	var exist = false;
 	var NR_EXIST = null;
-	if (animationManager.length>0) {	
-		for (var i = 0; i < animationManager.length; i++) {
-			if (animationManager[i]===undefined) {
+	if (StackManage.length>0) {	
+		for (var i = 0; i < StackManage.length; i++) {
+			if (StackManage[i]===undefined) {
 				return null;
 			}
-			if (animationManager[i].box===boxsquare) {
+			if (StackManage[i].box===boxsquare) {
 				exist = true;
 				NR_EXIST = i;
 				break;
 			}
 		}
-		//console.log("WHERE TARGET",element.getAttribute('target-id'));
-		//console.log(boxsquare)
 		if (element.getAttribute('target-id')!==boxsquare.id) {
-			if (!exist) {		
-				animationManager.push({element:element,tweens:tweens,box:boxsquare,counter:0});
-				console.log("Push>>>",boxsquare.id);
+			if (!exist) {
+				StackManage.push({element:element,tweens:tweens,box:boxsquare,counter:0,totalTransition:0});
 			} else {
-				animationManager[NR_EXIST] = {element:element,tweens:tweens,box:boxsquare,counter:0};	
-				console.log("ADD EXISTENT>>>",boxsquare.id);
-
+				StackManage[NR_EXIST] = {element:element,tweens:tweens,box:boxsquare,counter:0,totalTransition:0};
 			}
 		}
-		//console.log([].concat(animationManager));
-	} else {	
+	} else {
 		if (element.getAttribute('target-id')!==boxsquare.id) {	
-			animationManager.push({element:element,tweens:tweens,box:boxsquare,counter:0});
+			StackManage.push({element:element,tweens:tweens,box:boxsquare,counter:0,totalTransition:0});
 		}
 	}
-	if (animationManager.length>=1) {
-		AppEngine.stepManager();
+};
+AppEngine.stepManager = function(){
+	'use strict';
+	if((StackManage.length>0)){
+		var tweens = StackManage[0].tweens;
+		var element = StackManage[0].element;
+		var box = StackManage[0].box;
+		StackManage[0].totalTransition = 0;
+		element.addEventListener('transitionend',AppEngine.TweenTransition.isTheEnd);
+		
+		for (var i = 0; i < tweens.length; i++) {	
+			if (tweens[i].style) {
+				if (!($(element).hasClass(tweens[i].style))) {
+					$(element).addClass(tweens[i].style);
+					StackManage[0].totalTransition++;
+					
+					if ((tweens[i].style=='rotate-right') || (tweens[i].style=='rotate-left') || (tweens[i].style=='rotate-down')) {
+						AppEngine.removeByGroup('rotacao',tweens[i].style);
+					} else if ((tweens[i].style=='go-back-right') || (tweens[i].style=='go-back-left')) {
+						AppEngine.removeByGroup('back',tweens[i].style);
+					} else {
+						AppEngine.removeByGroup('lado',tweens[i].style);
+					}
+				};				
+			} else {
+				var yGo = box.offsetTop+10+'px';
+				if (element.style.top!==yGo) {
+					element.style.top = yGo;
+					StackManage[0].totalTransition++;
+				};				
+			}			
+		}
+		element.setAttribute('target-id',box.id);
+		element.setAttribute('target-index',boxIndex[box.id].index);
+		if (!totemIsRunning) {
+			//AppEngine.removeAllClass();
+		};
+		totemIsRunning = true;
+	} else {
+		console.log("[END ALL STEPS TRANSITION]")
 	}
 };
 AppEngine.removeStep = function(){
 	'use strict';
-	if(animationManager.length>0){
+	if(StackManage.length>0){
+		StackManage.shift();
 		AppEngine.stepManager();
 	}
 };
@@ -219,53 +232,23 @@ AppEngine.orderElementsByDistance = function(heightView){
 		var valueArea = screenAreas[i].class.substring(1,screenAreas[i].class.length);
 		var element = document.getElementsByClassName(valueArea);
 		var rect = element[0].getBoundingClientRect();
-		var spreadVal = (rect.top+(rect.height/2)-HalfView);
+		var spreadVal = (rect.top+(rect.height/2)-HalfView)-20;
 		tempOrder.push({order:i,spread:spreadVal,topIndex:Math.sqrt(spreadVal*spreadVal),element:element[0],name:valueArea});
 	}
 	return tempOrder;
 };
-AppEngine.manageNextPositionSystem = function(leftBox,square,rectElement,goDownDirection){
+AppEngine.groupBy = {};	
+AppEngine.groupBy['lado'] = ['left','middle','middle-right','right','go-back-right','go-back-left'];
+AppEngine.groupBy['back'] = ['go-back-right','go-back-left','rotate-right','rotate-left','rotate-down'];
+AppEngine.groupBy['rotacao'] = ['rotate-right','rotate-left','rotate-down','go-back-right','go-back-left'];
+AppEngine.removeByGroup = function(group,style){
 	'use strict';
-	var rElement;
-	if (goDownDirection) {
-		rElement = com.euro.getNextElement('piece-block',square);
-	} else if(!goDownDirection){
-		rElement = com.euro.getPrevElement('piece-block',square);
-	}
-	var rectNextElement;
-	if (rElement) {
-		rectNextElement = rElement.getBoundingClientRect();
-	} else {
-		rectNextElement = {top:0,left:0};
-	}
-	var tweenClass = [];
-	if (leftBox<100) {
-		tweenClass.push({style:'left',prop:'side'});
-	} else if (leftBox>200) {
-		tweenClass.push({style:'right',prop:'side'});
-	} else if(square.getBoundingClientRect().width>200){
-		tweenClass.push({style:'middle-right',prop:'side'});
-	} else {
-		tweenClass.push({style:'middle',prop:'side'});
-	}
-	var actualElement = square.getBoundingClientRect();
-	if ((!goDownDirection) && (rectNextElement.top<actualElement.top) ) {
-		if (actualElement.left<rectNextElement.left) {
-			tweenClass.push({style:'go-back-right',prop:'side'});
-		} else {
-			tweenClass.push({style:'go-back-left',prop:'side'});
-		}
-	}  
-	if (rElement) {
-		if (actualElement.left<rectNextElement.left) {
-			tweenClass.push({style:'rotate-right',prop:'transform'});
-		} else if ((actualElement.left>rectNextElement.left)) {
-			tweenClass.push({style:'rotate-left',prop:'transform'});
-		} 
-	}
-	return tweenClass;
+	for (var i = 0; i < AppEngine.groupBy[group].length; i++) {
+		if (style!=AppEngine.groupBy[group][i]) {
+			$(totem).removeClass(AppEngine.groupBy[group][i]);
+		};		
+	};
 };
-
 AppEngine.removeAllClass = function(){
 	'use strict';
 	$(totem).removeClass('middle');
@@ -319,7 +302,7 @@ AppEngine.onLoad = function(){
 			}
 			var element;
 			tempOrder = AppEngine.orderElementsByDistance(h);
-			var temp = tempOrder.sort(AppEngine.sortByCondition());
+			var temp = tempOrder.sort(ToolQuery.sortByCondition());
 			element = temp[0].element;
 			var responseTotalElements = $(element).find('.piece-block');
 			rect = element.getBoundingClientRect();
@@ -338,22 +321,36 @@ AppEngine.onLoad = function(){
 				}
 			}
 			var responseIndex = Math.round((responseTotalElements.length-1)*inViewPercent);
-			var square = responseTotalElements[responseIndex];	
-			console.log("Percent_",inViewPercent,"__in:",element.className);
-			AppEngine.checkDiference(square,totem);			
+			var square = responseTotalElements[responseIndex];
+			AppEngine.checkStepsToAdd(square,totem);
+			lastSquare = square;		
 		} else {
 			totem.style.top = '0px';
-			AppEngine.scrolledItemID = 0;
-			animationManager = [];
 			AppEngine.removeAllClass();
+			$(totem).addClass('left');
+			$(totem).addClass('rotate-down');
+			AppEngine.scrolledItemID = 0;
+			totemIsRunning = false;
+			StackManage = [];
 		}
-		lastSquare = square;
 		AppEngine.lastOffsetY = offsetY;
+		AppEngine.LastdirectionY = AppEngine.directionY;
     };
     var scrollEvent = function(event){
-    		scrollme(window.pageYOffset);
+    	lastScrollPos = window.pageYOffset;
+    	scrollme(window.pageYOffset);
     }
+    var lastScrollPos = window.pageYOffset;
+    var simulateScroll = function(){
+    	var nPos = lastScrollPos+100;
+    	//window.scrollTo(0,nPos);
+    	TweenLite.to(window, 1, {scrollTo:{y:nPos}});
+    	if (nPos<1000) {
+    		//setTimeout(simulateScroll,3000);
+    	};
+    	
+    }
+    //setTimeout(simulateScroll,3000);
     window.onscroll = scrollEvent;
-    AppEngine.bindTransitions();
 };
 AppEngine.onLoad();
