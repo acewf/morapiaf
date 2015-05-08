@@ -3,6 +3,29 @@ Autor: Pedro Martins # pedromartins@pixelkiller.net
 Company : EuroM # http://eurom.pt/
 */
 
+@font-face {
+  font-family: 'NeoSansPro-Regular';
+  src: url('fonts/NeoSansPro-Regular.eot?#iefix') format('embedded-opentype'),  url('fonts/NeoSansPro-Regular.otf')  format('opentype'),
+         url('fonts/NeoSansPro-Regular.woff') format('woff'), url('fonts/NeoSansPro-Regular.ttf')  format('truetype'), url('fonts/NeoSansPro-Regular.svg#NeoSansPro-Regular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'NeoSansPro-Light';
+  src: url('fonts/NeoSansPro-Light.eot?#iefix') format('embedded-opentype'),  url('../fonts/NeoSansPro-Light.otf')  format('opentype'),
+         url('fonts/NeoSansPro-Light.woff') format('woff'), url('fonts/NeoSansPro-Light.ttf')  format('truetype'), url('fonts/NeoSansPro-Light.svg#NeoSansPro-Light') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'NeoSansPro-Bold';
+  src: url('fonts/NeoSansPro-Bold.eot?#iefix') format('embedded-opentype'),  url('fonts/NeoSansPro-Bold.otf')  format('opentype'),
+         url('fonts/NeoSansPro-Bold.woff') format('woff'), url('fonts/NeoSansPro-Bold.ttf')  format('truetype'), url('fonts/NeoSansPro-Bold.svg#NeoSansPro-Bold') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
 .browsehappy {
   margin:0;
   padding: 0;
@@ -203,13 +226,10 @@ section figure{
     -ms-transform:rotate(0deg);
 
     
-    -webkit-transition: left .21s, top .2s, -webkit-transform .2s;
-
-    
-            transition: left .21s, top .2s, -webkit-transform .2s;
+    transition: left .21s, top .2s, -webkit-transform .2s;
+    transition: left .21s, top .2s, -webkit-transform .22s;
     transition: left .21s, top .2s, transform .22s; /* Safari and Chrome */
-    -webkit-transition-timing-function: linear;
-            transition-timing-function: linear;
+    transition-timing-function: linear;
 }
 section figure.middle{
     left: 205px;
@@ -445,8 +465,7 @@ details{
     outline: none;
     /* display: none; */
     opacity: 0; /* Safari */
-    -webkit-transition: opacity 1s;
-            transition: opacity 1s;
+    transition: opacity 1s;
 }
 details.apper{
     opacity: 1;

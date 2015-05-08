@@ -373,8 +373,16 @@ AppEngine.onLoad = function(){
 	var i;
 	var lastSquare = null;
 	var h = window.innerHeight;
-	for (i = 0; i < document.styleSheets[3].cssRules.length; i++) {
-		var itemRule = document.styleSheets[3].cssRules[i];
+	var reference = null
+	for (var i = 0; i < document.styleSheets.length; i++) {
+		console.log('Title>',document.styleSheets[i].title);
+		if ('main'===document.styleSheets[i].title) {
+			reference = i;
+			break;
+		};
+	};
+	for (i = 0; i < document.styleSheets[reference].cssRules.length; i++) {
+		var itemRule = document.styleSheets[reference].cssRules[i];
 		MainCssRules[itemRule.selectorText] = itemRule.style;
 	}
 	totalElem = $('.piece-block');
