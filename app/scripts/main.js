@@ -373,10 +373,23 @@ AppEngine.onLoad = function(){
 	var i;
 	var lastSquare = null;
 	var h = window.innerHeight;
-	for (i = 0; i < document.styleSheets[3].cssRules.length; i++) {
-		var itemRule = document.styleSheets[3].cssRules[i];
+	/*
+	var reference = null
+	for (var i = 0; i < document.styleSheets.length; i++) {
+		var href = document.styleSheets[i].href;
+		var varib = href.substring(href.length-8,href.length-4);
+		if ('main'===varib) {
+			reference = i;
+			break;
+		};
+	};
+	console.log(reference,"---",document.styleSheets[reference])
+	
+	for (i = 0; i < document.styleSheets[reference].cssRules.length; i++) {
+		var itemRule = document.styleSheets[reference].cssRules[i];
 		MainCssRules[itemRule.selectorText] = itemRule.style;
 	}
+	*/
 	totalElem = $('.piece-block');
 	for (i = 0; i < totalElem.length; i++) {
 		totalElem[i].id = 'npeca-'+i;
