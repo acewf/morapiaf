@@ -227,7 +227,6 @@ section figure{
 
     
     transition: left .21s, top .2s, -webkit-transform .2s;
-    transition: left .21s, top .2s, -webkit-transform .22s;
     transition: left .21s, top .2s, transform .22s; /* Safari and Chrome */
     transition-timing-function: linear;
 }
