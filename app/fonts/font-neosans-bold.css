@@ -1,0 +1,8 @@
+
+@font-face {
+  font-family: 'NeoSansPro-Bold';
+  src: url('NeoSansPro-Bold.eot?#iefix') format('embedded-opentype'),  url('NeoSansPro-Bold.otf')  format('opentype'),
+	     url('NeoSansPro-Bold.woff') format('woff'), url('NeoSansPro-Bold.ttf')  format('truetype'), url('NeoSansPro-Bold.svg#NeoSansPro-Bold') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}

@@ -126,7 +126,6 @@ AppEngine.checkStepsToAdd  = function(boxsquare,element){
 	//StackManage = [];
 	var enterZone = false;
 	var diferenca= AppEngine.checkDiference(boxsquare);
-	console.log(AppEngine.LastdirectionY,"!==",AppEngine.directionY);
 	
 	if ((AppEngine.diferenca<0) && (diferenca>0)) {
 		enterZone = true;
@@ -295,6 +294,17 @@ AppEngine.stepManager = function(){
 		}
 		element.setAttribute('target-id',box.id);
 		element.setAttribute('target-index',boxIndex[box.id].index);
+		var INFO_CHILDS = $(box).find('.info');
+		if(INFO_CHILDS.length>0){
+			var elementChild = INFO_CHILDS[0];
+			if ($(elementChild).hasClass('apper')) {
+				AppEngine.shakeElement(elementChild);
+			} else {
+				$(elementChild).addClass('apper');
+			}
+			
+			//elementChild.id = temp[0].name+'_'+responseIndex;
+		}
 		if (!totemIsRunning) {
 			//AppEngine.removeAllClass();
 		}
@@ -361,9 +371,16 @@ AppEngine.enableSideBoard = function(square){
 };
 AppEngine.clickedMe = function(){
 	'use strict';
-	//console.log("_click_",event);
+	console.log("_click_",event);
+	var target = event.target;
+	var d = document.getElementsByClassName('right-panel')[0];
+	TweenMax.to(d, 8, {rotationX:30,translateZ:-800,translateY:800})
 };
+AppEngine.shakeElement = function(element){
+	'use strict';
 
+
+};
 AppEngine.onLoad = function(){
 	'use strict';
 	totem = document.getElementsByClassName('totem')[0];
@@ -427,11 +444,13 @@ AppEngine.onLoad = function(){
 			AppEngine.checkStepsToAdd(square,totem);
 			lastSquare = square;		
 		} else {
-			totem.style.top = '0px';
+			totem.style.top = '-35px';
 			AppEngine.removeAllClass();
 			$(totem).addClass('left');
 			$(totem).addClass('rotate-down');
 			AppEngine.scrolledItemID = 0;
+			totem.removeAttribute('target-id');
+			totem.removeAttribute('target-index');
 			totemIsRunning = false;
 			StackManage = [];
 		}
@@ -446,5 +465,8 @@ AppEngine.onLoad = function(){
     scrollEvent();
     //setTimeout(simulateScroll,3000);
     window.onscroll = scrollEvent;
+
+
+    $('.close').click(AppEngine.clickedMe);
 };
 AppEngine.onLoad();
