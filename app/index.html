@@ -89,9 +89,9 @@
                           <img src="images/clock-icon.png">
                             <div>45-60</div>
                             <details class="info rside" open>
-                                <!--
+                                
                                 <title>The Blue Lion</title>
-                                <label>Duelo de ladrões em busca de glória</label>-->
+                                <label>Duelo de ladrões em busca de glória</label>
                                 <summary>
                                     <img src="images/jogo-blue-lion.png">
                                 </summary>
@@ -112,11 +112,11 @@
                             <img src="images/two-people.png">
                               <div>2-8</div>
                               <details class="info lside" open>
-                                  <!--<img src="images/blue-lion-board.png">
-                                  <title>The Blue Lion</title>-->
-                                  <summary>
-                                      <img src="images/jogo-summy.png">
-                                  </summary>
+                                    <title>Summy</title>
+                                    <label>Junta-te à soma</label>
+                                    <summary>
+                                        <img src="images/jogo-summy.png">
+                                    </summary>
                               </details>
                           </div>
                         </div>
@@ -143,6 +143,8 @@
                             <img src="images/clock-icon.png">
                             <div>45-60</div>
                             <details class="info rside" open>
+                                <title>GIFT TRAP</title>
+                                <label>Quem não gosta de receber presentes?</label>
                                 <summary>
                                     <img src="images/gifttrap.png">
                                 </summary>
@@ -162,9 +164,11 @@
                         <img src="images/two-people.png">
                           <div>2-8</div>
                         <details class="info lside" open>
-                          <summary>
+                            <title>KALEIDOS</title>
+                            <label>Uma versão revista e aumentada do STOP. </label>
+                            <summary>
                               <img src="images/jogo-kaleidos.png">
-                          </summary>
+                            </summary>
                       </details>
                     </div>
                     </div>
@@ -189,8 +193,10 @@
                             <img src="images/clock-icon.png">
                             <div>45-60</div>
                             <details  class="info rside" open>
+                                <title>HIVE</title>
+                                <label>Dois exércitos de insectos. Quem vence?</label>
                                 <summary>
-                                  <img src="images/gift.png">
+                                  <img src="images/jogo-hive.png">
                                 </summary>
                             </details>
                         </div>
@@ -211,6 +217,8 @@
                             <img src="images/two-people.png">
                           <div>2-8</div>
                             <details class="info lside" open>
+                                <title>PYLOS</title>
+                                <label>Pensamento estratégico, destreza e perspicácia.</label>
                                 <summary>
                                     <img src="images/pylos.png">
                                 </summary>
@@ -243,6 +251,8 @@
                             <img src="images/clock-icon.png">
                             <div>45-60</div>
                             <details  class="info rside" open>
+                                <title>FLEX PUZZLER</title>
+                                <label>Esqueça o cubo mágico</label>
                                 <summary>
                                     <img src="images/flexpuzzler.png">
                                 </summary>
@@ -301,10 +311,10 @@
     <!-- build:js(.) scripts/vendor.js -->
     <!-- bower:js -->
     <script src="bower_components/jquery/dist/jquery.js"></script>
-    <script src="bower_components/gsap/src/uncompressed/TweenLite.js"></script>
-    <script src="bower_components/gsap/src/uncompressed/TweenMax.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
+
+    <script src="bower_components/gsap/src/minified/TweenMax.min.js"></script>
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
     <script>
@@ -317,7 +327,9 @@
     </script>
 
         <!-- build:js({app,.tmp}) scripts/main.js -->
+        <script src="scripts/smoothscroll.js"></script> 
         <script src="scripts/com-euro.js"></script>
+        <script src="scripts/step-manager.js"></script>
         <script src="scripts/main.js"></script>
         <!-- endbuild -->
 </body>
