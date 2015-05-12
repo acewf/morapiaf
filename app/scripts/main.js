@@ -64,6 +64,16 @@ AppEngine.addEvents = function(){
 	$('.close').click(AppEngine.closeMenu);
 	$('button.menu').click(AppEngine.openMenu);
 }
+AppEngine.moveTween = function(){
+	'use strict';
+	 var main = $('.main-container')[0];
+	 $('.main-container').addClass('overflow');
+	TweenMax.set(main, {perspective: 500});
+	var d = document.getElementsByClassName('bothpanels')[0];
+	var c = document.getElementsByClassName('site-contents')[0];
+	//TweenMax.to(d, 0, {rotationX:50,y:-$(d).height(), transformOrigin:'top center',ease: Sine.easeInOut});
+	TweenMax.to(c, 0, {rotationX:-10,y:$(d).height(), transformOrigin:'top center',ease: Sine.easeInOut});
+};
 AppEngine.onLoad = function(){
 	'use strict';
 	AppEngine.totem = totem = document.getElementsByClassName('totem')[0];
@@ -127,18 +137,9 @@ AppEngine.onLoad = function(){
 
     AppEngine.removeAllClass = removeAllClass;
     AppEngine.addEvents();
+    console.log(AppEngine.moveTween);
     AppEngine.moveTween();
 };
-
-AppEngine.moveTween = function(){
-	 var main = $('.main-container')[0];
-	 $('.main-container').addClass('overflow');
-	TweenMax.set(main, {perspective: 500});
-	var d = document.getElementsByClassName('bothpanels')[0];
-	var c = document.getElementsByClassName('site-contents')[0];
-	//TweenMax.to(d, 0, {rotationX:50,y:-$(d).height(), transformOrigin:'top center',ease: Sine.easeInOut});
-	TweenMax.to(c, 0, {rotationX:-10,y:$(d).height(), transformOrigin:'top center',ease: Sine.easeInOut});
-}
 ///////////////////////////////////////
 //////////// APP EVENTS ADD //////////
 
