@@ -40,12 +40,30 @@ var removeAllClass = function(){
 	$(totem).removeClass('go-back-left');
 };
 
-AppEngine.clickedMe = function(){
+AppEngine.closeMenu = function(){
 	'use strict';
 	//var target = event.target;
-	var d = document.getElementsByClassName('right-panel')[0];
-	TweenMax.to(d, 8, {rotationX:30,translateZ:-800,translateY:800});
+	var d = document.getElementsByClassName('nav-site-menu')[0];
+	TweenMax.to(d, 1, {rotationX:30,y:-$(d).height(), transformOrigin:'bottom center',ease: Sine.easeInOut});
+
+	var c = document.getElementsByClassName('site-contents')[0];
+	TweenMax.to(c, 1, {rotationX:0,y:0, transformOrigin:'top center',ease: Sine.easeInOut});
+	$('.main-container').removeClass('overflow');
 };
+AppEngine.openMenu = function(){
+	'use strict';
+	var d = document.getElementsByClassName('nav-site-menu')[0];
+	TweenMax.to(d, 1, {rotationX:0,y:0, transformOrigin:'bottom center',ease: Sine.easeInOut});
+
+	var c = document.getElementsByClassName('site-contents')[0];
+	TweenMax.to(c, 1, {rotationX:-30,y:$(d).height(), transformOrigin:'top center',ease: Sine.easeInOut});
+	$('.main-container').addClass('overflow');
+};
+AppEngine.addEvents = function(){
+	var item = $('button.menu')[0];
+	$('.close').click(AppEngine.closeMenu);
+	$('button.menu').click(AppEngine.openMenu);
+}
 AppEngine.onLoad = function(){
 	'use strict';
 	AppEngine.totem = totem = document.getElementsByClassName('totem')[0];
@@ -106,9 +124,21 @@ AppEngine.onLoad = function(){
     var lastScrollPos = window.pageYOffset;
     scrollEvent();
     window.onscroll = scrollEvent;
-    $('.close').click(AppEngine.clickedMe);
+
     AppEngine.removeAllClass = removeAllClass;
+    AppEngine.addEvents();
+    AppEngine.moveTween();
 };
+
+AppEngine.moveTween = function(){
+	 var main = $('.main-container')[0];
+	 $('.main-container').addClass('overflow');
+	TweenMax.set(main, {perspective: 500});
+	var d = document.getElementsByClassName('bothpanels')[0];
+	var c = document.getElementsByClassName('site-contents')[0];
+	//TweenMax.to(d, 0, {rotationX:50,y:-$(d).height(), transformOrigin:'top center',ease: Sine.easeInOut});
+	TweenMax.to(c, 0, {rotationX:-10,y:$(d).height(), transformOrigin:'top center',ease: Sine.easeInOut});
+}
 ///////////////////////////////////////
 //////////// APP EVENTS ADD //////////
 

@@ -1,4 +1,4 @@
-/*
+    /*
 Autor: Pedro Martins # pedromartins@pixelkiller.net
 Company : EuroM # http://eurom.pt/
 */
@@ -68,12 +68,19 @@ nav.nav-site > button{
 }
 .top-menu{
     width: 100%;
-    height: 100%;
+    height: 100vh; 
     left: 0;
     top: 0;
-    position: fixed;
+    position: absolute;
     background-color: #fff;
-    display: none; 
+    /* display: none; */ 
+     -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d; 
+    z-index: 20;
+}
+.bothpanels{
+    position: relative;
+    height: 100%;    
 }
 /* ---------------------------------- */
 .close span, .close span::before, .close span::after {
@@ -166,17 +173,18 @@ nav.nav-site > button{
 }
 .groupit{
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    -webkit-transform: translate(-50%, -50%);
-    -moz-transform: translate(-50%, -50%);
-    -ms-transform: translate(-50%, -50%);
+    /* top: 50%; */
+    /* left: 50%; */
+    /* transform: translate(-50%, -50%); */
+    /* -webkit-transform: translate(-50%, -50%); */
+    /*-moz-transform: translate(-50%, -50%);*/
+    /*-ms-transform: translate(-50%, -50%);*/
     width: 100%;
     text-align: right;
 }
 .orange-color{
-    background-color: #DE3C2C;
+    /* display: none; */
+    background-color:#DE3C2C;
 }
 .view-prespective{
     
@@ -190,8 +198,8 @@ div.stick-to-top{
 .left-panel .logo{
     text-align: center;
 }
-
-.nav-site ul{
+/* ------ TOP MENU SITE ------- */
+ul,.nav-site-menu{
     list-style: none;
     padding: 0;
     text-decoration: none;
@@ -199,59 +207,64 @@ div.stick-to-top{
     font-family: 'NeoSansPro-Light';
     -webkit-font-smoothing: antialiased;      -moz-osx-font-smoothing: grayscale;
 }
-.nav-site ul.options-menu li{
+ul.options-menu li{
     font-size: 36px;
     margin-top: 20px;
 }
-.nav-site ul.options-menu li a{
+ul.options-menu li a{
     color: #fff;
     text-decoration:none;
     text-transform: capitalize;
 }
-.nav-site ul.options-menu li a:hover{
+ul.options-menu li a:hover{
     text-decoration: none;
 }
-.nav-site ul.options-menu .close{
+ul.options-menu .close{
     background-image: url('../images/close_menu.png');
     background-repeat: no-repeat;
 }
-.nav-site ul.options-lang li{
-    margin-top: 25px;
+ul.options-lang li{
+    margin-top: 20px;
 }
-.nav-site ul.options-lang li:first-child{
+ul.options-lang li:first-child{
     margin-top: 5px;
 }
-.nav-site ul.options-lang li a{
+ ul.options-lang li a{
     color: #000;
 }
-.nav-site ul.options-lang{
+ ul.options-lang{
     display: inline-block;
     font-size: 13px;
 }
-.nav-site ul.options-lang li a{
+ul.options-lang li a{
     text-decoration: none;
 }
-.nav-site ul.options-lang li a:hover{
+ul.options-lang li a:hover{
     text-decoration: none;
 }
-.nav-site ul.options-lang li a:visited {
+ul.options-lang li a:visited {
     color: #D93600;
     line-height: 1.4;
 }
-.space-margin{
-    position: relative;
-    height: 100%;
-}
-.nav-site ul.options-lang li a:after {
+ul.options-lang li a:after {
   content: '';
   position: relative;
   display: block;
   height: 1em;
-  width: 30px;
   border-bottom: 1px solid;
   margin-left: 10px;
+  margin-right: 10px;
+  color: #fff;
 }
-  
+ul.options-lang li a:visited:after{
+    color: #D93600;
+}
+/* ------ END TOP MENU SITE ------- */
+.space-margin{
+    position: relative;
+    height: 100%;
+}
+
 
 .menu {
     background: url(../images/menu-hamburguer.png);
@@ -386,6 +399,13 @@ section figure img{
     z-index: -1;
     overflow: initial;
 }
+main section.site-contents{
+    max-width: none;
+    display: block;
+    overflow: hidden;
+    position: absolute;
+    width:100%;
+}
 section .game-board{
     width: 480px;
     display: inline-block;
@@ -410,8 +430,10 @@ article:last-child{
 }
 main{
     text-align: center;
-    overflow: hidden;
-    /* perspective: 1200px; */
+    height: 100vh;
+}
+main.overflow{
+    overflow:hidden;
 }
 main section{
     display: inline-block;
@@ -649,16 +671,29 @@ footer .facebook-link img{
   }
 }
 
+
 .blocktest{
+    margin: 0;
+    padding:0;
     display: inline-block;
-    width: 50%;
-    height: 50%;
-    background-color: #000;
+    width: 100%;
+    height: 100%;
     position: relative;
+    -webkitperspective-origin: 100px 100px;
 }
 .wrapblock{
     width: 100%;
-    height: 800px;
-    position: absolute;
-    top: 10px;
+    position: relative;
+    -webkit-transform-style: preserve-3d;
+    transform-style: preserve-3d; 
+}
+.laranja{
+    background-color: #D52C2C;
+}
+.vermelho{
+    background-color: #f00;
+    height: 2000px;
+}
+.total{
+    height: 100%;
 }
