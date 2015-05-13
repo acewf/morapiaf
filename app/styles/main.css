@@ -13,7 +13,7 @@ Company : EuroM # http://eurom.pt/
 
 @font-face {
   font-family: 'NeoSansPro-Light';
-  src: url('fonts/NeoSansPro-Light.eot?#iefix') format('embedded-opentype'),  url('../fonts/NeoSansPro-Light.otf')  format('opentype'),
+  src: url('fonts/NeoSansPro-Light.eot?#iefix') format('embedded-opentype'),  url('fonts/NeoSansPro-Light.otf')  format('opentype'),
          url('fonts/NeoSansPro-Light.woff') format('woff'), url('fonts/NeoSansPro-Light.ttf')  format('truetype'), url('fonts/NeoSansPro-Light.svg#NeoSansPro-Light') format('svg');
   font-weight: normal;
   font-style: normal;
@@ -298,7 +298,7 @@ header.header{
 }
 
 /* Make the masthead heading the same height as the navigation */
-.header label {
+.header div.site-title {
     text-transform: uppercase;
     position: absolute;
     top:50%;
@@ -311,7 +311,7 @@ header.header{
     width: 100%;
     text-align: center;
 }
-.header label h1{
+.header div.site-title h1{
     font-size: 5em;
     margin: 0;
     -webkit-margin-after: 0;
@@ -399,7 +399,7 @@ section figure img{
     z-index: -1;
     overflow: initial;
 }
-main section.site-contents{
+div.main-container section.site-contents{
     max-width: none;
     display: block;
     overflow: hidden;
@@ -428,14 +428,14 @@ article:last-child{
     display: inline-block;
     position: relative;
 }
-main{
+div.main-container{
     text-align: center;
     height: 100vh;
 }
-main.overflow{
+div.overflow{
     overflow:hidden;
 }
-main section{
+div.main-container section{
     display: inline-block;
     max-width: 480px;
 }
@@ -537,7 +537,7 @@ article button img{
     overflow: visible;
 }
 
-section.destaques{
+div.main-container section.destaques{
     max-width: none;
     display: block;
 }
@@ -570,24 +570,30 @@ section.destaques > div .centerme h3{
     margin-bottom: 20px;
 }
 
-section.destaques > div .centerme label{
+section.destaques > div .centerme p{
     font-size: 0.7em;
 }
-details{
+figure{
     position: absolute;
     outline: none;
     /* display: none; */
     opacity: 0; /* Safari */
     transition: opacity 1s;
 }
-details.apper{
+figure.totem{
+   opacity: 1; /* Safari */
+}
+figure.info{
+    width: 330px;
+}
+figure.apper{
     opacity: 1;
 }
-details.rside{
+figure.rside{
     left: 150px;
     top: -160px;
 }
-details title,details label{
+figure h2,figure h3{
   display: block;
   color: #000;
   font-size: 1.6em;
@@ -595,19 +601,21 @@ details title,details label{
   max-width: 320px;
 }
 
-details title{
+figure h2{
   font-family: 'NeoSansPro-Bold';
   color: #D83500;
   margin-top: 25px;
 }
-details summary{
+figure figcaption{
   position: relative;
 }
-details summary > img{
+figure > img{
   position: relative;
   left: 0;
+  width: 100%;
+  height:auto;
 }
-details title::after,details label::after {
+figure h2::after,figure h3::after {
   content: "";
   display: block;
   height: 1px;
@@ -616,18 +624,13 @@ details title::after,details label::after {
   margin-top: 10px;
   margin-left: 45%;
 }
-details.lside{
+figure.lside{
     left: -430px;
     top: -160px;
 }
-details summary:focus{
-    outline: none;
-}
-summary::-webkit-details-marker {
-  display: none
-}
+
 /* Custom page footer */
-main footer {
+div.main-container footer {
     background-color: #444444;
     margin-top: 30px;
     padding: 50px;
@@ -636,7 +639,7 @@ footer nav{
     margin-top: 50px;
 
 }
-main footer nav ul{
+div.main-container footer nav ul{
     list-style: square;
     display: inline-block;
     -webkit-margin-start: 0px;
@@ -679,13 +682,10 @@ footer .facebook-link img{
     width: 100%;
     height: 100%;
     position: relative;
-    -webkitperspective-origin: 100px 100px;
 }
 .wrapblock{
     width: 100%;
     position: relative;
-    -webkit-transform-style: preserve-3d;
-    transform-style: preserve-3d; 
 }
 .laranja{
     background-color: #D52C2C;
@@ -696,4 +696,19 @@ footer .facebook-link img{
 }
 .total{
     height: 100%;
+}
+
+.main-container{
+
+}
+
+.TransformDemoPerspectiveOrigin3050 {
+    -webkit-perspective-origin: 50% 50%;
+    -o-perspective-origin: 50% 50%;
+    perspective-origin: 50% 50%;
+}
+.TransformDemoPerspective200 {
+    -webkit-perspective: 1000px;
+    -o-perspective: 1000px;
+    perspective: 1000px;
 }

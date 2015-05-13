@@ -348,12 +348,14 @@ AppEngine.removeAllClass = function(){
 AppEngine.shakeElement = function(element){
 	'use strict';
 	var repeatCount = 5;
-	var child = $(element).find('summary img')[0];	
+	var child = $(element).find('figure img')[0];	
 	AppEngine.Keepshake(child,repeatCount);
 };
 AppEngine.Keepshake = function(child,times){
 	'use strict';
 	var xGo = 10;
+	console.log(child);
+	return;
 	if (child.style.left==='10px') {
 		xGo = -3;
 	}

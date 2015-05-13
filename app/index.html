@@ -4,7 +4,9 @@
     <meta charset="utf-8">
     <title>morapiaf site</title>
     <meta name="description" content="">
+    <!--
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    -->
     <link rel="shortcut icon" href="/favicon.ico">
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css(.) styles/vendor.css -->
@@ -25,14 +27,14 @@
     <![endif]-->
 
 
-    <main class="main-container">
+    <div class="main-container">
         <nav class="nav-site-menu top-menu">
             <div class="bothpanels">
                 <div class="left-panel">
                     <div class="space-margin">
                         <div class="groupit stick-to-top">
                             <div class="logo">
-                                <img src="images/moriapiaf-logo.fw.png">
+                                <img alt="Site logo" src="images/moriapiaf-logo.fw.png">
                             </div>
                             <ul class="options-lang">
                                 <li><a href="test.html">Português</a></li>
@@ -64,8 +66,9 @@
                 </button>
             </nav>
             <header class="header">
-                <label>
-                    <h1>É a sua vez de jogar</h1></label>
+                <div class="site-title">
+                    <h1>É a sua vez de jogar</h1>
+                </div>
                 <div class="contain-start">
                   <div class="header-start">Start</div>
                 </div>
@@ -91,14 +94,13 @@
                             <div class="center-content">
                               <img src="images/clock-icon.png">
                                 <div>45-60</div>
-                                <details class="info rside" open>
-                                    
-                                    <title>The Blue Lion</title>
-                                    <label>Duelo de ladrões em busca de glória</label>
-                                    <summary>
-                                        <img src="images/jogo-blue-lion.png">
-                                    </summary>
-                                </details>
+                                <figure class="info rside" open>
+                                    <img src="images/jogo-blue-lion.png">
+                                    <figcaption>
+                                        <h2>The Blue Lion</h2>
+                                        <h3>Duelo de ladrões em busca de glória</h3>
+                                    </figcaption>
+                                </figure>
                             </div>
                         </div>
                     </div>
@@ -114,13 +116,13 @@
                                <div class="center-content">
                                 <img src="images/two-people.png">
                                   <div>2-8</div>
-                                  <details class="info lside" open>
-                                        <title>Summy</title>
-                                        <label>Junta-te à soma</label>
-                                        <summary>
-                                            <img src="images/jogo-summy.png">
-                                        </summary>
-                                  </details>
+                                  <figure class="info lside" open>
+                                        <img src="images/jogo-summy.png">
+                                        <figcaption>
+                                            <h2>Summy</h2>
+                                            <h3>Junta-te à soma</h3>
+                                        </figcaption>
+                                  </figure>
                               </div>
                             </div>
                         </div>
@@ -145,13 +147,13 @@
                             <div class="center-content">
                                 <img src="images/clock-icon.png">
                                 <div>45-60</div>
-                                <details class="info rside" open>
-                                    <title>GIFT TRAP</title>
-                                    <label>Quem não gosta de receber presentes?</label>
-                                    <summary>
-                                        <img src="images/gifttrap.png">
-                                    </summary>
-                                </details>
+                                <figure class="info rside" open>
+                                    <img src="images/gifttrap.png">
+                                    <figcaption>
+                                        <h2>GIFT TRAP</h2>
+                                        <h3>Quem não gosta de receber presentes?</h3>
+                                    </figcaption>
+                                </figure>
                             </div>
                         </div>
                     </div>
@@ -166,14 +168,14 @@
                           <div class="center-content">
                             <img src="images/two-people.png">
                               <div>2-8</div>
-                            <details class="info lside" open>
-                                <title>KALEIDOS</title>
-                                <label>Uma versão revista e aumentada do STOP. </label>
-                                <summary>
-                                  <img src="images/jogo-kaleidos.png">
-                                </summary>
-                          </details>
-                        </div>
+                                <figure class="info lside" open>
+                                    <img src="images/jogo-kaleidos.png">
+                                    <figcaption>
+                                        <h2>KALEIDOS</h2>
+                                        <h3>Uma versão revista e aumentada do STOP. </h3>
+                                    </figcaption>
+                                </figure>
+                            </div>
                         </div>
                     </div>
                 </article>
@@ -195,13 +197,13 @@
                             <div class="center-content">
                                 <img src="images/clock-icon.png">
                                 <div>45-60</div>
-                                <details  class="info rside" open>
-                                    <title>HIVE</title>
-                                    <label>Dois exércitos de insectos. Quem vence?</label>
-                                    <summary>
-                                      <img src="images/jogo-hive.png">
-                                    </summary>
-                                </details>
+                                <figure  class="info rside" open>
+                                    <img src="images/jogo-hive.png">
+                                    <figcaption>
+                                        <h2>HIVE</h2>
+                                        <h3>Dois exércitos de insectos. Quem vence?</h3>
+                                    </figcaption>
+                                </figure>
                             </div>
                         </div>
                     </div>
@@ -219,13 +221,13 @@
                             <div class="center-content">
                                 <img src="images/two-people.png">
                               <div>2-8</div>
-                                <details class="info lside" open>
-                                    <title>PYLOS</title>
-                                    <label>Pensamento estratégico, destreza e perspicácia.</label>
-                                    <summary>
-                                        <img src="images/pylos.png">
-                                    </summary>
-                                </details>
+                                <figure class="info lside" open>
+                                    <img src="images/pylos.png">
+                                    <figcaption>
+                                        <h2>PYLOS</h2>
+                                        <h3>Pensamento estratégico, destreza e perspicácia.</h3>
+                                    </figcaption>
+                                </figure>
                             </div>
                         </div>
                     </div>
@@ -253,13 +255,13 @@
                             <div class="center-content">
                                 <img src="images/clock-icon.png">
                                 <div>45-60</div>
-                                <details  class="info rside" open>
-                                    <title>FLEX PUZZLER</title>
-                                    <label>Esqueça o cubo mágico</label>
-                                    <summary>
-                                        <img src="images/flexpuzzler.png">
-                                    </summary>
-                                </details>
+                                <figure  class="info rside" open>
+                                    <img src="images/flexpuzzler.png">
+                                    <figcaption>
+                                        <h2>FLEX PUZZLER</h2>
+                                        <h3>Esqueça o cubo mágico</h3>
+                                    </figcaption>
+                                </figure>
                             </div>
                         </div>
                     </div>
@@ -278,19 +280,19 @@
                 <div>
                     <div class="centerme">
                         <h3>Fim-de-Semana fantástico em Oeiras</h3>
-                        <label>A LisboaCon realiza-se este fim-de-semana em Oeiras e a Morapiaf estará, como de costume, presente.</label>
+                        <p>A LisboaCon realiza-se este fim-de-semana em Oeiras e a Morapiaf estará, como de costume, presente.</p>
                     </div>
                 </div>
                 <div>
                     <div class="centerme">
                         <h3>Fim-de-Semana fantástico em Oeiras</h3>
-                        <label>A LisboaCon realiza-se este fim-de-semana em Oeiras e a Morapiaf estará, como de costume, presente.</label>
+                        <p>A LisboaCon realiza-se este fim-de-semana em Oeiras e a Morapiaf estará, como de costume, presente.</p>
                     </div>
                 </div>
                 <div>
                     <div class="centerme">
                         <h3>Fim-de-Semana fantástico em Oeiras</h3>
-                        <label>A LisboaCon realiza-se este fim-de-semana em Oeiras e a Morapiaf estará, como de costume, presente.</label>
+                        <p>A LisboaCon realiza-se este fim-de-semana em Oeiras e a Morapiaf estará, como de costume, presente.</p>
                     </div>
                 </div>
             </section>
@@ -309,16 +311,17 @@
                 </div>
             </footer>
         </section>
-    </main>
+    </div>
 
 
     <!-- build:js(.) scripts/vendor.js -->
     <!-- bower:js -->
     <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/gsap/src/minified/TweenMax.min.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
-    <script src="bower_components/gsap/src/minified/TweenMax.min.js"></script>
+    
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
     <script>
