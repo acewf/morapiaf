@@ -44,19 +44,19 @@ AppEngine.closeMenu = function(){
 	'use strict';
 	//var target = event.target;
 	var d = document.getElementsByClassName('nav-site-menu')[0];
-	TweenMax.to(d, 1, {rotationX:30,y:-$(d).height(), transformOrigin:'bottom center',ease: Sine.easeInOut});
+	TweenMax.to(d, .4, {rotationX:30,y:-$(d).height(), transformOrigin:'bottom center',ease: Sine.easeInOut});
 
 	var c = document.getElementsByClassName('site-contents')[0];
-	TweenMax.to(c, 1, {rotationX:0,y:0, transformOrigin:'top center',ease: Sine.easeInOut});
+	TweenMax.to(c, .4, {rotationX:0,y:0, transformOrigin:'top center',ease: Sine.easeInOut});
 	$('.main-container').removeClass('overflow');
 };
 AppEngine.openMenu = function(){
 	'use strict';
 	var d = document.getElementsByClassName('nav-site-menu')[0];
-	TweenMax.to(d, 1, {rotationX:0,y:0, transformOrigin:'bottom center',ease: Sine.easeInOut});
+	TweenMax.to(d, .4, {rotationX:0,y:0, transformOrigin:'bottom center',ease: Sine.easeInOut});
 
 	var c = document.getElementsByClassName('site-contents')[0];
-	TweenMax.to(c, 1, {rotationX:-30,y:$(d).height(), transformOrigin:'top center',ease: Sine.easeInOut});
+	TweenMax.to(c, .4, {rotationX:-30,y:$(d).height(), transformOrigin:'top center',ease: Sine.easeInOut});
 	$('.main-container').addClass('overflow');
 };
 AppEngine.addEvents = function(){
@@ -77,7 +77,7 @@ AppEngine.moveTween = function(){
 AppEngine.onLoad = function(){
 	'use strict';
 	AppEngine.totem = totem = document.getElementsByClassName('totem')[0];
-	view = document.getElementsByClassName('first-view')[0];
+	view = document.getElementsByClassName('game-view')[0];
 	var tempOrder = [];
 	var rect;
 	var i;
@@ -137,7 +137,6 @@ AppEngine.onLoad = function(){
 
     AppEngine.removeAllClass = removeAllClass;
     AppEngine.addEvents();
-    console.log(AppEngine.moveTween);
     AppEngine.moveTween();
 };
 ///////////////////////////////////////

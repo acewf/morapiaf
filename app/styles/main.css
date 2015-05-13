@@ -51,7 +51,6 @@ nav.nav-site{
 nav.nav-site > button{
     width: 112px;
     height: 94px;
-    -o-border-image: stretch;
     border: none;
     outline: none;
 }
@@ -393,7 +392,7 @@ section figure img{
     -webkit-transform:translate(-50%, -50%);*/
 }
 
-.first-view{
+.game-view{
     text-align: center;
     position: relative;
     z-index: -1;
@@ -583,10 +582,10 @@ figure{
 figure.totem{
    opacity: 1; /* Safari */
 }
-figure.info{
+figure.info-game{
     width: 330px;
 }
-figure.apper{
+figure.show-up{
     opacity: 1;
 }
 figure.rside{

@@ -86,10 +86,10 @@ AppEngine.TweenTransition.end = function(event){
 	totemIsRunning = false;
 	var step = StackManage[0];
 	var box = step.box;
-	var INFO_CHILDS = $(box).find('.info');
+	var INFO_CHILDS = $(box).find('.info-game');
 	if(INFO_CHILDS.length>0){
 		var elementChild = INFO_CHILDS[0];
-		if ($(elementChild).hasClass('apper')) {
+		if ($(elementChild).hasClass('show-up')) {
 			AppEngine.shakeElement(elementChild);
 		}
 	}
@@ -287,11 +287,11 @@ AppEngine.stepManager = function(){
 		}
 		element.setAttribute('target-id',box.id);
 		element.setAttribute('target-index',boxIndex[box.id].index);
-		var INFO_CHILDS = $(box).find('.info');
+		var INFO_CHILDS = $(box).find('.info-game');
 		if(INFO_CHILDS.length>0){
 			var elementChild = INFO_CHILDS[0];
-			if (!($(elementChild).hasClass('apper'))) {
-				$(elementChild).addClass('apper');
+			if (!($(elementChild).hasClass('show-up'))) {
+				$(elementChild).addClass('show-up');
 			}
 		}
 		totemIsRunning = true;
@@ -348,14 +348,12 @@ AppEngine.removeAllClass = function(){
 AppEngine.shakeElement = function(element){
 	'use strict';
 	var repeatCount = 5;
-	var child = $(element).find('figure img')[0];	
+	var child = $(element).find('img')[0];
 	AppEngine.Keepshake(child,repeatCount);
 };
 AppEngine.Keepshake = function(child,times){
 	'use strict';
 	var xGo = 10;
-	console.log(child);
-	return;
 	if (child.style.left==='10px') {
 		xGo = -3;
 	}

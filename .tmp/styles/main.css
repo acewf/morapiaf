@@ -51,7 +51,6 @@ nav.nav-site{
 nav.nav-site > button{
     width: 112px;
     height: 94px;
-    -o-border-image: stretch;
     border: none;
     outline: none;
 }
@@ -97,8 +96,7 @@ nav.nav-site > button{
   top: 50%;
   right: 5px;
   margin-top: -2px;
-  -webkit-transition: background 0.3s 0.3s;
-          transition: background 0.3s 0.3s;
+  transition: background 0.3s 0.3s;
 }
 .close span::before, .close span::after {
   /* other 2 lines */
@@ -113,8 +111,7 @@ nav.nav-site > button{
   -webkit-transform-origin: 0% 50%;
   -ms-transform-origin: 0% 50%;
   transform-origin: 0% 50%;
-  -webkit-transition: -webkit-transform 0.3s 0.3s;
-          transition: -webkit-transform 0.3s 0.3s;
+  transition: -webkit-transform 0.3s 0.3s;
   transition: transform 0.3s 0.3s;
 }
 .close span::before {
@@ -166,8 +163,7 @@ nav.nav-site > button{
     padding: 0;
     margin: 0;
     -o-border-image: none;
-       -webkit-border-image: none;
-            border-image: none;
+       border-image: none;
     border: none;
     position: relative;
     width:30px;
@@ -332,14 +328,10 @@ section figure{
     -ms-transform:rotate(0deg);
 
     
-    -webkit-transition: left .21s, top .2s, -webkit-transform .2s;
-
-    
-            transition: left .21s, top .2s, -webkit-transform .2s;
+    transition: left .21s, top .2s, -webkit-transform .2s;
     transition: left .21s, top .2s, -webkit-transform .22s;
     transition: left .21s, top .2s, transform .22s; /* Safari and Chrome */
-    -webkit-transition-timing-function: linear;
-            transition-timing-function: linear;
+    transition-timing-function: linear;
 }
 section figure.middle{
     left: 205px;
@@ -400,7 +392,7 @@ section figure img{
     -webkit-transform:translate(-50%, -50%);*/
 }
 
-.first-view{
+.game-view{
     text-align: center;
     position: relative;
     z-index: -1;
@@ -585,16 +577,15 @@ figure{
     outline: none;
     /* display: none; */
     opacity: 0; /* Safari */
-    -webkit-transition: opacity 1s;
-            transition: opacity 1s;
+    transition: opacity 1s;
 }
 figure.totem{
    opacity: 1; /* Safari */
 }
-figure.info{
+figure.info-game{
     width: 330px;
 }
-figure.apper{
+figure.show-up{
     opacity: 1;
 }
 figure.rside{
