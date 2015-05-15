@@ -214,6 +214,11 @@ AddDefaultCharset utf-8
   # Options +SymLinksIfOwnerMatch
     RewriteEngine On
   # RewriteBase /
+  RewriteRule ^games/(.*)$ /$1 [QSA]
+  RewriteRule ^aboutus/(.*)$ /$1 [QSA]
+  RewriteRule ^morapiafitems/(.*)$ /$1 [QSA]
+  RewriteRule ^newsletter/(.*)$ /$1 [QSA]
+  RewriteRule ^contactos/(.*)$ /$1 [QSA]
 </IfModule>
 
 # ------------------------------------------------------------------------------

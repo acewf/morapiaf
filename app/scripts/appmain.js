@@ -63,6 +63,35 @@ AppEngine.addEvents = function(){
 	var item = $('button.menu')[0];
 	$('.close').click(AppEngine.closeMenu);
 	$('button.menu').click(AppEngine.openMenu);
+
+	$('.options-menu a').click(function(){
+		var href = $(this).attr('href');
+		event.preventDefault();
+		console.log('Click Event Stoped,',href);
+
+		//document.getElementById("content").innerHTML = response.html;
+     	//document.title = response.pageTitle;
+     	//window.history.pushState({"html":response.html,"pageTitle":response.pageTitle},"", urlPath);
+     	window.history.pushState("object or string", "Title", "/"+href);
+
+     	$(".site-contents").load("includes/"+href+".php", function(responseTxt, statusTxt, xhr){
+     		console.log(responseTxt);
+     		var elem = $(".site-contents")[0];
+     		elem.innerHTML = responseTxt;
+	        if(statusTxt == "success"){
+	        	console.log("External content loaded successfully!");
+	        }   
+	        if(statusTxt == "error"){
+	            console.log("Error: " + xhr.status + ": " + xhr.statusText);
+	        }
+
+
+	        $('.close').click(AppEngine.closeMenu);
+			$('button.menu').click(AppEngine.openMenu);
+	    });
+
+     	AppEngine.closeMenu();
+	});
 }
 AppEngine.moveTween = function(){
 	'use strict';

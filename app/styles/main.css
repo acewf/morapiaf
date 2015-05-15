@@ -206,19 +206,19 @@ ul,.nav-site-menu{
     font-family: 'NeoSansPro-Light';
     -webkit-font-smoothing: antialiased;      -moz-osx-font-smoothing: grayscale;
 }
-ul.options-menu li{
+.options-menu ul li{
     font-size: 36px;
     margin-top: 20px;
 }
-ul.options-menu li a{
+.options-menu ul li a{
     color: #fff;
     text-decoration:none;
     text-transform: capitalize;
 }
-ul.options-menu li a:hover{
+.options-menu ul li a:hover{
     text-decoration: none;
 }
-ul.options-menu .close{
+.options-menu ul .close{
     background-image: url('../images/close_menu.png');
     background-repeat: no-repeat;
 }
@@ -658,6 +658,7 @@ footer nav ul li:first-child{
 footer nav ul li a{
     color: #666666;
     text-decoration: none;
+    display: block;
 }
 footer .facebook-link a{
     color: #888888;

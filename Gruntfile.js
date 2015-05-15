@@ -3,11 +3,11 @@
 var LIVERELOAD_PORT = 35729,
     lrSnippet = require('connect-livereload')({port: LIVERELOAD_PORT}),
     gateway = require('gateway'),
+    rewriteModule = require('http-rewrite-middleware'),
     path = require('path'),
     mountFolder = function (connect, dir) {
         return connect.static(require('path').resolve(dir));
     };
-
 
 module.exports = function (grunt) {
 
@@ -376,7 +376,7 @@ module.exports = function (grunt) {
          */
         open: {
             app: {
-                path: 'http://<%= connect.options.hostname %>:<%= connect.options.port %>/index.php'
+                path: 'http://<%= connect.options.hostname %>:<%= connect.options.port %>/'
             },
             dist: {
                 path: 'http://<%= connect.options.hostname %>:<%= connect.options.port %>/index.php'
@@ -389,19 +389,48 @@ module.exports = function (grunt) {
             options: {
                 port: 9000,
                 // change this to '0.0.0.0' to access the server from outside
-                hostname: '127.0.0.1'
+                hostname: 'localhost'
             },
             livereload: {
                 options: {
-                    middleware: function (connect) {
-                        return [
-                            lrSnippet,
+                    open: true,
+                    base: [
+                        '.tmp',
+                        '<%= yeoman.app %>'
+                    ],
+                    middleware: function (connect, options) {
+                        var middlewares = [lrSnippet,
                             gateway(__dirname + path.sep + yeomanConfig.app, {
                                 '.php': 'php-cgi'
                             }),
                             mountFolder(connect, '.tmp'),
-                            mountFolder(connect, yeomanConfig.app)
+                            mountFolder(connect, yeomanConfig.app),
+                            rewriteModule.getMiddleware([
+                                // Internal rewrite
+                                {from: '^/games', to: '/index.php'},
+                                {from: '^/aboutus', to: '/index.php'},
+                                {from: '^/morapiafitems', to: '/index.php'},
+                                {from: '^/newsletter', to: '/index.php'},
+                                {from: '^/contactos', to: '/index.php'}
+                            ])
                         ];
+
+                        if (!Array.isArray(options.base)) {
+                            options.base = [options.base];
+                        }
+
+                        var directory = options.directory || options.base[options.base.length - 1];
+                        options.base.forEach(function (base) {
+                            // Serve static files.
+                            middlewares.push(gateway(__dirname + path.sep + yeomanConfig.app, {
+                                '.php': 'php-cgi'
+                            }));
+                            //middlewares.push(connect.static(base));
+                        });
+
+                        // Make directory browse-able.
+                        middlewares.push(connect.directory(directory));
+                        return middlewares;
                     }
                 }
             },
@@ -444,6 +473,9 @@ module.exports = function (grunt) {
             }
         }
     });
+
+    grunt.loadNpmTasks('grunt-contrib-connect');
+    grunt.loadNpmTasks('http-rewrite-middleware');
 
     grunt.registerTask('server', function (target) {
         grunt.log.warn('This task is deprecated. Use `grunt serve` instead.');

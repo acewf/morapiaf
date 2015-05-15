@@ -12,15 +12,16 @@ var require = {
         library: '../scripts/library',
         jquery: 'jquery/dist/jquery',
         TweenMax: 'gsap/src/uncompressed/TweenMax',
-        loglevel: 'loglevel/dist/loglevel.min'
+        loglevel: 'loglevel/dist/loglevel.min',
+        gsap: 'gsap/src/uncompressed/TweenMax',
+        picturefill: 'picturefill/dist/picturefill'
     },
     shim: {
-        'mainapp': {
-            //These script dependencies should be loaded before loading
-            //backbone.js
-            deps: ['eurom','jquery'],
-            //Once loaded, use the global 'mainapp' as the
-            //module value.
+        mainapp: {
+            deps: [
+                'eurom',
+                'jquery'
+            ],
             exports: 'mainapp'
         }
     },
