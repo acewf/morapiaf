@@ -4,9 +4,10 @@ var require = {
     paths: {
         main: '../scripts/main',
         app: '../scripts/app',
+        appmenu: '../scripts/appmenu',
         eurom: '../scripts/com-euro',
         stepmanager: '../scripts/step-manager',
-        mainapp: '../scripts/appmain',
+        appmain: '../scripts/appmain',
         smoothscroll: '../scripts/vendor/smoothscroll',
         component: '../scripts/component',
         library: '../scripts/library',
@@ -17,12 +18,21 @@ var require = {
         picturefill: 'picturefill/dist/picturefill'
     },
     shim: {
-        mainapp: {
+        appmain: {
             deps: [
                 'eurom',
+                'TweenMax',
                 'jquery'
             ],
-            exports: 'mainapp'
+            exports: 'appmain'
+        },
+        appmenu: {
+            deps: [
+                'eurom',
+                'TweenMax',
+                'jquery'
+            ],
+            exports: 'appmenu'
         }
     },
     packages: [

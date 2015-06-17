@@ -5,6 +5,16 @@
 <!--[if IE 9]>         <html class="no-js lt-ie10"> <![endif]-->
 <!--[if gt IE 9]><!--> <html class="no-js"> <!--<![endif]-->
     <head>
+        <?php
+                require_once dirname(__FILE__).'/includes/address-filter.php';
+                $folder = '/';
+                $lang = '';
+                if($_SERVER['SERVER_NAME']==='127.0.0.1'){
+                    $basePath = 'http://'.$_SERVER['SERVER_NAME'].':'.$_SERVER['SERVER_PORT'].$folder; 
+                } else {
+                    $basePath = 'http://'.$_SERVER['SERVER_NAME'].$folder;
+                }
+            ?>
         <?php include(dirname(__FILE__).'/includes/head.php'); ?>
     </head>
     <body>
@@ -35,15 +45,16 @@
             </nav>
             <section class="site-contents">
                 <?php 
-                $localPath = $_SERVER['REQUEST_URI'];
-                $path = substr($localPath, 1, strlen($localPath)-1);
-                if ($path=='') {
-                    $path = 'main-content';
-                }
+                    $Adress = new AdressChecker();
+                    $pathObj = $Adress->getPhpToUrl('');
+                    $path = $pathObj->path;
                 ?>
                 <?php include(dirname(__FILE__).'/includes/'.$path.'.php'); ?>
                 <?php include(dirname(__FILE__).'/includes/footer-destaques.php'); ?>
                 <?php include(dirname(__FILE__).'/includes/footer.php'); ?>
+                <script type="text/javascript">
+                var contentmodule = '<?php echo $path ?>';
+                </script>
             </section>
         </div>
         <?php include(dirname(__FILE__).'/includes/footerscripts.php'); ?>

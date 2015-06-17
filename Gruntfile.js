@@ -376,7 +376,7 @@ module.exports = function (grunt) {
          */
         open: {
             app: {
-                path: 'http://<%= connect.options.hostname %>:<%= connect.options.port %>/'
+                path: 'http://<%= connect.options.hostname %>:<%= connect.options.port %>/index.php'
             },
             dist: {
                 path: 'http://<%= connect.options.hostname %>:<%= connect.options.port %>/index.php'
@@ -389,15 +389,10 @@ module.exports = function (grunt) {
             options: {
                 port: 9000,
                 // change this to '0.0.0.0' to access the server from outside
-                hostname: 'localhost'
+                hostname: '127.0.0.1'
             },
             livereload: {
                 options: {
-                    open: true,
-                    base: [
-                        '.tmp',
-                        '<%= yeoman.app %>'
-                    ],
                     middleware: function (connect, options) {
                         var middlewares = [lrSnippet,
                             gateway(__dirname + path.sep + yeomanConfig.app, {
@@ -407,12 +402,8 @@ module.exports = function (grunt) {
                             mountFolder(connect, yeomanConfig.app),
                             rewriteModule.getMiddleware([
                                 // Internal rewrite
-                                {from: '^/games', to: '/index.php'},
-                                {from: '^/aboutus', to: '/index.php'},
-                                {from: '^/morapiafitems', to: '/index.php'},
-                                {from: '^/newsletter', to: '/index.php'},
-                                {from: '^/contactos', to: '/index.php'}
-                            ])
+                                {from: '^/(.*)$', to: '/index.php'}
+                            ],{verbose: true})
                         ];
 
                         if (!Array.isArray(options.base)) {
@@ -420,7 +411,7 @@ module.exports = function (grunt) {
                         }
 
                         var directory = options.directory || options.base[options.base.length - 1];
-                        options.base.forEach(function (base) {
+                        options.base.forEach(function () {
                             // Serve static files.
                             middlewares.push(gateway(__dirname + path.sep + yeomanConfig.app, {
                                 '.php': 'php-cgi'
@@ -473,9 +464,6 @@ module.exports = function (grunt) {
             }
         }
     });
-
-    grunt.loadNpmTasks('grunt-contrib-connect');
-    grunt.loadNpmTasks('http-rewrite-middleware');
 
     grunt.registerTask('server', function (target) {
         grunt.log.warn('This task is deprecated. Use `grunt serve` instead.');

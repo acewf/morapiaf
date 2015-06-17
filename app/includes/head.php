@@ -1,4 +1,10 @@
-<?php /* HEADER */ ?>
+<?php 
+if($_SERVER['SERVER_NAME']==='127.0.0.1'){
+    $basePath = 'http://'.$_SERVER['SERVER_NAME'].':'.$_SERVER['SERVER_PORT'].$folder; 
+} else {
+    $basePath = 'http://'.$_SERVER['SERVER_NAME'].$folder;
+}
+ ?>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <title>morapiaf site</title>
@@ -15,5 +21,6 @@
 
 
         <!-- build:css styles/main.css -->
-<link rel="stylesheet" href="styles/main.css">
+<link rel="stylesheet" href="<?php echo $basePath; ?>styles/main.css">
+<link rel="stylesheet" href="<?php echo $basePath; ?>styles/fonticon.css">
         <!-- endbuild -->

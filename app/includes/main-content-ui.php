@@ -1,6 +1,9 @@
 <?php /* UI Destaques */ ?>
 <nav class="nav-site">
-    <button class="search"></button>
+    <div class="search">
+        <div class="icon-magnifying-glass"></div>
+        <input type="text">
+    </div>
     <button class="menu"></button>
 </nav>
 <header class="header">
@@ -213,3 +216,16 @@
         <button>ver todos os jogos<img alt="small arrow right symboll" src="images/arrow-right.fw.png"></button>
     </article>
 </section>
+<script>
+if (typeof requirejs == 'function') {
+    requirejs(['appmain'],function(module){
+        try{
+            console.log('Can Init Class App Main');
+            //appmenu.addModule(module);
+            //module.init();
+        }catch(err) {
+            console.log(err.message);
+        }  
+    });
+}
+</script>

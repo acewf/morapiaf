@@ -54,8 +54,11 @@ nav.nav-site > button{
     border: none;
     outline: none;
 }
+nav.nav-site > div{
+  
+}
 .search {
-    background-image: url(../images/menu-search.png);
+   
 }
 
 .nav-site {
