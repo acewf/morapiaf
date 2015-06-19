@@ -1,8 +1,11 @@
 define(['appmenu'], function(app) {
-
 	function Menu(){
 
 	}
+
+    Menu.prototype.init = function(){
+        console.log('appmenu::MENU::INIT::');
+    }
 
 	Menu.prototype.addEventListener = function(a,b){
         'use strict';

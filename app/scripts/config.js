@@ -1,13 +1,13 @@
 /* jshint -W098,-W079 */
 var require = {
-    baseUrl: '../bower_components',
+    baseUrl: '/bower_components',
     paths: {
         main: '../scripts/main',
         app: '../scripts/app',
-        appmenu: '../scripts/appmenu',
-        eurom: '../scripts/com-euro',
-        stepmanager: '../scripts/step-manager',
         appmain: '../scripts/appmain',
+        appmenu: '../scripts/appmenu',
+        comeuro: '../scripts/comeuro',
+        stepmanager: '../scripts/step-manager',
         smoothscroll: '../scripts/vendor/smoothscroll',
         component: '../scripts/component',
         library: '../scripts/library',
@@ -20,7 +20,6 @@ var require = {
     shim: {
         appmain: {
             deps: [
-                'eurom',
                 'TweenMax',
                 'jquery'
             ],
@@ -28,8 +27,9 @@ var require = {
         },
         appmenu: {
             deps: [
-                'eurom',
                 'TweenMax',
+                'comeuro',
+                'stepmanager',
                 'jquery'
             ],
             exports: 'appmenu'

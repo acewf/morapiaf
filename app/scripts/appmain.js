@@ -3,32 +3,28 @@
 ////Date: 05/05/2015
 ////Company:euro-m.pt
 //////////////  AREAS DE JOGO  /////////////////////////
-define(['mainapp','eurom'], function(app,eurom) {
-	console.log(eurom);
-	var com = (com)?com=com:null;
-	var TweenMax = (TweenMax)?TweenMax=TweenMax:null;
-	var AppEngine = (AppEngine)?AppEngine=AppEngine:null;
-	var screenAreas = [];
-	screenAreas.push({class:'.familia',hash:'familia'});
-	screenAreas.push({class:'.festa',hash:'festa'});
-	screenAreas.push({class:'.especialistas',hash:'especialistas'});
-	screenAreas.push({class:'.classicos',hash:'classicos'});
-	screenAreas.push({class:'.outros',hash:'outros'});
-	/////////////// INIT TOOLS //////////////////
-	var ToolQuery = new com.euro();
-	////////////// INIT VARIABLES ////////////////////
+define(['appmain','comeuro','stepmanager','TweenMax'], function(app,com,appEngine,tweenMax) {
+	console.log('+appmain+');
+
 	var boxIndex = [];
 	var view;
 	var totalElem;
 	var totem;
-	AppEngine.gotoInit = false;
-	AppEngine.diferenca = 0;
-	AppEngine.lastOffsetY = 0;
-	AppEngine.directionY = 0;
-	AppEngine.LastdirectionY = 0;
-	AppEngine.scrolledItemID = 0;
-	AppEngine.totem = null;
-
+	var ToolQuery = new com.euro();
+	var boardEng = new appEngine(ToolQuery);
+	
+	boardEng.addScreensArea({class:'.familia',hash:'familia'});
+	boardEng.addScreensArea({class:'.festa',hash:'festa'});
+	boardEng.addScreensArea({class:'.especialistas',hash:'especialistas'});
+	boardEng.addScreensArea({class:'.classicos',hash:'classicos'});
+	boardEng.addScreensArea({class:'.outros',hash:'outros'});
+	/////////////// INIT TOOLS //////////////////
+	
+	////////////// INIT VARIABLES ////////////////////
+	
+	
+	/*-------*/
+	console.log(tweenMax,appEngine,TweenMax);
 
 	var removeAllClass = function(){
 		'use strict';
@@ -42,29 +38,29 @@ define(['mainapp','eurom'], function(app,eurom) {
 		$(totem).removeClass('go-back-left');
 	};
 
-	AppEngine.closeMenu = function(){
+	appEngine.closeMenu = function(){
 		'use strict';
 		//var target = event.target;
 		var d = document.getElementsByClassName('nav-site-menu')[0];
-		TweenMax.to(d, .4, {rotationX:30,y:-$(d).height(), transformOrigin:'bottom center',ease: Sine.easeInOut});
+		tweenMax.to(d, .4, {rotationX:30,y:-$(d).height(), transformOrigin:'bottom center',ease: Sine.easeInOut});
 
 		var c = document.getElementsByClassName('site-contents')[0];
-		TweenMax.to(c, .4, {rotationX:0,y:0, transformOrigin:'top center',ease: Sine.easeInOut});
+		tweenMax.to(c, .4, {rotationX:0,y:0, transformOrigin:'top center',ease: Sine.easeInOut});
 		$('.main-container').removeClass('overflow');
 	};
-	AppEngine.openMenu = function(){
+	appEngine.openMenu = function(){
 		'use strict';
 		var d = document.getElementsByClassName('nav-site-menu')[0];
-		TweenMax.to(d, .4, {rotationX:0,y:0, transformOrigin:'bottom center',ease: Sine.easeInOut});
+		tweenMax.to(d, .4, {rotationX:0,y:0, transformOrigin:'bottom center',ease: Sine.easeInOut});
 
 		var c = document.getElementsByClassName('site-contents')[0];
-		TweenMax.to(c, .4, {rotationX:-30,y:$(d).height(), transformOrigin:'top center',ease: Sine.easeInOut});
+		tweenMax.to(c, .4, {rotationX:-30,y:$(d).height(), transformOrigin:'top center',ease: Sine.easeInOut});
 		$('.main-container').addClass('overflow');
 	};
-	AppEngine.addEvents = function(){
+	appEngine.addEvents = function(){
 		var item = $('button.menu')[0];
-		$('.close').click(AppEngine.closeMenu);
-		$('button.menu').click(AppEngine.openMenu);
+		$('.close').click(appEngine.closeMenu);
+		$('button.menu').click(appEngine.openMenu);
 
 		$('.options-menu a').click(function(){
 			var href = $(this).attr('href');
@@ -88,26 +84,25 @@ define(['mainapp','eurom'], function(app,eurom) {
 		        }
 
 
-		        $('.close').click(AppEngine.closeMenu);
-				$('button.menu').click(AppEngine.openMenu);
+		        $('.close').click(appEngine.closeMenu);
+				$('button.menu').click(appEngine.openMenu);
 		    });
 
-	     	AppEngine.closeMenu();
+	     	appEngine.closeMenu();
 		});
 	}
-	AppEngine.moveTween = function(){
+	appEngine.moveTween = function(){
 		'use strict';
-		 var main = $('.main-container')[0];
-		 $('.main-container').addClass('overflow');
-		TweenMax.set(main, {perspective: 500});
+		var main = $('.main-container')[0];
+		$('.main-container').addClass('overflow');
+		tweenMax.set(main, {perspective: 500});
 		var d = document.getElementsByClassName('bothpanels')[0];
 		var c = document.getElementsByClassName('site-contents')[0];
-		//TweenMax.to(d, 0, {rotationX:50,y:-$(d).height(), transformOrigin:'top center',ease: Sine.easeInOut});
 		TweenMax.to(c, 0, {rotationX:-10,y:$(d).height(), transformOrigin:'top center',ease: Sine.easeInOut});
 	};
-	AppEngine.onLoad = function(){
+	appEngine.onLoad = function(){
 		'use strict';
-		AppEngine.totem = totem = document.getElementsByClassName('totem')[0];
+		boardEng.totem = totem = document.getElementsByClassName('totem')[0];
 		view = document.getElementsByClassName('game-view')[0];
 		var tempOrder = [];
 		var rect;
@@ -120,18 +115,22 @@ define(['mainapp','eurom'], function(app,eurom) {
 			totalElem[i].id = 'npeca-'+i;
 			boxIndex[totalElem[i].id] = {element:totalElem[i],index:i};
 		}
+		boardEng.updateTotalElem(totalElem);
+		boardEng.updateBoxIndex(boxIndex);
+		boardEng.applyView(view);
 		var scrollme = function (offsetY) {
-			if (AppEngine.lastOffsetY<offsetY) {
-				AppEngine.directionY = 0;
+			if (boardEng.lastOffsetY<offsetY) {
+				boardEng.directionY = 0;
 			} else {
-				AppEngine.directionY = 1;
+				boardEng.directionY = 1;
 			}
 			if(offsetY>250){
-				AppEngine.gotoInit = false;
+				boardEng.gotoInit = false;
 				var element;
-				tempOrder = AppEngine.orderElementsByDistance(h);
+				tempOrder = boardEng.orderElementsByDistance(h);
 				var temp = tempOrder.sort(ToolQuery.sortByCondition());
 				element = temp[0].element;
+
 				var responseTotalElements = $(element).find('.piece-block');
 				rect = element.getBoundingClientRect();
 				var rHeight = rect.height;
@@ -150,13 +149,13 @@ define(['mainapp','eurom'], function(app,eurom) {
 				}
 				var responseIndex = Math.round((responseTotalElements.length-1)*inViewPercent);
 				var square = responseTotalElements[responseIndex];
-				AppEngine.AddOrCheckSteps(square,totem);
+				boardEng.AddOrCheckSteps(square,totem);
 				lastSquare = square;		
 			} else {
-				AppEngine.gotoInit = true;
+				boardEng.gotoInit = true;
 			}
-			AppEngine.lastOffsetY = offsetY;
-			AppEngine.LastdirectionY = AppEngine.directionY;
+			boardEng.lastOffsetY = offsetY;
+			boardEng.LastdirectionY = boardEng.directionY;
 	    };
 	    var scrollEvent = function(){
 	    	lastScrollPos = window.pageYOffset;
@@ -166,13 +165,14 @@ define(['mainapp','eurom'], function(app,eurom) {
 	    scrollEvent();
 	    window.onscroll = scrollEvent;
 
-	    AppEngine.removeAllClass = removeAllClass;
-	    AppEngine.addEvents();
-	    AppEngine.moveTween();
+	    appEngine.removeAllClass = removeAllClass;
+	    appEngine.addEvents();
+	    appEngine.moveTween();
 	};
 	///////////////////////////////////////
 	//////////// APP EVENTS ADD //////////
 
 	//////    INIT APP ///////////
-	AppEngine.onLoad();
+	appEngine.onLoad();
+	
 });
