@@ -142,7 +142,7 @@ define(function() {
 				'use strict';
 				var target = event.target;
 				if (StackManage.length>0) {
-					if (StackManage[0].totalTransition>=0) {
+					if (StackManage[0].totalTransition>0) {
 						StackManage[0].totalTransition--;
 					};					
 					if (StackManage[0].totalTransition===0) {
@@ -225,8 +225,9 @@ define(function() {
 		if ((StepDif>1) || (StepDif<-1) ) {
 			return;
 		}
-
+		console.log('MANDA CORRER....',totemIsRunning);
 		if (!totemIsRunning) {
+			console.log('CALL STEP MANAGER..#-#..')
 			instance.stepManager();
 		}
 	};
@@ -304,7 +305,7 @@ define(function() {
 				}
 			}
 			//instance.TweenTransition().isTheEnd
-			element.addEventListener('transitionend',transiti);
+			element.addEventListener('transitionend',instance.TweenTransition().isTheEnd);
 
 			console.log(box,'StackManage length:::',StackManage.length);
 			
