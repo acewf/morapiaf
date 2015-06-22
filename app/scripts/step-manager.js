@@ -50,13 +50,6 @@ define(function() {
 		this.screenAreas.push(objScreen);
 	}
 
-	/*
-	AppEngine.groupBy = {};	
-	AppEngine.groupBy.lado = ['left','middle','middle-right','right'];
-	AppEngine.groupBy.back = ['go-back-right','go-back-left','rotate-right','rotate-left','rotate-down','rotate-right-special','rotate-back-left-special'];
-	AppEngine.groupBy.rotacao = ['rotate-right','rotate-left','rotate-down','go-back-right','go-back-left'];
-	*/
-
 	AppEngine.prototype.nextTweenPoints = function(square,totem,goDownDirection){
 		'use strict';
 		var rectElement = square.getBoundingClientRect();
@@ -118,43 +111,39 @@ define(function() {
 		return tweenClass;
 	};
 	////////////////////////////////////  TRANSITION LISTNERS ////////////////////////////////////
-	AppEngine.prototype.TweenTransition = function(){
+	AppEngine.prototype.TweenEnd = function(){
+		'use strict';
 		var instance = this;
-		return {
-			end:function(event){
-				'use strict';
-				var target = event.target;
-				instance.scrolledItemID = target.getAttribute('target-index');
-				totemIsRunning = false;
-				var step = StackManage[0];
-				var box = step.box;
-				var INFO_CHILDS = $(box).find('.info-game');
-				if(INFO_CHILDS.length>0){
-					var elementChild = INFO_CHILDS[0];
-					if ($(elementChild).hasClass('show-up')) {
-						instance.shakeElement(elementChild);
-					}
-				}
-				console.log('Time:end step:',Math.floor(Date.now() / 1000));
-				instance.removeStep(false);
-			},
-			isTheEnd:function(event){
-				'use strict';
-				var target = event.target;
-				if (StackManage.length>0) {
-					if (StackManage[0].totalTransition>0) {
-						StackManage[0].totalTransition--;
-					};					
-					if (StackManage[0].totalTransition===0) {
-						target.removeEventListener('transitionend',instance.TweenTransition().isTheEnd);
-						instance.TweenTransition().end(event);
-					}
-				} else {
-
-				}		
+		var target = event.target;
+		instance.scrolledItemID = target.getAttribute('target-index');
+		totemIsRunning = false;
+		var step = StackManage[0];
+		var box = step.box;
+		var INFO_CHILDS = $(box).find('.info-game');
+		if(INFO_CHILDS.length>0){
+			var elementChild = INFO_CHILDS[0];
+			if ($(elementChild).hasClass('show-up')) {
+				instance.shakeElement(elementChild);
 			}
-		};
-	};
+		}
+		instance.removeStep(false);
+	}
+	AppEngine.prototype.isTheEnd = function(event){
+		'use strict';
+		var instance = this;
+		console.log('IS THE END:::::==========',StackManage.length);
+		var target = event.target;
+		if (StackManage.length>0) {
+			if (StackManage[0].totalTransition>0) {
+				StackManage[0].totalTransition--;
+			};					
+			if (StackManage[0].totalTransition===0) {
+				console.log('--- REMOVED LISTNER ---',target);
+				target.removeEventListener('transitionend',instance.isTheEnd);
+				instance.TweenEnd(event);
+			}
+		}		
+	}
 	////////////////////////////////////////////////////////////////////////
 	AppEngine.prototype.checkDiference = function(boxsquare){
 		'use strict';
@@ -225,9 +214,10 @@ define(function() {
 		if ((StepDif>1) || (StepDif<-1) ) {
 			return;
 		}
-		console.log('MANDA CORRER....',totemIsRunning);
+		if (StackManage.length>3) {
+			var m = StackManage;
+		};
 		if (!totemIsRunning) {
-			console.log('CALL STEP MANAGER..#-#..')
 			instance.stepManager();
 		}
 	};
@@ -271,10 +261,7 @@ define(function() {
 	    var values = tr.split('(')[1];
 	    values = values.split(')')[0];
 	    values = values.split(',');
-	    //var a = values[0]; // 0.866025
-		var b = values[1]; // 0.5
-		//var c = values[2]; // -0.5
-		//var d = values[3]; // 0.866025
+		var b = values[1];
 		var angle = Math.round(Math.asin(b) * (180/Math.PI));	
 
 		return angle;
@@ -289,26 +276,11 @@ define(function() {
 			var box = StackManage[0].box;
 			var angle = 0;
 			StackManage[0].totalTransition = 0;
-
-			console.log('Time:add step:',Math.floor(Date.now() / 1000));
-
-			function transiti(){
-				console.log('Time:transitionend step:',Math.floor(Date.now() / 1000));
-				if (StackManage.length>0) {
-					console.log(StackManage[0].totalTransition);
-					if (StackManage[0].totalTransition>=0) {
-						StackManage[0].totalTransition--;
-					};					
-					if (StackManage[0].totalTransition===0) {
-						instance.removeStep(false);
-					}
-				}
-			}
-			//instance.TweenTransition().isTheEnd
-			element.addEventListener('transitionend',instance.TweenTransition().isTheEnd);
-
-			console.log(box,'StackManage length:::',StackManage.length);
-			
+			console.log(Math.floor(Date.now() / 1000),'--- ADDED EVENT LISTNER TRANSITION END ---',[].concat(StackManage));
+			console.log(element);
+			element.addEventListener('transitionend',function(event){
+				instance.isTheEnd(event);
+			});
 			for (var i = 0; i < tweens.length; i++) {	
 				if (tweens[i].style) {
 					if (!($(element).hasClass(tweens[i].style))) {
@@ -356,7 +328,6 @@ define(function() {
 					}				
 				}			
 			}
-			console.log('TWEEN CLASSES ADDED.....');
 			element.setAttribute('target-id',box.id);
 			element.setAttribute('target-index',instance.boxIndex[box.id].index);
 			var INFO_CHILDS = $(box).find('.info-game');
@@ -387,6 +358,7 @@ define(function() {
 		var instance = this;
 		if(StackManage.length>0){
 			StackManage.shift();
+			console.log('-REMOVE STEP -#- *_*_* RUN STEP MANAGER');
 			instance.stepManager();
 		}
 	};

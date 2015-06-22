@@ -6,6 +6,19 @@
 define(['appmain','comeuro','stepmanager','TweenMax'], function(app,com,appEngine,tweenMax) {
 	console.log('+appmain+');
 
+
+	function MainApp(){
+
+
+	}
+	MainApp.prototype.init = function(first_argument) {
+		console.log('-INIT MAIN APP-');
+	};
+
+	MainApp.prototype.addEvents = function(first_argument) {
+		// body...
+	};
+
 	var boxIndex = [];
 	var view;
 	var totalElem;
@@ -21,11 +34,6 @@ define(['appmain','comeuro','stepmanager','TweenMax'], function(app,com,appEngin
 	/////////////// INIT TOOLS //////////////////
 	
 	////////////// INIT VARIABLES ////////////////////
-	
-	
-	/*-------*/
-	console.log(tweenMax,appEngine,TweenMax);
-
 	var removeAllClass = function(){
 		'use strict';
 		$(totem).removeClass('middle');
@@ -65,11 +73,6 @@ define(['appmain','comeuro','stepmanager','TweenMax'], function(app,com,appEngin
 		$('.options-menu a').click(function(){
 			var href = $(this).attr('href');
 			event.preventDefault();
-			console.log('Click Event Stoped,',href);
-
-			//document.getElementById("content").innerHTML = response.html;
-	     	//document.title = response.pageTitle;
-	     	//window.history.pushState({"html":response.html,"pageTitle":response.pageTitle},"", urlPath);
 	     	window.history.pushState("object or string", "Title", "/"+href);
 
 	     	$(".site-contents").load("includes/"+href+".php", function(responseTxt, statusTxt, xhr){
@@ -82,8 +85,6 @@ define(['appmain','comeuro','stepmanager','TweenMax'], function(app,com,appEngin
 		        if(statusTxt == "error"){
 		            console.log("Error: " + xhr.status + ": " + xhr.statusText);
 		        }
-
-
 		        $('.close').click(appEngine.closeMenu);
 				$('button.menu').click(appEngine.openMenu);
 		    });
@@ -157,12 +158,22 @@ define(['appmain','comeuro','stepmanager','TweenMax'], function(app,com,appEngin
 			boardEng.lastOffsetY = offsetY;
 			boardEng.LastdirectionY = boardEng.directionY;
 	    };
+	    var values =[0,100,200,300,600,800,1200,1400,1600];
 	    var scrollEvent = function(){
 	    	lastScrollPos = window.pageYOffset;
-	    	scrollme(window.pageYOffset);
+	    	//scrollme(window.pageYOffset);
+	    	/*
+	    	if (values.length>0) {
+	    		console.log(values[0]);
+	    		scrollme(values[0]);
+	    		values.shift();
+	    	} else {
+	    		console.log('[M|M]');
+	    	}
+	    	*/    	
 	    };
 	    var lastScrollPos = window.pageYOffset;
-	    scrollEvent();
+	    //scrollme(window.pageYOffset);
 	    window.onscroll = scrollEvent;
 
 	    appEngine.removeAllClass = removeAllClass;
@@ -171,8 +182,9 @@ define(['appmain','comeuro','stepmanager','TweenMax'], function(app,com,appEngin
 	};
 	///////////////////////////////////////
 	//////////// APP EVENTS ADD //////////
-
 	//////    INIT APP ///////////
-	appEngine.onLoad();
-	
+	appEngine.onLoad();	
+
+	var m = new MainApp();
+	return m;
 });

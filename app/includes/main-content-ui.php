@@ -1,6 +1,6 @@
 <?php /* UI Destaques */ ?>
 <nav class="nav-site">
-    <div class="search">
+    <div class="search open">
         <div class="icon-magnifying-glass"></div>
         <input type="text">
     </div>
