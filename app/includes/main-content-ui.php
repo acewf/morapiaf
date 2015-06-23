@@ -1,6 +1,6 @@
 <?php /* UI Destaques */ ?>
 <nav class="nav-site">
-    <div class="search open">
+    <div class="search">
         <div class="icon-magnifying-glass"></div>
         <input type="text">
     </div>
@@ -43,6 +43,7 @@
                         </figcaption>
                     </figure>
                 </div>
+                <div class="icon-board-right icon-arrow-sans-right"></div>
             </div>
         </div>
         <div class="linha rh-align">
@@ -53,8 +54,8 @@
         <div class="linha">
             <div class="piece-block double rounded-br go-right"></div>
             <div class="piece-block rounded-bl">
-              <div class="center-content">
-                   <div class="center-content">
+                <div class="center-content">
+                    <div class="center-content">
                     <img alt="number of people icon" src="images/two-people.png">
                       <div>2-8</div>
                       <figure class="info-game lside">
@@ -66,6 +67,7 @@
                       </figure>
                   </div>
                 </div>
+                <div class="icon-board-left icon-arrow-sans-left"></div>
             </div>
         </div>
     </article>
@@ -96,6 +98,7 @@
                         </figcaption>
                     </figure>
                 </div>
+                <div class="icon-board-right icon-arrow-sans-right"></div>
             </div>
         </div>
         <div class="linha rh-align">
@@ -113,10 +116,11 @@
                         <img alt="game image" src="images/jogo-kaleidos.png">
                         <figcaption>
                             <h2>KALEIDOS</h2>
-                            <h3>Uma versão revista e aumentada do STOP. </h3>
+                            <h3>Uma versão revista e aumentada do STOP.</h3>
                         </figcaption>
                     </figure>
                 </div>
+                <div class="icon-board-left icon-arrow-sans-left"></div>
             </div>
         </div>
     </article>
@@ -146,6 +150,7 @@
                         </figcaption>
                     </figure>
                 </div>
+                <div class="icon-board-right icon-arrow-sans-right"></div>
             </div>
         </div>
     </article>
@@ -170,6 +175,7 @@
                         </figcaption>
                     </figure>
                 </div>
+                <div class="icon-board-left icon-arrow-sans-left"></div>
             </div>
         </div>
         <div class="linha lh-align">
@@ -204,6 +210,7 @@
                         </figcaption>
                     </figure>
                 </div>
+                <div class="icon-board-right icon-arrow-sans-right"></div>
             </div>
         </div>
         <div class="linha">
@@ -213,7 +220,10 @@
         </div>
     </article>
     <article>
-        <button>ver todos os jogos<img alt="small arrow right symboll" src="images/arrow-right.fw.png"></button>
+        <a>ver todos os jogos<div class="icon-inline icon-arrow-line-right"></div></a>
+    </article>
+    <article>
+        my text
     </article>
 </section>
 <script>

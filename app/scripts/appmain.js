@@ -6,17 +6,28 @@
 define(['appmain','comeuro','stepmanager','TweenMax'], function(app,com,appEngine,tweenMax) {
 	console.log('+appmain+');
 
-
 	function MainApp(){
 
 
 	}
 	MainApp.prototype.init = function(first_argument) {
 		console.log('-INIT MAIN APP-');
+		this.addEvents();
 	};
 
 	MainApp.prototype.addEvents = function(first_argument) {
 		// body...
+		$('.search input').focusin(function(ev) {
+			var target = event.target;
+			$(target.parentNode).addClass('open');
+			
+		  console.log('ADD CLASS OPEN');
+		});
+		$('.search input').focusout(function() {
+		  console.log('REMOVE CLASS OPEN');
+		  var target = event.target;
+		  $(target.parentNode).removeClass('open');
+		});
 	};
 
 	var boxIndex = [];

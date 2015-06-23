@@ -47,7 +47,6 @@ nav.nav-site{
     right: 20px;
     top: 27px;
     z-index: 10;
-    min-width: 240px;
 }
 nav.nav-site > button{
     width: 112px;
@@ -80,9 +79,12 @@ nav.nav-site .icon-magnifying-glass:before{
    background-color: #444444;
    display: inline-block;
    position: relative;
+   -webkit-transition: width .5s; /* Safari */
+    transition: width .5s;
 }
 .search.open{
   width: 600px;
+  cursor: default;
 }
 .search input{
   font-family: 'Lato';
@@ -98,9 +100,12 @@ nav.nav-site .icon-magnifying-glass:before{
   border: none;
   background-color: transparent;
   position: absolute;
+  cursor: pointer;
 }
+
 .search.open input{
   opacity: 1;
+  cursor:auto;
 }
 
 .nav-site {
@@ -442,13 +447,17 @@ section figure img{
     position: relative;
     z-index: -1;
     overflow: initial;
+
+    -webkit-user-select: all;
+  -ms-user-select: all;
+  user-select: all;
 }
 div.main-container section.site-contents{
-    max-width: none;
-    display: block;
-    overflow: hidden;
-    position: absolute;
-    width:100%;
+  max-width: none;
+  display: block;
+  overflow: hidden;
+  position: absolute;
+  width:100%;
 }
 section .game-board{
     width: 480px;
@@ -458,9 +467,28 @@ section article.game-board:nth-child(3){
     margin-top: 80px;
 }
 article:last-child{
-    margin-top: 60px;
-    margin-bottom: 60px;
+  margin-top: 60px;
+  margin-bottom: 60px;
+
+  -webkit-user-select: all;
+  -ms-user-select: all;
+  user-select: all;
 }
+
+.linha .icon-board-right{
+  position: absolute;
+  right: -23px;
+  margin-top: 55px;
+  font-size: 2em;
+}
+.linha .icon-board-left{
+  position: absolute;
+  left: -23px;
+  margin-top: 55px;
+  font-size: 2em;
+}
+
+
 .totem img{
 }
 .piece-block {
@@ -486,6 +514,7 @@ div.main-container section{
 /* DEFINE FAMILIA */
 .familia > div > div {
     background-color: #0fb1be;
+    color: #0fb1be;
 }
 .familia > div:first-child > div  {
     background-color: #fff;
@@ -493,6 +522,7 @@ div.main-container section{
 /* DEFINE FESTA */
 .festa > div > div {
     background-color: #D93600;
+    color: #D93600;
 }
 .festa > div:first-child > div  {
     background-color: #fff;
@@ -500,6 +530,7 @@ div.main-container section{
 /* DEFINE Especialistas */
 .especialistas > div > div {
     background-color: #4084C1;
+    color: #4084C1;
 }
 .especialistas > div:first-child > div  {
     background-color: #fff;
@@ -507,6 +538,7 @@ div.main-container section{
 /* DEFINE Classicos */
 .classicos > div > div {
     background-color: #40AA54;
+    color: #40AA54;
 }
 .classicos > div:first-child > div  {
     background-color: #fff;
@@ -515,6 +547,7 @@ div.main-container section{
 /* DEFINE outros */
 .outros > div > div {
     background-color: #FDD20E;
+    color: #FDD20E;
 }
 .outros > div:first-child > div  {
     background-color: #fff;
@@ -524,11 +557,19 @@ article > button {
     border: none;
     background: transparent;
 }
+article > a,
 article > button {
     color: #D83500;
     text-transform: uppercase;
     font-size: 2.2em;
     font-family: 'NeoSansPro-Bold';
+}
+article > a{
+  padding: 10px;
+}
+article > a:hover{
+  background-color: #D93600;
+  color: #fff;
 }
 article button img{
     margin-left: 10px;
@@ -581,6 +622,13 @@ article button img{
     overflow: visible;
 }
 
+.icon-inline {
+  font-size: 1.6em;
+  display: inline-block;
+  margin-left: 10px;
+  vertical-align: middle;
+}
+
 div.main-container section.destaques{
     max-width: none;
     display: block;
@@ -589,13 +637,17 @@ div.main-container section.destaques{
 section.destaques > div{
     position: relative;
     display: inline-block;
-    width: 30vw;
+    width: 450px;
     height: 350px;
     border: dashed;
     border-color: #777777;
     border-width: 1px;
-    margin-left: 2px;
-    margin-right: 2px; 
+    margin:15px;
+}
+section.destaques > div:hover{
+    border-color: #D93600;
+    color: #D93600;
+    cursor: pointer;
 }
 section.destaques > div:nth-child(2){
 
@@ -609,13 +661,25 @@ section.destaques > div .centerme{
     -moz-transform: translate(-50%, -50%);
     -ms-transform: translate(-50%, -50%);
 }
+section.destaques > div .centerme{
+  min-width: 328px;
+}
 section.destaques > div .centerme h3{
-    font-size: 1.3em;
-    margin-bottom: 20px;
+  font-family: 'NeoSansPro-Light', sans-serif;
+  font-size: 2.38em;
+  margin-bottom: 20px;
+}
+
+section.destaques > div .centerme h3:after{
+  content: '';
+  width: 42px;
+  height: 1px;
+  display: inline-block;
+  background-color: #D93600;
 }
 
 section.destaques > div .centerme p{
-    font-size: 0.7em;
+    font-size: 1em;
 }
 figure{
     position: absolute;

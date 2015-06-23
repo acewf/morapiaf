@@ -62,3 +62,9 @@
 .icon-arrow-line-right:before {
   content: "h";
 }
+.icon-arrow-sans-right:before {
+  content: "i";
+}
+.icon-arrow-sans-left:before {
+  content: "j";
+}
