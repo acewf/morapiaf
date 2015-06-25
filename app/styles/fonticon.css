@@ -38,33 +38,105 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-magnifying-glass:before {
-  content: "a";
-}
-.icon-arrow-line-down:before {
-  content: "b";
-}
-.icon-clock:before {
-  content: "c";
-}
-.icon-torso:before {
-  content: "d";
-}
-.icon-users:before {
-  content: "e";
-}
-.icon-user-add:before {
-  content: "f";
-}
-.icon-user:before {
-  content: "g";
-}
-.icon-arrow-line-right:before {
-  content: "h";
-}
 .icon-arrow-sans-right:before {
   content: "i";
 }
 .icon-arrow-sans-left:before {
   content: "j";
+}
+.icon-arrow-right:before {
+  content: "k";
+}
+.icon-arrow-down:before {
+  content: "l";
+}
+.icon-arrow-up:before {
+  content: "m";
+}
+.icon-arrow-left:before {
+  content: "n";
+}
+.icon-caret-down:before {
+  content: "o";
+}
+.icon-caret-up:before {
+  content: "r";
+}
+.icon-big-arrow-right:before {
+  content: "w";
+}
+.icon-arrow-down-1:before {
+  content: "a";
+}
+.icon-big-arrow-right:before {
+  content: "b";
+}
+.icon-clock:before {
+  content: "c";
+}
+.icon-cross:before {
+  content: "d";
+}
+.icon-cube:before {
+  content: "e";
+}
+.icon-especialistas:before {
+  content: "f";
+}
+.icon-family:before {
+  content: "g";
+}
+.icon-filter:before {
+  content: "h";
+}
+.icon-menu:before {
+  content: "s";
+}
+.icon-music:before {
+  content: "v";
+}
+.icon-notepad:before {
+  content: "w";
+}
+.icon-pacman:before {
+  content: "x";
+}
+.icon-party:before {
+  content: "y";
+}
+.icon-puzzle:before {
+  content: "z";
+}
+.icon-question:before {
+  content: "A";
+}
+.icon-rules:before {
+  content: "B";
+}
+.icon-search:before {
+  content: "C";
+}
+.icon-tick:before {
+  content: "D";
+}
+.icon-users:before {
+  content: "E";
+}
+.icon-video:before {
+  content: "F";
+}
+.icon-plus:before {
+  content: "a";
+}
+.icon-angle-down:before {
+  content: "G";
+}
+.icon-angle-left:before {
+  content: "H";
+}
+.icon-angle-right:before {
+  content: "I";
+}
+.icon-angle-up:before {
+  content: "J";
 }

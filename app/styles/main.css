@@ -19,9 +19,9 @@ Company : EuroM # http://eurom.pt/
   font-style: normal;
 }
 @font-face {
-  font-family: 'NeoSansPro-Bold';
-  src: url('fonts/NeoSansPro-Bold.eot?#iefix') format('embedded-opentype'),  url('fonts/NeoSansPro-Bold.otf')  format('opentype'),
-         url('fonts/NeoSansPro-Bold.woff') format('woff'), url('fonts/NeoSansPro-Bold.ttf')  format('truetype'), url('fonts/NeoSansPro-Bold.svg#NeoSansPro-Bold') format('svg');
+  font-family: 'NeoSansPro-Medium';
+  src: url('fonts/NeoSansPro-Medium.eot?#iefix') format('embedded-opentype'),  url('fonts/NeoSansPro-Medium.otf')  format('opentype'),
+       url('fonts/NeoSansPro-Medium.woff') format('woff'), url('fonts/NeoSansPro-Medium.ttf')  format('truetype'), url('fonts/NeoSansPro-Medium.svg#NeoSansPro-Medium') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -57,14 +57,14 @@ nav.nav-site > button{
 nav.nav-site > div{
     vertical-align: top;
 }
-nav.nav-site .icon-magnifying-glass{
+nav.nav-site .icon-search{
   position: absolute;
   right: 55px;
   top: 50%;
   color: #fff;
   font-size: 3em;
 }
-nav.nav-site .icon-magnifying-glass:before{
+nav.nav-site .icon-search:before{
   position: absolute;
   top:50%;
   left: 50%;
@@ -322,13 +322,21 @@ div.header-start {
     width: 480px;
     height: 50px;
     color: #ffffff;
+    /*
     background: url(../images/arrow-start.png);
     background-position: 39px 26px;
     background-repeat: no-repeat;
+    */
     margin-bottom: 20px;
     margin-left: 100px;
     display: inline-block;
     text-align: left;
+}
+div.contain-start [data-icon]:before{
+  font-size: 34px;
+  position: absolute;
+  margin-left: 40px;
+  margin-top: 5px;
 }
 div.contain-start{
     position: absolute;
@@ -339,11 +347,11 @@ div.contain-start{
 }
 /* CSS FOR HEADER ITEMS */
 header.header{
-    background-color: #d83500;
-    color: #ffffff;
-    height: 90vh;
-    position: relative;
-   
+  background-color: #d83500;
+  color: #ffffff;
+  height: 90vh;
+  position: relative;
+  z-index: 2;
 }
 
 /* Make the masthead heading the same height as the navigation */
@@ -356,7 +364,7 @@ header.header{
     -webkit-transform: translate(-50%, -50%);
     -moz-transform: translate(-50%, -50%);
     -ms-transform: translate(-50%, -50%);
-    font-family: 'NeoSansPro-Bold';
+    font-family: 'NeoSansPro-Medium';
     width: 100%;
     text-align: center;
 }
@@ -443,14 +451,9 @@ section figure img{
 }
 
 .game-view{
-    text-align: center;
-    position: relative;
-    z-index: -1;
-    overflow: initial;
-
-    -webkit-user-select: all;
-  -ms-user-select: all;
-  user-select: all;
+  position: relative;
+  text-align: center;
+  z-index: 0;
 }
 div.main-container section.site-contents{
   max-width: none;
@@ -516,8 +519,34 @@ div.main-container section{
     color: #0fb1be;
 }
 .familia > div:first-child > div  {
-    background-color: #fff;
+  background-color: #fff;
+  cursor: pointer;
 }
+.familia > div:first-child > div > .center-content:first-child{
+  z-index: 2;
+}
+.familia > div:first-child > div > .center-content:last-child{
+  opacity: 0;
+}
+.familia > div:first-child > div > .center-content{
+  -webkit-transition: opacity .5s; /* Safari */
+  transition: opacity .5s;
+}
+
+
+.familia > div:first-child > div:hover{
+  border-style: solid;
+  border-width: 1px;
+  border-color: #D6D6D6;
+}
+.familia > div:first-child > div:hover > .center-content:first-child{
+  opacity: 0;
+}
+.familia > div:first-child > div:hover > .center-content:last-child{
+  opacity: 1;
+  color: currentColor;
+}
+
 /* DEFINE FESTA */
 .festa > div > div {
     background-color: #D93600;
@@ -534,6 +563,15 @@ div.main-container section{
 .especialistas > div:first-child > div  {
     background-color: #fff;
 }
+.familia > div:first-child > div > .center-content,
+.festa > div:first-child > div > .center-content,
+.classicos > div:first-child > div > .center-content,
+.outros > div:first-child > div > .center-content,
+.especialistas > div:first-child > div > .center-content{
+  opacity: 1;
+  color: currentColor;
+}
+
 /* DEFINE Classicos */
 .classicos > div > div {
     background-color: #40AA54;
@@ -548,9 +586,46 @@ div.main-container section{
     background-color: #FDD20E;
     color: #FDD20E;
 }
+.outros > div:last-child > div{
+  background-color: transparent;
+  color: #D93600;
+  border: #D6D6D6;
+  border-style: solid;
+  border-width: 1px;
+  cursor: pointer;
+}
+.outros > div:last-child > div:hover{
+  background-color: #D93600;
+  color: #fff;
+}
+.outros > div:last-child > div:hover > .center-content{
+  color: #fff;
+}
+.outros > div:last-child > div .center-content{
+  font-size: 1.15em;
+  color: #D93600;
+}
 .outros > div:first-child > div  {
     background-color: #fff;
 }
+
+.familia .linha:first-child .center-content .icon,
+.festa .linha:first-child .center-content .icon,
+.especialistas .linha:first-child .center-content .icon,
+.classicos .linha:first-child .center-content .icon,
+.outros .linha:first-child .center-content .icon{
+  font-size: 4em;
+}
+
+.familia .linha:first-child .center-content .icon > span,
+.festa .linha:first-child .center-content .icon > span,
+.especialistas .linha:first-child .center-content .icon > span,
+.classicos .linha:first-child .center-content .icon > span,
+.outros .linha:first-child .center-content .icon > span{
+  font-size: 20px;
+  display: block;
+}
+
 article > button {
     padding: 0;
     border: none;
@@ -561,7 +636,7 @@ article > button {
     color: #D83500;
     text-transform: uppercase;
     font-size: 2.2em;
-    font-family: 'NeoSansPro-Bold';
+    font-family: 'NeoSansPro-Medium';
 }
 article > a{
   padding: 10px;
@@ -573,7 +648,9 @@ article > a:hover{
 article button img{
     margin-left: 10px;
 }
-
+.piece-block > .center-content{
+  color: #fff;
+}
 .center-content {
     position: absolute;
     top:50%;
@@ -582,10 +659,16 @@ article button img{
     -webkit-transform: translate(-50%, -50%);
     -moz-transform: translate(-50%, -50%);
     -ms-transform: translate(-50%, -50%);
-    color: #fff;
     min-width: 100px;
     text-align: center;
 }
+.center-content .icon{
+  font-size: 36px;
+}
+.game-time{
+  margin-top: 5px;
+}
+
 .alone{
     /* display: block; */
 }
@@ -667,6 +750,7 @@ section.destaques > div .centerme h3{
   font-family: 'NeoSansPro-Light', sans-serif;
   font-size: 2.38em;
   margin-bottom: 20px;
+  font-weight: normal;
 }
 
 section.destaques > div .centerme h3:after{
@@ -692,7 +776,81 @@ figure.totem{
 }
 figure.info-game{
     width: 330px;
+    cursor: pointer;
 }
+figure.info-game .show-board{
+  -webkit-transition: opacity .5s; /* Safari */
+  transition: opacity .5s;
+}
+figure.info-game:hover .show-board{
+  opacity: 0;
+}
+figure.info-game > .info-game-hover{
+  opacity: 0;
+  position: absolute;
+  top:0;
+  width: 100%;
+  height: 100%;
+  color: #D83500;
+  -webkit-transition: opacity .5s; /* Safari */
+  transition: opacity .5s;
+}
+
+figure .icon{
+  font-size: 1.8em;
+}
+.info-game-hover .icon{
+  margin-top: 10px;
+}
+
+figure.info-game h2::after{
+  content: none;
+}
+.author-board{
+  margin-top: 30px;
+}
+
+.info-game-hover .box-highlight{
+  padding: 10px;
+  background-color: #FFCC33;
+  margin-bottom: 10px;
+  display: inline-block;
+  margin-top: 100px;
+}
+.board-info{
+  margin-top: 5px;
+  font-family: 'NeoSansPro-Medium'
+}
+.board-info span{
+  padding: 5px;
+  padding-left: 0px;
+}
+.board-info span:before{ 
+  content: '';
+  width: 1px;
+  height: 10px;
+  margin-right: 5px;
+  display: inline-block;
+  background-color: currentcolor;
+}
+.board-info span:first-child:before{
+  width: 0px; 
+}
+
+figure.info-game:hover .info-game-hover{
+  opacity: 1;
+}
+
+.info-game-hover a{
+  text-decoration: none;
+  color: inherit;
+  display: inline-block;
+}
+.info-game-hover a:hover{
+  text-decoration: none;
+  color: inherit;
+}
+
 figure.show-up{
     opacity: 1;
 }
@@ -708,8 +866,9 @@ figure h2,figure h3{
   max-width: 320px;
 }
 
+
 figure h2{
-  font-family: 'NeoSansPro-Bold';
+  font-family: 'NeoSansPro-Medium';
   color: #D83500;
   margin-top: 25px;
 }
@@ -737,11 +896,37 @@ figure.lside{
 }
 
 /* Custom page footer */
-div.main-container footer {
-    background-color: #444444;
-    margin-top: 30px;
-    padding: 50px;
+.nav-site-menu{
+  text-align: left;
+  padding-left: 50px;
 }
+div.main-container footer section{
+  width: 100%;
+  height: 280px;
+  display:block;
+  max-width: inherit;
+}
+footer > section > div{
+  width: 50%;
+  display: inline-block;
+  background-color: #444444;
+  height: 100%;
+  vertical-align: top;
+}
+footer > section > div.newsletter{
+  background-color:#D93600;
+  color: #fff;
+}
+footer section > div > a{
+  position: relative;
+  top: 50%;
+}
+footer section > div > a > .icon{
+  display: inline-block;
+  font-size: 1.8em;
+  vertical-align: middle;
+}
+
 footer nav{
     margin-top: 50px;
 

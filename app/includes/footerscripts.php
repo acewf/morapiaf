@@ -7,7 +7,7 @@
         s.parentNode.insertBefore(g,s)}(document,'script'));
 </script>
 
-        <!-- build:js scripts/main.js -->
+<!-- build:js scripts/main.js -->
 <script data-main="main" src="scripts/config.js"></script>
 <script data-main="main" src="bower_components/requirejs/require.js"></script>
-        <!-- /build -->
+<!-- /build -->

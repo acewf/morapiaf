@@ -1,8 +1,7 @@
 require(['app', 'jquery','picturefill'], function (app) {
     'use strict';
     // use app here
-
-
+    
      var pagModulesRef = [];
     pagModulesRef['main-content-ui'] = {module:'appmain'};
     pagModulesRef['games-ui'] = {module:'appgames'};

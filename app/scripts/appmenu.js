@@ -1,5 +1,5 @@
 define(['appmenu'], function(app) {
-	function Menu(){
+    function Menu(){
 
 	}
 

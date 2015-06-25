@@ -4,6 +4,7 @@
 ////Company:euro-m.pt
 //////////////  AREAS DE JOGO  /////////////////////////
 define(['appmain','comeuro','stepmanager','TweenMax'], function(app,com,appEngine,tweenMax) {
+
 	console.log('+appmain+');
 
 	function MainApp(){
@@ -173,7 +174,7 @@ define(['appmain','comeuro','stepmanager','TweenMax'], function(app,com,appEngin
 	    var scrollEvent = function(){
 	    	lastScrollPos = window.pageYOffset;
 	    	//scrollme(window.pageYOffset);
-	    	/*
+	    	
 	    	if (values.length>0) {
 	    		console.log(values[0]);
 	    		scrollme(values[0]);
@@ -181,7 +182,7 @@ define(['appmain','comeuro','stepmanager','TweenMax'], function(app,com,appEngin
 	    	} else {
 	    		console.log('[M|M]');
 	    	}
-	    	*/    	
+	    	    	
 	    };
 	    var lastScrollPos = window.pageYOffset;
 	    //scrollme(window.pageYOffset);
