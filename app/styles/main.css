@@ -64,6 +64,14 @@ nav.nav-site .icon-search{
   color: #fff;
   font-size: 3em;
 }
+div.shadow-orange{
+   text-align: left;
+  
+   transform: translate(-7px,-92px);
+  -webkit-transform: translate(-7px,-92px);
+  -moz-transform: translate(-7px,-92px);
+  -ms-transform: translate(-7px,-92px);
+}
 nav.nav-site .icon-search:before{
   position: absolute;
   top:50%;
@@ -344,6 +352,7 @@ div.contain-start{
     display: block;
     text-align: center;
     width: 100%;
+    font-weight: 'NeoSansPro-Medium',sans-serif;
 }
 /* CSS FOR HEADER ITEMS */
 header.header{
@@ -388,7 +397,7 @@ section figure{
     
     transition: left .21s, top .2s, -webkit-transform .2s;
     transition: left .21s, top .2s, -webkit-transform .22s;
-    transition: left 2.21s, top 2.2s, transform 2.22s; /* Safari and Chrome */
+    transition: left .21s, top .2s, transform .22s; /* Safari and Chrome */
     transition-timing-function: linear;
 }
 section figure.middle{
@@ -920,6 +929,7 @@ footer > section > div.newsletter{
 footer section > div > a{
   position: relative;
   top: 50%;
+  font-size: 1em;
 }
 footer section > div > a > .icon{
   display: inline-block;

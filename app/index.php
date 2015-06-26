@@ -25,11 +25,13 @@
                         <div class="space-margin">
                             <div class="groupit stick-to-top">
                                 <div class="logo">
-                                    <img alt="Site logo" src="images/moriapiaf-logo.fw.png">
+                                    <a href="<?php echo $basePath; ?>home">
+                                        <img alt="Site logo" src="images/moriapiaf-logo.fw.png">
+                                    </a>
                                 </div>
                                 <ul class="options-lang">
-                                    <li><a href="test.php">Português</a></li>
-                                    <li><a  href="es/">Castellano</a></li>
+                                    <li><a href="<?php echo $basePath; ?>pt/">Português</a></li>
+                                    <li><a  href="<?php echo $basePath; ?>es/">Castellano</a></li>
                                 </ul>
                             </div>
                         </div>

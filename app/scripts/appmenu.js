@@ -1,10 +1,27 @@
-define(['appmenu'], function(app) {
+define(['appmenu','contentloader'], function(app,contentloader) {
     function Menu(){
 
 	}
 
     Menu.prototype.init = function(){
         console.log('appmenu::MENU::INIT::');
+
+
+        var handler = new ContentLoader();
+        $('.nav-site-menu ul a').click(function(ev){
+            console.log(this,event);
+            console.log(ev)
+            /*
+            if (event.preventDefault) {
+                event.preventDefault();
+                return false;
+            } else {
+                event.returnValue = false;
+                return false;
+            };
+            */
+           //handler.click(this);
+        });
     }
 
 	Menu.prototype.addEventListener = function(a,b){

@@ -9,9 +9,15 @@ define(function() {
 	var StackManage = [];
 	var totemIsRunning = false;
 	var ToolQuery = null;
+	var tempInsta = null;
+
+	var staticFunc = function(event){
+		tempInsta.isTheEnd(event);
+	}
 
 	function AppEngine(ToolQueryItem){
 		var instance = this;
+		tempInsta = this;
 		ToolQuery = ToolQueryItem;
 		instance.boxIndex = null;
 		instance.totalElem = null;
@@ -131,18 +137,16 @@ define(function() {
 	AppEngine.prototype.isTheEnd = function(event){
 		'use strict';
 		var instance = this;
-		console.log('IS THE END:::::==========',StackManage.length);
 		var target = event.target;
 		if (StackManage.length>0) {
 			if (StackManage[0].totalTransition>0) {
 				StackManage[0].totalTransition--;
-			};					
+			};				
 			if (StackManage[0].totalTransition===0) {
-				console.log('--- REMOVED LISTNER ---',target);
-				target.removeEventListener('transitionend',instance.isTheEnd);
+				target.removeEventListener('transitionend',staticFunc);
 				instance.TweenEnd(event);
 			}
-		}		
+		} 	
 	}
 	////////////////////////////////////////////////////////////////////////
 	AppEngine.prototype.checkDiference = function(boxsquare){
@@ -276,11 +280,8 @@ define(function() {
 			var box = StackManage[0].box;
 			var angle = 0;
 			StackManage[0].totalTransition = 0;
-			console.log(Math.floor(Date.now() / 1000),'--- ADDED EVENT LISTNER TRANSITION END ---',[].concat(StackManage));
-			console.log(element);
-			element.addEventListener('transitionend',function(event){
-				instance.isTheEnd(event);
-			});
+			
+			
 			for (var i = 0; i < tweens.length; i++) {	
 				if (tweens[i].style) {
 					if (!($(element).hasClass(tweens[i].style))) {
@@ -328,6 +329,7 @@ define(function() {
 					}				
 				}			
 			}
+			element.addEventListener('transitionend',staticFunc);
 			element.setAttribute('target-id',box.id);
 			element.setAttribute('target-index',instance.boxIndex[box.id].index);
 			var INFO_CHILDS = $(box).find('.info-game');
@@ -358,7 +360,6 @@ define(function() {
 		var instance = this;
 		if(StackManage.length>0){
 			StackManage.shift();
-			console.log('-REMOVE STEP -#- *_*_* RUN STEP MANAGER');
 			instance.stepManager();
 		}
 	};
@@ -390,6 +391,12 @@ define(function() {
 
 	AppEngine.prototype.removeAllClass = function(){
 		'use strict';
+		console.log('----',this.totem);
+		$(this.totem).removeClass('left');
+		$(this.totem).removeClass('rotate-down');
+		$(this.totem).removeClass('go-back-left');
+		$(this.totem).removeClass('go-back-right');
+
 	};
 
 	AppEngine.prototype.shakeElement = function(element){

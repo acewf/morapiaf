@@ -6,7 +6,10 @@ var require = {
         app: '../scripts/app',
         appmain: '../scripts/appmain',
         appmenu: '../scripts/appmenu',
+        appgames: '../scripts/appgames',
         comeuro: '../scripts/comeuro',
+        contentloader: '../scripts/contentloader',
+        textloader: '../scripts/textloader',
         stepmanager: '../scripts/step-manager',
         smoothscroll: '../scripts/vendor/smoothscroll',
         component: '../scripts/component',
@@ -21,16 +24,27 @@ var require = {
         appmain: {
             deps: [
                 'TweenMax',
-                'jquery'
+                'jquery',
+                'textloader',
+                'contentloader'
             ],
             exports: 'appmain'
+        },
+        appgames: {
+            deps: [
+                'TweenMax',
+                'jquery'
+            ],
+            exports: 'appgames'
         },
         appmenu: {
             deps: [
                 'TweenMax',
                 'comeuro',
                 'stepmanager',
-                'jquery'
+                'jquery',
+                'textloader',
+                'contentloader'
             ],
             exports: 'appmenu'
         }

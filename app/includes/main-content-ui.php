@@ -15,7 +15,7 @@
     </div>
 </header>
 <section class="game-view">
-    <div class="shadow-orange"></div>
+    <div class="shadow-orange"><img src="images/shadow.png"></div>
     <figure class="totem left rotate-down"><img alt="Board Piece" src="images/peao.png"></figure>
     <article class="game-board familia">
         <div class="linha lh-align">
@@ -120,24 +120,22 @@
                     <div class="icon icon-clock"></div>
                     <div class="game-time">45-60</div>
                     <figure class="info-game rside">
-                        <div class="show-first">
-                            <div class="show-board">
-                                <img alt="game image" src="images/gifttrap.png">
-                                <figcaption>
-                                    <h2>GIFT TRAP</h2>
-                                    <h3>Quem não gosta de receber presentes?</h3>
-                                </figcaption>
-                            </div>
-                            <div class="info-game-hover">
-                                <a href="game-x">
-                                    <div class="box-highlight">Em Breve</div>
-                                    <h2>GIFT TRAP</h2>
-                                    <div class="author-board">Criado por Nick Kellet</div>
-                                    <div class="board-info"><span>+9</span><span>2 jogadores</span><span>45-60 min</span></div>
-                                    <div class="icon icon-arrow-right"></div>
-                                </a>
-                            </div>
-                        </div>                       
+                        <div class="show-board">
+                            <img alt="game image" src="images/gifttrap.png">
+                            <figcaption>
+                                <h2>GIFT TRAP</h2>
+                                <h3>Quem não gosta de receber presentes?</h3>
+                            </figcaption>
+                        </div>
+                        <div class="info-game-hover">
+                            <a href="game-x">
+                                <div class="box-highlight">Em Breve</div>
+                                <h2>GIFT TRAP</h2>
+                                <div class="author-board">Criado por Nick Kellet</div>
+                                <div class="board-info"><span>+9</span><span>2 jogadores</span><span>45-60 min</span></div>
+                                <div class="icon icon-arrow-right"></div>
+                            </a>
+                        </div>                     
                     </figure>
                 </div>
                 <div class="icon-board-right icon-arrow-sans-right"></div>
@@ -155,11 +153,22 @@
                 <div class="icon icon-users"></div>
                 <div>2-8</div>
                     <figure class="info-game lside">
-                        <img alt="game image" src="images/jogo-kaleidos.png">
-                        <figcaption>
-                            <h2>KALEIDOS</h2>
-                            <h3>Uma versão revista e aumentada do STOP.</h3>
-                        </figcaption>
+                        <div class="show-board">
+                            <img alt="game image" src="images/jogo-kaleidos.png">
+                            <figcaption>
+                                <h2>KALEIDOS</h2>
+                                <h3>Uma versão revista e aumentada do STOP.</h3>
+                            </figcaption>
+                        </div>
+                        <div class="info-game-hover">
+                            <a href="game-x">
+                                <div class="box-highlight">Em Breve</div>
+                                <h2>GIFT TRAP</h2>
+                                <div class="author-board">Criado por Nick Kellet</div>
+                                <div class="board-info"><span>+9</span><span>2 jogadores</span><span>45-60 min</span></div>
+                                <div class="icon icon-arrow-right"></div>
+                            </a>
+                        </div>
                     </figure>
                 </div>
                 <div class="icon-board-left icon-arrow-sans-left"></div>
@@ -189,11 +198,22 @@
                     <div class="icon icon-clock"></div>
                     <div class="game-time">45-60</div>
                     <figure  class="info-game rside">
-                        <img alt="game image" src="images/jogo-hive.png">
-                        <figcaption>
-                            <h2>HIVE</h2>
-                            <h3>Dois exércitos de insectos. Quem vence?</h3>
-                        </figcaption>
+                        <div class="show-board">
+                            <img alt="game image" src="images/jogo-hive.png">
+                            <figcaption>
+                                <h2>HIVE</h2>
+                                <h3>Dois exércitos de insectos. Quem vence?</h3>
+                            </figcaption>
+                        </div>
+                        <div class="info-game-hover">
+                            <a href="game-x">
+                                <div class="box-highlight">Em Breve</div>
+                                <h2>GIFT TRAP</h2>
+                                <div class="author-board">Criado por Nick Kellet</div>
+                                <div class="board-info"><span>+9</span><span>2 jogadores</span><span>45-60 min</span></div>
+                                <div class="icon icon-arrow-right"></div>
+                            </a>
+                        </div>
                     </figure>
                 </div>
                 <div class="icon-board-right icon-arrow-sans-right"></div>
@@ -216,11 +236,22 @@
                     <div class="icon icon-users"></div>
                     <div>2-8</div>
                     <figure class="info-game lside">
-                        <img alt="game image" src="images/pylos.png">
-                        <figcaption>
-                            <h2>PYLOS</h2>
-                            <h3>Pensamento estratégico, destreza e perspicácia.</h3>
-                        </figcaption>
+                        <div class="show-board">
+                            <img alt="game image" src="images/pylos.png">
+                            <figcaption>
+                                <h2>PYLOS</h2>
+                                <h3>Pensamento estratégico, destreza e perspicácia.</h3>
+                            </figcaption>
+                        </div>
+                        <div class="info-game-hover">
+                            <a href="game-x">
+                                <div class="box-highlight">Em Breve</div>
+                                <h2>GIFT TRAP</h2>
+                                <div class="author-board">Criado por Nick Kellet</div>
+                                <div class="board-info"><span>+9</span><span>2 jogadores</span><span>45-60 min</span></div>
+                                <div class="icon icon-arrow-right"></div>
+                            </a>
+                        </div>
                     </figure>
                 </div>
                 <div class="icon-board-left icon-arrow-sans-left"></div>
@@ -253,11 +284,22 @@
                     <div class="icon icon-clock"></div>
                     <div class="game-time">45-60</div>
                     <figure  class="info-game rside">
-                        <img alt="game image" src="images/flexpuzzler.png">
-                        <figcaption>
-                            <h2>FLEX PUZZLER</h2>
-                            <h3>Esqueça o cubo mágico</h3>
-                        </figcaption>
+                        <div class="show-board">
+                            <img alt="game image" src="images/flexpuzzler.png">
+                            <figcaption>
+                                <h2>FLEX PUZZLER</h2>
+                                <h3>Esqueça o cubo mágico</h3>
+                            </figcaption>
+                        </div>
+                        <div class="info-game-hover">
+                            <a href="game-x">
+                                <div class="box-highlight">Em Breve</div>
+                                <h2>GIFT TRAP</h2>
+                                <div class="author-board">Criado por Nick Kellet</div>
+                                <div class="board-info"><span>+9</span><span>2 jogadores</span><span>45-60 min</span></div>
+                                <div class="icon icon-arrow-right"></div>
+                            </a>
+                        </div>
                     </figure>
                 </div>
                 <div class="icon-board-right icon-arrow-sans-right"></div>

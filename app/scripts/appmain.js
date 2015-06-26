@@ -9,7 +9,6 @@ define(['appmain','comeuro','stepmanager','TweenMax'], function(app,com,appEngin
 
 	function MainApp(){
 
-
 	}
 	MainApp.prototype.init = function(first_argument) {
 		console.log('-INIT MAIN APP-');
@@ -170,22 +169,12 @@ define(['appmain','comeuro','stepmanager','TweenMax'], function(app,com,appEngin
 			boardEng.lastOffsetY = offsetY;
 			boardEng.LastdirectionY = boardEng.directionY;
 	    };
-	    var values =[0,100,200,300,600,800,1200,1400,1600];
 	    var scrollEvent = function(){
 	    	lastScrollPos = window.pageYOffset;
-	    	//scrollme(window.pageYOffset);
-	    	
-	    	if (values.length>0) {
-	    		console.log(values[0]);
-	    		scrollme(values[0]);
-	    		values.shift();
-	    	} else {
-	    		console.log('[M|M]');
-	    	}
-	    	    	
+	    	scrollme(window.pageYOffset);   	
 	    };
 	    var lastScrollPos = window.pageYOffset;
-	    //scrollme(window.pageYOffset);
+	    scrollme(window.pageYOffset);
 	    window.onscroll = scrollEvent;
 
 	    appEngine.removeAllClass = removeAllClass;
