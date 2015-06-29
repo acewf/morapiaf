@@ -3,10 +3,9 @@
 ////Date: 05/05/2015
 ////Company:euro-m.pt
 //////////////  AREAS DE JOGO  /////////////////////////
-define(['appmain','comeuro','stepmanager','TweenMax'], function(app,com,appEngine,tweenMax) {
+define(['appmain','comeuro','stepmanager','TweenMax','appmenu'], function(app,com,appEngine,tweenMax,appmenu) {
 
-	console.log('+appmain+');
-
+	console.log(appmenu,'[#-#]');
 	function MainApp(){
 
 	}
@@ -56,51 +55,31 @@ define(['appmain','comeuro','stepmanager','TweenMax'], function(app,com,appEngin
 		$(totem).removeClass('go-back-right');
 		$(totem).removeClass('go-back-left');
 	};
-
-	appEngine.closeMenu = function(){
-		'use strict';
-		//var target = event.target;
-		var d = document.getElementsByClassName('nav-site-menu')[0];
-		tweenMax.to(d, .4, {rotationX:30,y:-$(d).height(), transformOrigin:'bottom center',ease: Sine.easeInOut});
-
-		var c = document.getElementsByClassName('site-contents')[0];
-		tweenMax.to(c, .4, {rotationX:0,y:0, transformOrigin:'top center',ease: Sine.easeInOut});
-		$('.main-container').removeClass('overflow');
-	};
-	appEngine.openMenu = function(){
-		'use strict';
-		var d = document.getElementsByClassName('nav-site-menu')[0];
-		tweenMax.to(d, .4, {rotationX:0,y:0, transformOrigin:'bottom center',ease: Sine.easeInOut});
-
-		var c = document.getElementsByClassName('site-contents')[0];
-		tweenMax.to(c, .4, {rotationX:-30,y:$(d).height(), transformOrigin:'top center',ease: Sine.easeInOut});
-		$('.main-container').addClass('overflow');
-	};
+	
 	appEngine.addEvents = function(){
 		var item = $('button.menu')[0];
-		$('.close').click(appEngine.closeMenu);
-		$('button.menu').click(appEngine.openMenu);
+		$('.close').click(appmenu.closeMenu);
+		$('button.menu').click(appmenu.openMenu);
 
 		$('.options-menu a').click(function(){
 			var href = $(this).attr('href');
 			event.preventDefault();
-	     	window.history.pushState("object or string", "Title", "/"+href);
+	     	window.history.pushState('object or string', 'Title', '/'+href);
 
-	     	$(".site-contents").load("includes/"+href+".php", function(responseTxt, statusTxt, xhr){
+	     	$('.site-contents').load('includes/'+href+'.php', function(responseTxt, statusTxt, xhr){
 	     		console.log(responseTxt);
-	     		var elem = $(".site-contents")[0];
+	     		var elem = $('.site-contents')[0];
 	     		elem.innerHTML = responseTxt;
-		        if(statusTxt == "success"){
-		        	console.log("External content loaded successfully!");
+		        if(statusTxt == 'success'){
+		        	console.log('External content loaded successfully!');
 		        }   
-		        if(statusTxt == "error"){
+		        if(statusTxt == 'error'){
 		            console.log("Error: " + xhr.status + ": " + xhr.statusText);
 		        }
-		        $('.close').click(appEngine.closeMenu);
-				$('button.menu').click(appEngine.openMenu);
+		        $('.close').click(appmenu.closeMenu);
+				$('button.menu').click(appmenu.openMenu);
 		    });
-
-	     	appEngine.closeMenu();
+	     	appmenu.closeMenu();
 		});
 	}
 	appEngine.moveTween = function(){

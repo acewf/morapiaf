@@ -1,11 +1,10 @@
-define(['appmenu','contentloader'], function(app,contentloader) {
+define(['appmenu','contentloader','TweenMax'], function(app,contentloader,tweenMax) {
     function Menu(){
 
 	}
 
     Menu.prototype.init = function(){
         console.log('appmenu::MENU::INIT::');
-
 
         var handler = new ContentLoader();
         $('.nav-site-menu ul a').click(function(ev){
@@ -24,6 +23,27 @@ define(['appmenu','contentloader'], function(app,contentloader) {
         });
     }
 
+    Menu.prototype.closeMenu = function(){
+        'use strict';
+        //var target = event.target;
+        var d = document.getElementsByClassName('nav-site-menu')[0];
+        tweenMax.to(d, .4, {rotationX:30,y:-$(d).height(), transformOrigin:'bottom center',ease: Sine.easeInOut});
+
+        var c = document.getElementsByClassName('site-contents')[0];
+        tweenMax.to(c, .4, {rotationX:0,y:0, transformOrigin:'top center',ease: Sine.easeInOut});
+        $('.main-container').removeClass('overflow');
+    };
+    Menu.prototype.openMenu = function(){
+        'use strict';
+        var d = document.getElementsByClassName('nav-site-menu')[0];
+        tweenMax.to(d, .4, {rotationX:0,y:0, transformOrigin:'bottom center',ease: Sine.easeInOut});
+
+        var c = document.getElementsByClassName('site-contents')[0];
+        tweenMax.to(c, .4, {rotationX:-30,y:$(d).height(), transformOrigin:'top center',ease: Sine.easeInOut});
+        $('.main-container').addClass('overflow');
+    };
+
+    /* -----------  EVENT LISTENER  ------------- */
 	Menu.prototype.addEventListener = function(a,b){
         'use strict';
         if(this.addEventListener){
@@ -73,6 +93,7 @@ define(['appmenu','contentloader'], function(app,contentloader) {
         }    
     };
 
+    /* -----------  INIT CONTROLER  ------------- */
     var menuControler = new Menu();
     return menuControler;
 });

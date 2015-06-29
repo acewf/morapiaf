@@ -355,13 +355,126 @@ div.contain-start{
     font-weight: 'NeoSansPro-Medium',sans-serif;
 }
 /* CSS FOR HEADER ITEMS */
+.page-games header.header ul.hide,
+.hide{
+  display: none;
+}
+
+
 header.header{
-  background-color: #d83500;
-  color: #ffffff;
-  height: 90vh;
   position: relative;
   z-index: 2;
 }
+.page-home header.header{
+  background-color: #d83500;
+  color: #ffffff;
+  height: 90vh;  
+}
+
+/* CSS FOR HEADER Games ITEMS */
+.page-games {
+  text-align: left;
+}
+.page-games header.header ul{
+  margin: 10px;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  padding: 0;
+  display: inline-block;
+  font-family: 'NeoSansPro-Regular';
+  font-size: .75em;
+  text-transform: uppercase;
+  color: #444444;
+}
+.page-games header.header ul li{
+  padding-top: 20px;
+  padding-bottom: 20px;
+  cursor: pointer;
+}
+
+.page-games header.header ul li.active{
+  color: #D83500;
+}
+.page-games header.header ul li:hover{
+  color: #D83500;
+}
+.page-games header.header ul li:after{
+  content: '';
+  width: 32px;
+  height: 1px;
+  background-color: #D9D9D9;
+  display: block;
+  position: absolute;
+  margin-top: 25px;
+  -webkit-transform: translate(26px);
+  transform: translate(26px);
+}
+.page-games header.header ul li:last-child:after{
+  content: none;
+}
+.group-type{
+  border: 1px solid #ccc;
+  display: inline-block;
+  min-width: 315px;
+  text-align: center;
+}
+
+.group-type.position-default{
+  margin-left: 50px;
+  margin-top: 15px;
+  vertical-align: top;
+  min-height: 134px;
+  position: relative;
+}
+
+.filter-type span:before,
+.filter-type span:after {
+  content: '';
+  width: 14px;
+  height: 1px;
+  background-color: #000;
+  display: inline-block;
+  position: absolute;
+  -webkit-transform-origin: 0% 50%;
+  transform-origin: 0% 50%;
+  -webkit-transition: -webkit-transform 0.1s 0.1s;
+  transition: transform 0.1s 0.1s;
+}
+
+.coluna-two{
+  width: 60%;
+  display: inline-block;
+  margin-left: 5px;
+  margin-top: 15px;
+}
+
+.filter-type span{
+  margin-left: 20px;
+  -webkit-transform: rotate(90deg);
+  transform: rotate(90deg);
+}
+
+.filter-type span:before {
+  -webkit-transform: translate(0px,18px) rotate(-135deg);
+  transform: translate(0px,18px) rotate(-135deg);
+}
+.filter-type span:after {
+  -webkit-transform: translate(0px,18px) rotate(-45deg);
+  transform: translate(0px,18px) rotate(-45deg);
+}
+
+.filter-type{
+  margin: 0;
+  top: 50%;
+  position: absolute;
+  width: 100%;
+  transform: translate(0%, -50%);
+    -webkit-transform: translate(0%, -50%);
+    -moz-transform: translate(0%, -50%);
+    -ms-transform: translate(0%, -50%);
+}
+
+
 
 /* Make the masthead heading the same height as the navigation */
 .header div.site-title {
@@ -523,11 +636,11 @@ div.main-container section{
     max-width: 480px;
 }
 /* DEFINE FAMILIA */
-.familia > div > div {
+.page-home .familia > div > div {
     background-color: #0fb1be;
     color: #0fb1be;
 }
-.familia > div:first-child > div  {
+.page-home .familia > div:first-child > div  {
   background-color: #fff;
   cursor: pointer;
 }
@@ -554,6 +667,39 @@ div.main-container section{
 .familia > div:first-child > div:hover > .center-content:last-child{
   opacity: 1;
   color: currentColor;
+}
+
+.page-games .familia {
+    background-color: #0fb1be;
+    color: #fff;
+}
+
+
+.page-games .outline{
+
+}
+.page-games .coluna-two .outline .piece-block{
+  border: 1px solid #DCDCDC;
+}
+.page-games .outline .piece-block.filter .center-content{
+  color: #000;
+}
+
+.page-games .outline .piece-block .center-content{
+    color:#0fb1be;
+}
+
+.page-games .linha .filter .icon{
+  width: 23px;
+  height: 20px;
+  border: 1px solid #ccc;
+  text-align: center;
+  display: inline-block;
+  margin-top: 5px;
+  font-size: 1em;
+}
+.page-games .linha .filter span{
+  display: block;
 }
 
 /* DEFINE FESTA */
@@ -617,13 +763,12 @@ div.main-container section{
 .outros > div:first-child > div  {
     background-color: #fff;
 }
-
 .familia .linha:first-child .center-content .icon,
 .festa .linha:first-child .center-content .icon,
 .especialistas .linha:first-child .center-content .icon,
 .classicos .linha:first-child .center-content .icon,
 .outros .linha:first-child .center-content .icon{
-  font-size: 4em;
+  font-size: 4em; 
 }
 
 .familia .linha:first-child .center-content .icon > span,
@@ -633,6 +778,123 @@ div.main-container section{
 .outros .linha:first-child .center-content .icon > span{
   font-size: 20px;
   display: block;
+}
+
+.page-games header .icon{
+  overflow: hidden;
+}
+.page-games header .icon span{
+  display: block;
+}
+
+
+.page-games section figure{
+    position: relative;
+  transform: none;
+  top: 0;
+  -webkit-transform: none;
+  display: inline-block;
+  width: 300px;
+  text-align: center;
+  margin: 35px;
+}
+
+.page-games section figure:after{
+  content: '';
+  width: 100%;
+  height: 1px;
+  display: inline-block;
+  background-color:#E8E8E9;
+}
+
+div.main-container .page-games section{
+  max-width: none;
+  display: block;
+  text-align: center;
+  margin-top: 60px;
+}
+
+.page-games .featured-box{
+  display: block;
+}
+
+.featured-item{
+    position: relative;
+    display: inline-block;
+    width: 450px;
+    height: 350px;
+    border: dashed;
+    border-color: #E8E8E9;
+    border-width: 1px;
+    margin:15px;
+    border-bottom-style:solid; 
+}
+.featured-item img{
+  transform: translate(0,-50px);
+}
+.featured-item .box-highlight{
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  width: auto;
+  padding-top: 5px;
+  padding-left: 20px;
+  padding-right: 20px;
+  height: 50px;
+  color: #fff;
+  background-color: #D83400;
+  font-size: .75em;
+  transform: translate(30px,10px) rotate(-45deg);
+}
+
+.games-items figure h2 {
+  font-size: 1em;
+}
+
+.games-items figure h3{
+  font-size: 1.2em;
+}
+
+.featured-item .masker{
+  overflow: hidden;
+  height: 330px;
+  width: 430px;
+  position: absolute;
+  top: 0;
+  margin: 10px;
+}
+.featured-box{
+  font-family: 'NeoSansPro-Regular',sans-serif;
+  font-weight: normal;
+  margin-top: 80px;
+  margin-bottom: 80px;
+}
+.featured-box h2{
+  color: #D01D15;  
+  font-size: 2em;
+  margin: 10px;
+}
+.featured-box .featured-item h2{
+  font-size: 1em;
+  font-family: 'PT Sans', sans-serif;
+  font-weight: bold;
+}
+.featured-box .featured-item h2:after{
+    content: "";
+  display: block;
+  height: 1px;
+  width: 30px;
+  background: #D83500;
+  margin-top: 10px;
+  margin-left: 45%;
+}
+
+.featured-box h6{
+  color: #444444; 
+  margin: 10px;
+  font-size: 1.4em;
+  margin-bottom: 100px;
 }
 
 article > button {
@@ -818,17 +1080,27 @@ figure.info-game h2::after{
 .author-board{
   margin-top: 30px;
 }
-
+.show-board .box-highlight,
 .info-game-hover .box-highlight{
   padding: 10px;
   background-color: #FFCC33;
   margin-bottom: 10px;
   display: inline-block;
+  
+}
+.show-board .box-highlight{
+  right: 0;
+  position: absolute;
+  color: #D83500;
+  font-family: 'NeoSansPro-Medium';
+  text-transform: uppercase;
+}
+.info-game-hover .box-highlight{
   margin-top: 100px;
 }
 .board-info{
   margin-top: 5px;
-  font-family: 'NeoSansPro-Medium'
+  font-family: 'NeoSansPro-Medium';
 }
 .board-info span{
   padding: 5px;
@@ -867,7 +1139,8 @@ figure.rside{
     left: 150px;
     top: -160px;
 }
-figure h2,figure h3{
+figure h2,
+figure h3{
   display: block;
   color: #000;
   font-size: 1.6em;
@@ -875,6 +1148,10 @@ figure h2,figure h3{
   max-width: 320px;
 }
 
+.page-games figure h3{
+  font-weight: normal;
+  font-size: 1.125em;
+}
 
 figure h2{
   font-family: 'NeoSansPro-Medium';
@@ -890,7 +1167,9 @@ figure > img{
   width: 100%;
   height:auto;
 }
-figure h2::after,figure h3::after {
+.page-games figure h2::after,
+.page-home figure h2::after,
+.page-home figure h3::after {
   content: "";
   display: block;
   height: 1px;

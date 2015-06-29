@@ -52,7 +52,6 @@
                     $path = $pathObj->path;
                 ?>
                 <?php include(dirname(__FILE__).'/includes/'.$path.'.php'); ?>
-                <?php include(dirname(__FILE__).'/includes/footer-destaques.php'); ?>
                 <?php include(dirname(__FILE__).'/includes/footer.php'); ?>
                 <script type="text/javascript">
                 var contentmodule = '<?php echo $path ?>';
