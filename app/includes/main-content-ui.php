@@ -1,11 +1,11 @@
 <?php /* UI Destaques */ ?>
-<div class="page-home">
+<div class="page-home content">
     <nav class="nav-site">
         <div class="search">
             <div class="icon icon-search"></div>
             <input type="text">
         </div>
-        <button class="menu"></button>
+        <button class="menu"><span></span></button>
     </nav>
     <header class="header">
         <div class="site-title">
@@ -46,7 +46,7 @@
                                 <img alt="game image" src="images/jogo-blue-lion.png">
                                 <figcaption>
                                     <h2>The Blue Lion</h2>
-                                    <h3>Duelo de ladrões em busca de glória</h3>
+                                    <h3>Quem não gosta de receber presentes?</h3>
                                 </figcaption>
                             </div>
                             <div class="info-game-hover">
@@ -106,6 +106,7 @@
                     <div class="center-content">
                         <div class="icon icon-party"><span>Festa</span></div>
                     </div>
+                    <div class="center-content">Entretenimento para todos os gostos</div>
                 </div>
             </div>
             <div class="linha lh-align">
@@ -182,6 +183,8 @@
                     <div class="center-content">
                         <div class="icon icon-especialistas"><span>Especialistas</span></div>
                     </div>
+                    <div class="center-content">Entretenimento para todos os gostos
+                    </div>
                 </div>
             </div>
             <div class="linha lh-align">
@@ -227,6 +230,8 @@
                     <div class="center-content">
                         <div class="icon icon-pacman"><span>Clássicos</span></div>
                     </div>
+                    <div class="center-content">Entretenimento para todos os gostos
+                    </div>
                 </div>
             </div>
             <div class="linha">
@@ -269,6 +274,8 @@
                 <div class="piece-block">
                     <div class="center-content">
                         <div class="icon icon-puzzle"><span>Outros</span></div>
+                    </div>
+                    <div class="center-content">Entretenimento para todos os gostos
                     </div>
                 </div>
             </div>
@@ -325,7 +332,7 @@
             try{
                 console.log('Can Init Class App Main');
                 //appmenu.addModule(module);
-                //module.init();
+                module.init();
             }catch(err) {
                 console.log(err.message);
             }  

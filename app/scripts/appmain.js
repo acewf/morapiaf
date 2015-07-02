@@ -4,36 +4,37 @@
 ////Company:euro-m.pt
 //////////////  AREAS DE JOGO  /////////////////////////
 define(['appmain','comeuro','stepmanager','TweenMax','appmenu'], function(app,com,appEngine,tweenMax,appmenu) {
-
-	console.log(appmenu,'[#-#]');
-	function MainApp(){
-
-	}
-	MainApp.prototype.init = function(first_argument) {
-		console.log('-INIT MAIN APP-');
-		this.addEvents();
-	};
-
-	MainApp.prototype.addEvents = function(first_argument) {
-		// body...
-		$('.search input').focusin(function(ev) {
-			var target = event.target;
-			$(target.parentNode).addClass('open');
-			
-		  console.log('ADD CLASS OPEN');
-		});
-		$('.search input').focusout(function() {
-		  console.log('REMOVE CLASS OPEN');
-		  var target = event.target;
-		  $(target.parentNode).removeClass('open');
-		});
-	};
-
 	var boxIndex = [];
 	var view;
 	var totalElem;
 	var totem;
 	var ToolQuery = new com.euro();
+
+	function MainApp(){
+		console.log('APP MAIN [#-#] CONSTRUCTOR');
+	}
+	MainApp.prototype.init = function(first_argument) {
+		console.log('-INIT MAIN APP-');
+		this.addEvents();
+		appEngine.onLoad();	
+	};
+
+	MainApp.prototype.destroy = function(first_argument) {
+
+	}
+
+	MainApp.prototype.addEvents = function(first_argument) {
+		$('.search input').focusin(function(ev) {
+			var target = event.target;
+			$(target.parentNode).addClass('open');
+		});
+		$('.search input').focusout(function() {
+		  var target = event.target;
+		  $(target.parentNode).removeClass('open');
+		});
+	};
+
+	
 	var boardEng = new appEngine(ToolQuery);
 	
 	boardEng.addScreensArea({class:'.familia',hash:'familia'});
@@ -60,7 +61,7 @@ define(['appmain','comeuro','stepmanager','TweenMax','appmenu'], function(app,co
 		var item = $('button.menu')[0];
 		$('.close').click(appmenu.closeMenu);
 		$('button.menu').click(appmenu.openMenu);
-
+		/*
 		$('.options-menu a').click(function(){
 			var href = $(this).attr('href');
 			event.preventDefault();
@@ -81,6 +82,7 @@ define(['appmain','comeuro','stepmanager','TweenMax','appmenu'], function(app,co
 		    });
 	     	appmenu.closeMenu();
 		});
+		*/
 	}
 	appEngine.moveTween = function(){
 		'use strict';
@@ -163,7 +165,7 @@ define(['appmain','comeuro','stepmanager','TweenMax','appmenu'], function(app,co
 	///////////////////////////////////////
 	//////////// APP EVENTS ADD //////////
 	//////    INIT APP ///////////
-	appEngine.onLoad();	
+	
 
 	var m = new MainApp();
 	return m;

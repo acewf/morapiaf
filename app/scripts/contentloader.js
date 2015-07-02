@@ -34,6 +34,10 @@ function ContentLoader(res){
             value: "realtime",
             writable: true
         },
+        id:{
+            value:'id-'+new Date().valueOf(),
+            enumerable:true
+        },
         load: {
             value: function(type) {
               console.log(type);
@@ -48,6 +52,7 @@ function ContentLoader(res){
         baseURL = window.location.host;
     }
     this.loaded = function(data){  
+        console.log(' dispatchEvent complete.....',this);
         var evt = new Event('complete');
         this.dispatchEvent(evt);
     }
@@ -67,21 +72,19 @@ function ContentLoader(res){
             url: maddress,
             success: function(data) {
                 console.log('LOADED DATA');
-                console.log(data);
-                /*
                 var newDiv = $("<div>");
                 $(newDiv).html(data).imagesLoaded().then(function(){
-                    var pageC = $('.page-content');
+                    var pageC = $('.site-contents .content');
                     var msnode = pageC[0].parentNode;                        
                     if (pageC)
                     pageC.remove();
                     try{
-                        $(msnode).append(newDiv[0].innerHTML);
+                        $(msnode).prepend(newDiv[0].innerHTML);
+                        instance.loaded(null);
                     }catch(err) {
                         console.log(err.message);
                     } 
                 });
-                */
             }
         });
     }
@@ -111,9 +114,7 @@ function ContentLoader(res){
     }
     this.click = function(scope){
         var href = $(scope).attr('href');
-        console.log(href,'..-...-.....--....');
         event.preventDefault();
-        return;
 
         console.log(href,'..DONT DO REST.');
 
@@ -127,7 +128,8 @@ function ContentLoader(res){
             baseURL = window.location.host;
         }
         if (baseURL.indexOf("http://")===-1) {
-            baseURL = 'http://'+baseURL
+            console.log(baseURL)
+            baseURL = 'http://'+baseURL;
         };
         var n = href.indexOf(baseURL);
         var res = href.substring(n+baseURL.length+1, href.length);
@@ -152,6 +154,8 @@ function ContentLoader(res){
             m.removeEventListener('complete',completeload);
             m = null;
         }        
+        /// ATENCAO AOS COMPLETE FORA DESTA CLASS 
+        /// O seguinte listener faz override dos mesmo
         m.addEventListener('complete',completeload);
         if (event.preventDefault) {
             event.preventDefault();
@@ -164,6 +168,7 @@ function ContentLoader(res){
 
 ContentLoader.prototype.addEventListener =function(a,b){
   'use strict';
+    console.log('listener adicionados:',a,b);
     if(this.addEventListener){
         this[a] = b;
         //this.addEventListener(a,b,false);
@@ -182,6 +187,8 @@ ContentLoader.prototype.removeEventListener = function(a,b){
 ContentLoader.prototype.dispatchEvent = function(eventName){
     'use strict';
     var event;
+    var instance = this;
+    console.log(eventName,'....this eventName');
     if(document.createEvent){
         event = document.createEvent('HTMLEvents');
         event.initEvent(eventName,true,true);
@@ -191,9 +198,12 @@ ContentLoader.prototype.dispatchEvent = function(eventName){
     } else {
     }
     event.eventName = eventName;
+    console.log('try to dispatch---', event.eventName);
+    console.log('type..',eventName)
     if(this.dispatchEvent){
-        var callFunctionOn = this[event.eventName];
-        if (!(typeof description === 'function')) {
+        var callFunctionOn = this[eventName];
+        console.log(callFunctionOn,'-callFunctionOn---');
+        if (!(typeof callFunctionOn === 'function')) {
             return;
         };
         try{

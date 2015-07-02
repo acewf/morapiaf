@@ -47,10 +47,22 @@ define(function() {
 			console.log(value);
 		}
 		*/
+		$('.piece-block').hover( function(){
+			console.log(this.id,"==",instance.totem.getAttribute('target-id'))
+			if (this.id==instance.totem.getAttribute('target-id')) {
+				$(instance.totem).addClass('hover-rotate-out');
+			};
+		}, function(){
+			$(instance.totem).removeClass('hover-rotate-out');
+		});
 		this.groupBy.lado = ['left','middle','middle-right','right'];
 		this.groupBy.back = ['go-back-right','go-back-left','rotate-right','rotate-left','rotate-down','rotate-right-special','rotate-back-left-special'];
 		this.groupBy.rotacao = ['rotate-right','rotate-left','rotate-down','go-back-right','go-back-left'];
 	};
+
+	AppEngine.prototype.destroy = function(objScreen){
+
+	}
 
 	AppEngine.prototype.addScreensArea = function(objScreen){
 		this.screenAreas.push(objScreen);
@@ -396,7 +408,7 @@ define(function() {
 		$(this.totem).removeClass('rotate-down');
 		$(this.totem).removeClass('go-back-left');
 		$(this.totem).removeClass('go-back-right');
-
+		$(this.totem).removeClass('hover-rotate-out');
 	};
 
 	AppEngine.prototype.shakeElement = function(element){

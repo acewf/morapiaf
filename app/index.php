@@ -21,6 +21,7 @@
         <div class="main-container">
             <nav class="nav-site-menu top-menu">
                 <div class="bothpanels">
+                    <div class="loading-track"><div class="progress"></div></div>
                     <div class="left-panel">
                         <div class="space-margin">
                             <div class="groupit stick-to-top">

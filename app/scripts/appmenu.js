@@ -7,20 +7,20 @@ define(['appmenu','contentloader','TweenMax'], function(app,contentloader,tweenM
         console.log('appmenu::MENU::INIT::');
 
         var handler = new ContentLoader();
+        console.log(handler,'......handler...');
+        handler.addEventListener('complete',function(){
+            console.log('--content finish loading--');
+        });
+        
         $('.nav-site-menu ul a').click(function(ev){
+            handler.click(this);        
+        });
+        $('.nav-site-menu .logo a').click(function(ev){
             console.log(this,event);
             console.log(ev)
-            /*
-            if (event.preventDefault) {
-                event.preventDefault();
-                return false;
-            } else {
-                event.returnValue = false;
-                return false;
-            };
-            */
-           //handler.click(this);
+            handler.click(this);        
         });
+        
     }
 
     Menu.prototype.closeMenu = function(){

@@ -19,7 +19,9 @@
 # <IfModule mod_headers.c>
 #    Header set Access-Control-Allow-Origin "*"
 # </IfModule>
-
+<IfModule mod_headers.c>    
+  Header add Access-Control-Allow-Origin "*" 
+</IfModule>
 # ------------------------------------------------------------------------------
 # | CORS-enabled images                                                        |
 # ------------------------------------------------------------------------------
@@ -213,12 +215,10 @@ AddDefaultCharset utf-8
     Options +FollowSymlinks
   # Options +SymLinksIfOwnerMatch
     RewriteEngine On
-  # RewriteBase /
-  RewriteRule ^games/(.*)$ /$1 [QSA]
-  RewriteRule ^aboutus/(.*)$ /$1 [QSA]
-  RewriteRule ^morapiafitems/(.*)$ /$1 [QSA]
-  RewriteRule ^newsletter/(.*)$ /$1 [QSA]
-  RewriteRule ^contactos/(.*)$ /$1 [QSA]
+  RewriteBase /
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule . index.php
 </IfModule>
 
 # ------------------------------------------------------------------------------

@@ -14,6 +14,7 @@ var require = {
         smoothscroll: '../scripts/vendor/smoothscroll',
         component: '../scripts/component',
         library: '../scripts/library',
+        mixitup: 'mixitup/build/jquery.mixitup.min',
         jquery: 'jquery/dist/jquery',
         TweenMax: 'gsap/src/uncompressed/TweenMax',
         loglevel: 'loglevel/dist/loglevel.min',
@@ -33,6 +34,7 @@ var require = {
         appgames: {
             deps: [
                 'TweenMax',
+                'mixitup',
                 'jquery'
             ],
             exports: 'appgames'
