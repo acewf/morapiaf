@@ -42,9 +42,9 @@
                     </div>
                     <div class="select-filter-option">
 	                    <ul>
-	                    	<li><input type="radio" name="tag" data-filter=".category-new" value="novidades">novidades</li>
-	                    	<li><input type="radio" name="tag" data-filter=".category-popular" value="populares">populares</li>
-	                    	<li><input type="radio" name="tag" data-filter=".category-soon" value="breve">em breve</li>
+	                    	<li><input type="checkbox" name="tag1" data-filter=".category-new" value="novidades">novidades</li>
+	                    	<li><input type="checkbox" name="tag2" data-filter=".category-popular" value="populares">populares</li>
+	                    	<li><input type="checkbox" name="tag3" data-filter=".category-soon" value="breve">em breve</li>
 	                    </ul>
 	                    <button><span></span>limpar</button>
                     </div>
@@ -55,10 +55,10 @@
                     	<div class="icon icon-caret-down"></div>
                     </div>
                      <div class="select-filter-option">
-	                    <ul>
-	                    	<li><input type="radio" name="age" data-filter=".category-underage" value="under10">&lt; 10</li>
-	                    	<li><input type="radio" name="age" data-filter=".category-aboveage" value="above10"> &gt; 10</li>
-	                    	<li><input type="radio" name="age" data-filter=".mix" value="clear">All</li>
+	                    <ul id="age">
+	                    	<li><input type="checkbox" name="age1" data-filter=".category-underage" value="under10">&lt; 10</li>
+	                    	<li><input type="checkbox" name="age2" data-filter=".category-aboveage" value="above10"> &gt; 10</li>
+	                    	<li><input type="checkbox" name="age3" data-filter=".mix" value="clear">All</li>
 	                    </ul>
 	                    <button><span></span>limpar</button>
                     </div>
@@ -69,10 +69,10 @@
                     	<div class="icon icon-caret-down"></div>
                     </div>
                      <div class="select-filter-option">
-	                    <ul>
-	                    	<li><input type="radio" name="players" data-filter=".category-single" value="one player">1 Player</li>
-	                    	<li><input type="radio" name="players" data-filter=".category-double" value="two or more players">2+ Players</li>
-	                    	<li><input type="radio" name="players" data-filter=".category-crowed" value="more four">4+ Players</li>
+	                    <ul id="players">
+	                    	<li><input type="checkbox" name="players1" data-filter=".category-single" value="one player">1 Player</li>
+	                    	<li><input type="checkbox" name="players2" data-filter=".category-double" value="two or more players">2+ Players</li>
+	                    	<li><input type="checkbox" name="players3" data-filter=".category-crowed" value="more four">4+ Players</li>
 	                    </ul>
 	                    <button><span></span>limpar</button>
                     </div>
@@ -83,14 +83,18 @@
                     	<div class="icon icon-caret-down"></div>
                     </div>
                      <div class="select-filter-option">
-	                    <ul>
-	                    	<li><input type="radio" name="time" data-filter=".category-shortgame" value="novidades">0h-1h</li>
-	                    	<li><input type="radio" name="time" data-filter=".category-normalgame" value="populares">1h-3h</li>
-	                    	<li><input type="radio" name="time" data-filter=".category-longgame" value="breve">+ 3h</li>
+	                    <ul id="time">
+	                    	<li><input type="checkbox" name="time1" data-filter=".category-shortgame" value="novidades">0h-1h</li>
+	                    	<li><input type="checkbox" name="time2" data-filter=".category-normalgame" value="populares">1h-3h</li>
+	                    	<li><input type="checkbox" name="time3" data-filter=".category-longgame" value="breve">+ 3h</li>
 	                    </ul>
 	                    <button><span></span>limpar</button>
                     </div>
                 </div>
+            </div>
+            <div id="activefilters" class="linha outline">
+                <ul id="list-filters">
+                </ul>
             </div>
         </div>
 	</header>
@@ -98,7 +102,7 @@
 	   <figure class="info-game show-up mix category-familia category-new category-double category-normalgame">
             <div class="show-board">
             	<div class="img-wrapper">
-                	<img alt="game image" src="images/gifttrap.png" style="left: -3px;">
+                	<img alt="game image" src="images/pylos.png" style="left: -3px;">
                 </div>
                 <figcaption>
                     <h2>GIFT TRAP</h2>
@@ -134,7 +138,7 @@
                     <div class="icon icon-arrow-right"></div>
                 </a>
             </div>                     
-        </figure><figure class="info-game show-up mix category-festa">
+        </figure><figure class="info-game show-up mix category-festa category-new category-popular">
             <div class="show-board">
             	<div class="box-highlight">Esgotado</div>
                 <div class="img-wrapper">
@@ -158,7 +162,7 @@
             <div class="show-board">
             	<div class="box-highlight">Esgotado</div>
                 <div class="img-wrapper">
-                	<img alt="game image" src="images/gifttrap.png" style="left: -3px;">
+                	<img alt="game image" src="images/jogo-hive.png" style="left: -3px;">
                 </div>
                 <figcaption>
                     <h2>GIFT TRAP</h2>
@@ -174,7 +178,7 @@
                     <div class="icon icon-arrow-right"></div>
                 </a>
             </div>                     
-        </figure><figure class="info-game show-up mix category-especialistas category-single">
+        </figure><figure class="info-game show-up mix category-especialistas category-single category-new">
             <div class="show-board">
             	<div class="box-highlight">Esgotado</div>
                 <div class="img-wrapper">
@@ -223,7 +227,7 @@
 		        <div class="centerme">
 		            <div class="show-board">
 		                <div class="img-wrapper">
-		                	<img alt="game image" src="images/jogo-blue-lion.png" style="left: -3px;">
+		                	<img alt="game image" src="images/jogo-kaleidos.png" style="left: -3px;">
 		                </div>
 		                <figcaption>
 		                    <h2>GIFT TRAP</h2>
@@ -237,7 +241,7 @@
 		    </div><div class="featured-item mix category-classicos">
 		        <div class="centerme">
 		            <div class="show-board">
-		                <img alt="game image" src="images/gifttrap.png" style="left: -3px;">
+		                <img alt="game image" src="images/jogo-summy.png" style="left: -3px;">
 		                <figcaption>
 		                    <h2>GIFT TRAP</h2>
 		                    <h3>Quem não gosta de receber presentes?</h3>
@@ -250,7 +254,7 @@
 		    </div>
         </div>
         <!---- SECOND PART ---->
-        <figure class="info-game show-up mix category-classicos">
+        <figure class="info-game show-up mix category-classicos category-new">
             <div class="show-board">
             	<div class="box-highlight">Esgotado</div>
                 <div class="img-wrapper">
@@ -351,10 +355,10 @@
 	</section>
 	<script>
     if (typeof requirejs == 'function') {
-        requirejs(['appgames'],function(module){
+        requirejs(['appgames','appmenu'],function(module,appmenu){
             try{
-                console.log('Can Init Class App Main');
-                //appmenu.addModule(module);
+                console.log('Can Init Class App Main',appmenu);
+                appmenu.addModule(module);
                 module.init();
             }catch(err) {
                 console.log(err.message);

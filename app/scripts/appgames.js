@@ -16,39 +16,20 @@ define(['appgames','appmenu','TweenMax'], function(app,appmenu,tweenMax) {
     AppModule.prototype.init = function(){
         console.log('appgames::MENU::INIT::');
         this.addEvents();
-        this.moveTween();
+        //this.moveTween();
         $('#games-items').mixItUp();
+        //this.applyFilterToView('.mix');
     }
+
+    AppModule.prototype.destroy = function(first_argument) {
+		console.log('-APP GAMES DESTROY-');
+		$('#games-items').mixItUp();
+	}
 
     AppModule.prototype.addEvents = function(){
     	var instance = this;
 		var item = $('button.menu')[0];
-		console.log('addEvents::APP GAMES::INIT::');
-		$('.close').click(appmenu.closeMenu);
 		$('button.menu').click(appmenu.openMenu);
-
-		$('.options-menu a').click(function(){
-			var href = $(this).attr('href');
-			event.preventDefault();
-	     	window.history.pushState('object or string', 'Title', '/'+href);
-
-	     	$('.site-contents').load('includes/'+href+'.php', function(responseTxt, statusTxt, xhr){
-	     		console.log(responseTxt);
-	     		var elem = $('.site-contents')[0];
-	     		elem.innerHTML = responseTxt;
-		        if(statusTxt == 'success'){
-		        	console.log('External content loaded successfully!');
-		        }   
-		        if(statusTxt == 'error'){
-		            console.log("Error: " + xhr.status + ": " + xhr.statusText);
-		        }
-		        $('.close').click(appmenu.closeMenu);
-				$('button.menu').click(appmenu.openMenu);
-		    });
-	     	appmenu.closeMenu();
-		});
-
-
 		$('.search input').focusin(function(ev) {
 			var target = event.target;
 			$(target.parentNode).addClass('open');
@@ -75,8 +56,6 @@ define(['appgames','appmenu','TweenMax'], function(app,appmenu,tweenMax) {
 		$('.group-type').find('ul').removeClass('hide');
 	}
 	AppModule.prototype.changeType = function(scope){
-		console.log('CHANGE TYPE....');
-
 		$('.group-type ul li').removeClass('active');
 		$('.group-type .filter-type').html(scope.innerHTML+'<span></span>');
 		$('.group-type ul').addClass('hide');
@@ -117,16 +96,10 @@ define(['appgames','appmenu','TweenMax'], function(app,appmenu,tweenMax) {
 	AppModule.prototype.clearFilter = function(scope){
 		$(scope.parentNode.parentNode).removeClass('active');	
 		$(scope.parentNode).find('li').removeClass('checked');
-		var element = $(scope.parentNode).find('input[type="radio"]');
+		var element = $(scope.parentNode).find('input[type="checkbox"]');
 		element.removeAttr('checked');		
 		var filterslug = element.attr('name');
-		var lastQueu = [];//.concat(this.filters);
-		for (var prop in this.filters) {
-			if (prop!=filterslug) {
-				lastQueu[prop] = this.filters[prop];
-			};			
-		};
-		this.filters = lastQueu;
+		this.filters = this.clearFilterArray(filterslug);
 		var mergeFilters = '';
 		if (this.gametype!=='all') {
 			mergeFilters +='.category-'+this.gametype;
@@ -141,17 +114,45 @@ define(['appgames','appmenu','TweenMax'], function(app,appmenu,tweenMax) {
 		return true;
 	}
 
+	AppModule.prototype.clearFilterArray = function(filterslug){
+		var lastQueu = [];
+		for (var prop in this.filters) {
+			if (prop!=filterslug) {
+				lastQueu[prop] = this.filters[i];					
+			} else {
+				console.log('REMOVE FILTER');
+				$('#'+prop).remove();
+			}			
+		};
+		return lastQueu;
+	}
+
+	AppModule.prototype.clearUIFilterItems = function(scope){
+
+	}
+
 	AppModule.prototype.applyFilter = function(scope){
 		$(scope.parentNode.parentNode.parentNode).addClass('active');		
 		$(scope).removeClass('checked');
-		$(scope).addClass('checked');
-		$(scope.parentNode).find('input[type="radio"]').removeAttr('checked');
-		$(scope).find('input[type="radio"]').prop("checked",true);
-
-		var element = $(scope).find('input[type="radio"]');
+		//$(scope.parentNode).find('input[type="checkbox"]').removeAttr('checked');
+		var addfilter = true;
+		var element = $(scope).find('input[type="checkbox"]');
 		var filterslug = element.attr('name');
 		var filtervalue = element.attr('data-filter');
-		this.filters[filterslug] = filtervalue;
+
+		if($(scope).find('input[type="checkbox"]').prop("checked")){
+			$(scope).find('input[type="checkbox"]').prop("checked",false);
+			addfilter = false;
+		} else {
+			$(scope).find('input[type="checkbox"]').prop("checked",true);
+			$(scope).addClass('checked');
+		}
+		if (addfilter) {
+			this.filters[filterslug] = filtervalue;
+		} else {
+			this.filters = this.clearFilterArray(filterslug);
+		}
+
 		var mergeFilters = "";
 		if (this.gametype!=='all') {
 			mergeFilters +='.category-'+this.gametype;
@@ -160,6 +161,10 @@ define(['appgames','appmenu','TweenMax'], function(app,appmenu,tweenMax) {
 		}
 		for (var prop in this.filters) {
 			mergeFilters +=this.filters[prop];
+			var returnval = $('#list-filters').find('#'+prop);
+			if (returnval.length==0) {
+				$('#list-filters').append('<li id="'+prop+'">'+element.attr('value')+'<span></span></li>');
+			};
 		};
 		this.applyFilterToView(mergeFilters);
 	}
@@ -168,22 +173,18 @@ define(['appgames','appmenu','TweenMax'], function(app,appmenu,tweenMax) {
 		console.log('filters----',filters);
 		$('.featured-box').show();
 		$('#games-items').mixItUp('filter',filters, function(state){
-			var allshow = false;
-			
+			var allshow = false;			
 			var items = $('.featured-box .featured-item');
-			console.log(items);
 			for (var i = 0; i < items.length; i++) {
-				console.log(items[i].style.display);
 				if (items[i].style.display==='inline-block') {
 					allshow = true;
 				};
-			};
+			};	
 			if (allshow) {
 				$('.featured-box').show();
 			} else {
 				$('.featured-box').hide();
 			}
-			
 		});
 	}
 

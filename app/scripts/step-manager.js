@@ -61,7 +61,7 @@ define(function() {
 	};
 
 	AppEngine.prototype.destroy = function(objScreen){
-
+		console.log('Destroy --- Step Manager');
 	}
 
 	AppEngine.prototype.addScreensArea = function(objScreen){

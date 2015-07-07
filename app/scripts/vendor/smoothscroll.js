@@ -26,6 +26,7 @@ var ssc_key = {
     end: 35,
     home: 36
 };
+var overflow = null;
 var ssc_que = [];
 var ssc_pending = false;
 var ssc_cache = {};
@@ -235,6 +236,7 @@ function ssc_overflowingAncestor(e) {
                 return ssc_setCache(t, document.body)
             }
         } else if (e.clientHeight + 10 < e.scrollHeight) {
+            console.log(overflow);
             overflow = getComputedStyle(e, "").getPropertyValue('overflow');
             if (overflow === 'scroll' || overflow === 'auto') {
                 return ssc_setCache(t, e)

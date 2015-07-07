@@ -28,6 +28,7 @@ function ContentLoader(res){
     'use strict';
     //Uses extras in here.
     var instance = this;
+    var totalPercent = 0;
     this.data = null;
     Object.defineProperties(this, {
         defaultType: {
@@ -52,9 +53,10 @@ function ContentLoader(res){
         baseURL = window.location.host;
     }
     this.loaded = function(data){  
-        console.log(' dispatchEvent complete.....',this);
-        var evt = new Event('complete');
-        this.dispatchEvent(evt);
+        this.dispatchEvent('complete',null);
+    }
+    this.progress  = function(data){  
+      this.dispatchEvent('progress',data);
     }
     this.loadAllContent = function(endereco){
         var baseURL = null;
@@ -71,9 +73,17 @@ function ContentLoader(res){
             cache: false,
             url: maddress,
             success: function(data) {
-                console.log('LOADED DATA');
                 var newDiv = $("<div>");
-                $(newDiv).html(data).imagesLoaded().then(function(){
+                var itemLoader = $(newDiv).html(data).imagesLoaded();
+                var promise = itemLoader.promi.promise();
+
+                promise.progress(function(){
+                    itemLoader.progress++;
+                    var percent = itemLoader.progress/itemLoader.length;
+                    instance.progress(percent);
+                });  
+
+                itemLoader.promi.then(function(){
                     var pageC = $('.site-contents .content');
                     var msnode = pageC[0].parentNode;                        
                     if (pageC)
@@ -81,9 +91,10 @@ function ContentLoader(res){
                     try{
                         $(msnode).prepend(newDiv[0].innerHTML);
                         instance.loaded(null);
+                        //instance.progress(1);
                     }catch(err) {
                         console.log(err.message);
-                    } 
+                    }
                 });
             }
         });
@@ -113,33 +124,25 @@ function ContentLoader(res){
         console.log('complete load');
     }
     this.click = function(scope){
+        totalPercent = 0;
         var href = $(scope).attr('href');
         event.preventDefault();
-
-        console.log(href,'..DONT DO REST.');
-
-        
-        var datarooms = $(this).attr('data-rooms');
-        
         var baseURL = null;
+        event.preventDefault();
+        
         if (window.location.origin) {
             baseURL = window.location.origin;
         } else {
             baseURL = window.location.host;
         }
         if (baseURL.indexOf("http://")===-1) {
-            console.log(baseURL)
             baseURL = 'http://'+baseURL;
         };
         var n = href.indexOf(baseURL);
         var res = href.substring(n+baseURL.length+1, href.length);
-        
         if(window.history && window.history.pushState){
-            console.log('USE PUSH STATE');
-            console.log('Enderecos',res);
             window.history.pushState('', 'Title', '/'+res);
         } else {
-            console.log('USE LOCATION...',href);
             window.location.href = href;
         }
         
@@ -157,8 +160,12 @@ function ContentLoader(res){
         /// ATENCAO AOS COMPLETE FORA DESTA CLASS 
         /// O seguinte listener faz override dos mesmo
         m.addEventListener('complete',completeload);
+
+
         if (event.preventDefault) {
             event.preventDefault();
+            console.log('vai fazer return do click');
+            return false;
         } else {
             event.returnValue = false;
             return false;
@@ -168,7 +175,6 @@ function ContentLoader(res){
 
 ContentLoader.prototype.addEventListener =function(a,b){
   'use strict';
-    console.log('listener adicionados:',a,b);
     if(this.addEventListener){
         this[a] = b;
         //this.addEventListener(a,b,false);
@@ -184,11 +190,10 @@ ContentLoader.prototype.removeEventListener = function(a,b){
   this[a] = null;
   b = null;
 };
-ContentLoader.prototype.dispatchEvent = function(eventName){
+ContentLoader.prototype.dispatchEvent = function(eventName,data){
     'use strict';
     var event;
     var instance = this;
-    console.log(eventName,'....this eventName');
     if(document.createEvent){
         event = document.createEvent('HTMLEvents');
         event.initEvent(eventName,true,true);
@@ -198,11 +203,8 @@ ContentLoader.prototype.dispatchEvent = function(eventName){
     } else {
     }
     event.eventName = eventName;
-    console.log('try to dispatch---', event.eventName);
-    console.log('type..',eventName)
     if(this.dispatchEvent){
         var callFunctionOn = this[eventName];
-        console.log(callFunctionOn,'-callFunctionOn---');
         if (!(typeof callFunctionOn === 'function')) {
             return;
         };

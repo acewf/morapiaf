@@ -17,10 +17,12 @@ define(['appmain','comeuro','stepmanager','TweenMax','appmenu'], function(app,co
 		console.log('-INIT MAIN APP-');
 		this.addEvents();
 		appEngine.onLoad();	
+		appmenu.closeMenu();
 	};
 
 	MainApp.prototype.destroy = function(first_argument) {
-
+		window.onscroll = null;
+		console.log('-MAIN APP DESTROY-');
 	}
 
 	MainApp.prototype.addEvents = function(first_argument) {
@@ -61,28 +63,6 @@ define(['appmain','comeuro','stepmanager','TweenMax','appmenu'], function(app,co
 		var item = $('button.menu')[0];
 		$('.close').click(appmenu.closeMenu);
 		$('button.menu').click(appmenu.openMenu);
-		/*
-		$('.options-menu a').click(function(){
-			var href = $(this).attr('href');
-			event.preventDefault();
-	     	window.history.pushState('object or string', 'Title', '/'+href);
-
-	     	$('.site-contents').load('includes/'+href+'.php', function(responseTxt, statusTxt, xhr){
-	     		console.log(responseTxt);
-	     		var elem = $('.site-contents')[0];
-	     		elem.innerHTML = responseTxt;
-		        if(statusTxt == 'success'){
-		        	console.log('External content loaded successfully!');
-		        }   
-		        if(statusTxt == 'error'){
-		            console.log("Error: " + xhr.status + ": " + xhr.statusText);
-		        }
-		        $('.close').click(appmenu.closeMenu);
-				$('button.menu').click(appmenu.openMenu);
-		    });
-	     	appmenu.closeMenu();
-		});
-		*/
 	}
 	appEngine.moveTween = function(){
 		'use strict';
@@ -165,7 +145,6 @@ define(['appmain','comeuro','stepmanager','TweenMax','appmenu'], function(app,co
 	///////////////////////////////////////
 	//////////// APP EVENTS ADD //////////
 	//////    INIT APP ///////////
-	
 
 	var m = new MainApp();
 	return m;

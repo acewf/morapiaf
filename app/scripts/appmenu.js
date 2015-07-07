@@ -1,28 +1,44 @@
 define(['appmenu','contentloader','TweenMax'], function(app,contentloader,tweenMax) {
+    var lastModule = null;
     function Menu(){
+        var main = $('.main-container')[0];
+        tweenMax.set(main, {perspective: 500});
 
+         var d = document.getElementsByClassName('nav-site-menu')[0];
+         $(d).removeClass('hide');
+        tweenMax.to(d, 0, {rotationX:30,y:-$(d).height(), transformOrigin:'bottom center',ease: Sine.easeInOut});
 	}
 
     Menu.prototype.init = function(){
-        console.log('appmenu::MENU::INIT::');
-
+        var instance = this;
         var handler = new ContentLoader();
-        console.log(handler,'......handler...');
         handler.addEventListener('complete',function(){
-            console.log('--content finish loading--');
+            $('.loading-track .progress').width('0%');
+            setTimeout(function(){ instance.closeMenu(); }, 100);
+        });
+        handler.addEventListener('progress',function(ev){
+            var pc = ev*100+"%";
+            $('.loading-track .progress').width(pc);
         });
         
-        $('.nav-site-menu ul a').click(function(ev){
-            handler.click(this);        
+        $('.nav-site-menu .options-menu ul a').click(function(ev){
+            handler.click(this);
         });
+
         $('.nav-site-menu .logo a').click(function(ev){
-            console.log(this,event);
-            console.log(ev)
-            handler.click(this);        
+            handler.click(this);
         });
+
+        $('.options-menu .close').click(instance.closeMenu);
         
     }
-
+    Menu.prototype.addModule = function(module,area){
+        console.log(module,'------------------------------',area)
+        if (lastModule!=null) {
+            lastModule.destroy();
+        };
+        lastModule = module;
+    }
     Menu.prototype.closeMenu = function(){
         'use strict';
         //var target = event.target;
@@ -35,6 +51,7 @@ define(['appmenu','contentloader','TweenMax'], function(app,contentloader,tweenM
     };
     Menu.prototype.openMenu = function(){
         'use strict';
+        console.log('OPEN MENU...');
         var d = document.getElementsByClassName('nav-site-menu')[0];
         tweenMax.to(d, .4, {rotationX:0,y:0, transformOrigin:'bottom center',ease: Sine.easeInOut});
 

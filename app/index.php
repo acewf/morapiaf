@@ -19,7 +19,7 @@
     </head>
     <body>
         <div class="main-container">
-            <nav class="nav-site-menu top-menu">
+            <nav class="nav-site-menu top-menu hide">
                 <div class="bothpanels">
                     <div class="loading-track"><div class="progress"></div></div>
                     <div class="left-panel">

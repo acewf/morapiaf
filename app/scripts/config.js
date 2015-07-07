@@ -27,6 +27,7 @@ var require = {
                 'TweenMax',
                 'jquery',
                 'textloader',
+                'smoothscroll',
                 'contentloader'
             ],
             exports: 'appmain'

@@ -263,11 +263,6 @@
                     <div class="icon-board-left icon-arrow-sans-left"></div>
                 </div>
             </div>
-            <div class="linha lh-align">
-                <div class="piece-block">
-                    <div class="center-content"><img alt="icon clássicos piece" src="images/classicos.fw.png"></div>
-                </div>
-            </div>
         </article>
         <article class="game-board outros">
             <div class="linha lh-align">
@@ -328,10 +323,10 @@
     <?php include(dirname(__FILE__).'/footer-destaques.php'); ?>
     <script>
     if (typeof requirejs == 'function') {
-        requirejs(['appmain'],function(module){
+        requirejs(['appmain','appmenu'],function(module,appmenu){
             try{
-                console.log('Can Init Class App Main');
-                //appmenu.addModule(module);
+                console.log('Can Init Class App Main',appmenu);
+                appmenu.addModule(module);
                 module.init();
             }catch(err) {
                 console.log(err.message);
